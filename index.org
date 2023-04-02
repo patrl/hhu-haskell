@@ -4,10 +4,10 @@
 #+cite_export: csl
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
 #+OPTIONS: toc:nil
-#+EXPORT_FILE_NAME: ./pub/index.html
+#+EXPORT_FILE_NAME: ./docs/index.html
 #+author: Patrick D. Elliott
 
-Last updated: "[2023-04-02 17:15]" 
+Last updated: "[2023-04-02 17:24]" 
 
 * TODO Course description
 
