@@ -1,4 +1,4 @@
-#+title: implementing semantic fragments in haskell
+#+title: Implementing Semantic Fragments in Haskell
 #+subtitle: HHU spring/summer semester 2023
 #+bibliography: ../bibliography/master.bib
 #+cite_export: csl
@@ -7,7 +7,11 @@
 #+EXPORT_FILE_NAME: ./docs/index.html
 #+author: Patrick D. Elliott
 
-Last updated: "[2023-04-02 17:24]" 
+#+CAPTION: Fernsehturm, Berlin 1968 (Horst Sturm)
+#+ATTR_HTML: :width 250 :style border:2px solid black;
+[[./fernsehturm.jpg]]
+
+Last updated: "[2023-04-02 17:39]" 
 
 * TODO Course description
 
