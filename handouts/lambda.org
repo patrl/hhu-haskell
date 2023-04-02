@@ -1,0 +1,166 @@
+#+title:  The lambda calculus: prolegomenon to functional programming
+#+author: Patrick D. Elliott
+
+* Reading
+
+- Chapter 1 of *Haskell programming from first principles*.
+  
+* Functions
+
+- A function is a special kind of relation between /inputs/ and /outputs/.
+- For example, we might imaging a function \(f\) that defines the following relations:
+
+\[f(1) = A\]
+  
+\[f(2) = B\]
+
+\[f(3) = C\]
+
+- The input set is \(\{1,2,3}\) and the output set is \(\{A,B,C}\).
+  
+* Determinacy
+
+Is \(f\) in the following a valid function?
+
+\[f(1) = A\]
+
+\[f(1) = B\]
+
+\[f(2) = C\]
+
+** Uniqueness
+
+Is \(f\) in the following a valid function?
+
+\[f(1) = A\]
+
+\[f(2) = A\]
+
+\[f(3) = B\]
+
+* Function terminology
+
+- We call the set of values from which a function draws its inputs the *domain* of the function.
+- We call the set of values from which a function draws its outputs the *codomain*.
+- A function always maps /every/ member of the domain to a member of the codomain, but not every member of the codomain is necessarily paired with an input. We call the subset of values in the codomain paired with inputs the *image* of the function.
+  
+* Functions as relations
+
+- Functions can be represented as /relations/, i.e., sets of ordered pairs.
+- For example, the following is a valid function:
+
+\[\{(1,A),(2,B),(3,C)\}\]
+
+-  A relation \(R\) is /functional/ iff \(\forall (x,y),(x',y'), x = x' 
+\rightarrow y = y')\).
+- The relation \(\{(1,A),(1,B),(2,C)\}\) is therefore not functional.
+- The relation \(\{(1,A),(2,A),(3,B)}\) is functional.
+  
+* Extensional vs. intensional
+
+- The intuition behind functions is that they define determinate /procedures/ for getting from an input to a fixed output.
+- Sometimes we can simply list the input-output pairings defined by the function (this is called the function's /extension/).
+- Most of the time this either isn't useful or it's impossible. One famous function is the /successor function/.
+  
+\[f(x) = x + 1\]
+
+We could try giving the extension:
+
+\[\{(0,1),(1,2),(2,3),(4,5),\ldots\}\]
+
+Given that the domain and codomain are infinite,  this is practically impossible.
+
+* Lambda terms
+
+- The lambda calculus is used as a logic used to reason about functions, how they compose, and computation more generally.
+- Valid *expressions* of the lambda calculus can be variables, abstraction, or combinations of both; variables have no intrinsic meaning, they're just names for possible inputs to functions.
+  
+* Structure of an abstraction
+
+*Abstractions* are made up of two parts: a /head/ and a /body/.
+
+\[\lambda x . x\]
+
+- The head is the \(\lambda \) symbol followed by a variable name (here \(x\)). Variables in the body matching the variable name are /bound/.
+- The body is a valid expression of the lambda calculus which follows the dot \(.\).
+- Abstractions in the lambda calculus are interpreted as functions; the head of the abstraction stands in for the input to the function, and the body of the abstraction tells us how we arrive at the output.
+
+Lambda abstractions allow us to describe what functions do without naming them; we'll sometimes call lambda abstractions /anonymous functions/.
+
+*Question:* what kind of function is the abstraction above? What does it do?
+
+* Alpha equivalence
+
+So, abstractions are used to express functions. The choice of variable name used in the head is arbitrary - this gives rise to an intuitive notion of sameness: *alpha equivalence*. 
+
+The following expressions are all /alpha equivalent/ (that is, they all express the same function):
+
+\[\lambda x . x\] 
+
+\[\lambda d . d\]
+
+\(\lambda z . z\)
+
+* Beta reduction
+
+- Beta reduction corresponds to applying a function to an argument, in the lambda calculus.
+- A /functional application/ is written as \(f(x)\) where \(f\) is the function, and \(x\) is the argument.
+- Beta reduction involves deleting the head, and substituting all occurrences of the bound variable in the body with the function's argument.
+  
+\[(\lambda x . x + 1) 2\]
+
+*Question:* What is the result of beta reduction?
+
+* More reductions
+
+Nothing stops us from applying a /function/ to another /function/:
+
+\[(\lambda x . x)(\lambda y . y)\]
+
+\[[x := (\lambda y . y)\]
+
+\[\lambda y . y\]
+
+Note that \([x := \alpha]\) indicates that the variable \(x\) is substitute with the expression \(\alpha \) in the function body.
+
+* Associativity
+
+Functional application is /left associative/:
+
+\[(\lambda x. x) (\lambda y . y) z := ((\lambda x . x) (\lambda y . y)) z\]
+
+* Normal form
+
+The previous expression involved a functional application nested within a functional application:
+
+\[((\lambda x . x) (\lambda y . y)) z\]
+
+We reduce from the inside out:
+
+\[[x := (\lambda y . y)]\]
+
+\[(\lambda y . y) z\]
+
+\[[y := z]\]
+
+\[z\]
+
+If no further reductions are possible, we say that the expression is in *normal form*.
+
+* Free variables
+
+Sometimes, the body of an abstraction contains variables which aren't bound by the head - these variables are /free/ (within the abstraction):
+
+\[\lambda x . xy\] 
+
+Let's try applying an abstraction with free variables to an argument:
+
+\[(\lambda x . xy) z\]
+
+\[[x := z]\]
+
+\[zy\]
+
+Note that alpha equivalence doesn't apply to free variables: \(\lambda x . xy\) and \(\lambda x . xz\) are different expressions, because \(y\) and \(z\) might be assigned distinct values.
+
+* TODO Multiple arguments

@@ -1,0 +1,99 @@
+#+title: Implementing semantic fragments in haskell
+#+author: Patrick D. Elliott
+#+bibliography: ../bibliography/master.bib
+#+cite_export: biblatex
+
+* Description
+
+#+begin_quote
+This course is intended primarily as a first introduction to functional programming, aimed at students with an existing background in logic and/or linguistics. The programming language we'll be using in this course is Haskell - a statically-typed, purely functional language, with a focus on referential transparency (don't worry, you'll find out what all of this means if you take the course!). Although not as common as languages such as python, Haskell is a general-purpose programming language with industrial applications (used, e.g., for spam-filtering at Meta). For our purposes, Haskell is especially compelling since its design is inspired by mathematical tools commonly deployed in linguistic theory, such as the lambda calculus, type theory, and category theory. The main topic of this course is "computational semantics", but from a symbolic/algorithmic, rather than a data-driven perspective. Over the course of the semester, we'll gradually build up a working knowledge of Haskell by implementing logical constructs used in linguistics, such as Context Free Grammars and Montagovian fragments as *programs*.
+
+This will be an extremely hands-on course, and students should ideally expect to bring a laptop to class. We'll set up a Haskell development environment together, and homework exercises will involve concrete programming tasks. 
+#+end_quote
+
+* Practical information
+
+** Class homepage
+
+** Laptops
+
+If possible, please bring a laptop with you to class.
+
+** Time and place
+
+- Class takes place on *Tuesday* at 12:30-14:00.
+- Class takes place in *2321.U1.93 (Z 18)*.
+  
+** Language of instruction
+
+The lectures, as well as the readings for this class will be in *English*.
+
+* Leistungsnachweis
+
+** BN requirements
+
+- Participate in class.
+- Submit solutions to the occasional homework assignments.
+  
+** AP requirements
+
+- Fulfill the BN requirements.
+- Complete a final project.
+  Exactly what this involves is completely negotiable. Given the nature of the class, two obvious possibilities are (i) a written technical report, (ii) a simple haskell program with documentation.  
+  
+* Comms
+
+** Rocketchat
+
+Join the rocketchat channel using the following link: [[https://rocketchat.hhu.de/invite/8gSh6a]]. Note that this is *obligatory*; in an attempt to keep things simple, I'll use this as the main channel of communication for the class, including announcements etc.
+  
+** Office hours
+
+I hold office hours at 4-5pm on Tuesdays. You can find me in building 23.21, room 04.73. Please let me know in advance the time that you plan on dropping by, so that I can stagger appointments.
+
+** Email
+
+For any questions regarding the class, please post in rocketchat, so that others can benefit from the response. For any private queries, you can email me at ~patrick.elliott@hhu.edu~.
+
+* Readings
+
+** Main readings
+
+- /Haskell from first principles/ (FP)
+ [cite:@AllenMoronuki2016]
+- /Computational semantics with functional programming/ (CS)
+  [cite:@vanEijckUnger2010]
+  
+** Supplementary
+
+- /The haskell road to logic, maths, and programming/ (LMP)
+  [cite:@DoetsEijck2012]
+  
+
+* Resources for getting started with haskell
+
+- The haskell playground
+https://play.haskell.org/
+
+* Tentative schedule
+
+| date     | class                          | reading             |
+|----------+--------------------------------+---------------------|
+| April 4  | The lambda calculus            | Chapter 1 of FP     |
+| April 11 | Haskell: basic syntax          | Chapter 2 of FP     |
+| April 18 | Strings                        | Chapter 3 of FP     |
+| April 25 | Basic datatypes                | Chapter 4 of FP     |
+| May 2    | Types and typeclasses          | Chapter 5-6 of FP   |
+| May 9    | Formal syntax for fragments    | Chapter 4 of CS     |
+| May 16   |                                | NO CLASS (SALT)     |
+| May 23   | Formal semantics for fragments | Chapter 5 of CS     |
+| May 30   | Model checking                 | Chapter 6 of CS     |
+| June 6   | Meaning composition            | Chapter 7 of CS     |
+| June 13  | Functors and applicatives      | Chapter 16-17 of FP |
+| June 20  | Monads                         | Chapter 18 of FP    |
+| June 27  | Monads in natural language     | TBA                 |
+| July 4   | project presentations          |                     |
+| July 11  | project presentations        |                     |
+
+  
+#+print_bibliography:

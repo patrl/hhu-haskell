@@ -1,0 +1,30 @@
+#+title: implementing semantic fragments in haskell
+#+subtitle: HHU spring/summer semester 2023
+#+bibliography: ../bibliography/master.bib
+#+cite_export: csl
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+OPTIONS: toc:nil
+#+EXPORT_FILE_NAME: ./pub/index.html
+#+author: Patrick D. Elliott
+
+Last updated: "[2023-04-02 17:15]" 
+
+* TODO Course description
+
+* TODO Schedule
+ 
+* References
+  
+#+print_bibliography:
+
+* File local variables                                             :noexport:
+
+# Local Variables:
+# time-stamp-line-limit: 1000
+# time-stamp-format: "[%Y-%m-%d %H:%M]"
+# time-stamp-active: t
+# time-stamp-start: "Last updated: \""
+# time-stamp-end: "\""
+# eval: (add-hook 'before-save-hook (lambda () (if (y-or-n-p "update timestamp?") (time-stamp))) nil t)
+# eval: (add-hook 'after-save-hook (lambda nil (if (y-or-n-p "export to html?") (org-html-export-to-html))) nil t)
+# End:
