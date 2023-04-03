@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-03 11:06]" 
+Last updated: "[2023-04-03 11:21]" 
 
 * Course description
 
@@ -21,7 +21,38 @@ This course is intended primarily as a first introduction to functional programm
 This will be an extremely hands-on course, and students should ideally expect to bring a laptop to class. We'll set up a Haskell development environment together, and homework exercises will involve concrete programming tasks. 
 #+end_quote
 
-* TODO Schedule
+* Haskell resources
+
+- Run haskell programs in your browser using the [[https://play.haskell.org/][haskell playground]]. 
+- Setting up a haskell environment: [[https://www.haskell.org/get-started/][Get Started]] 
+- The [[https://haskellbook.com/][Haskell from first principles]] textbook.
+
+* Schedule
+
+| date     | class                          |
+|----------+--------------------------------|
+| April 4  | [[*The lambda calculus][The lambda calculus]]    |
+|          |                                |
+| April 11 | Haskell: basic syntax          |
+| April 18 | Strings                        |
+| April 25 | Basic datatypes                |
+| May 2    | Types and typeclasses          |
+| May 9    | Formal syntax for fragments    |
+| May 16   |                                |
+| May 23   | Formal semantics for fragments |
+| May 30   | Model checking                 |
+| June 6   | Meaning composition            |
+| June 13  | Functors and applicatives      |
+| June 20  | Monads                         |
+| June 27  | Monads in natural language     |
+| July 4   | project presentations          |
+| July 11  | project presentations          |
+
+* Topics
+
+** The lambda calculus
+
+
  
 * References
   

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-03 Mon 11:06 -->
+<!-- 2023-04-03 Mon 11:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Implementing Semantic Fragments in Haskell</title>
@@ -202,18 +202,18 @@
 <span class="subtitle">HHU spring/summer semester 2023</span>
 </h1>
 
-<div id="org31e90dd" class="figure">
+<div id="org805d2ba" class="figure">
 <p><img src="./fernsehturm.jpg" alt="fernsehturm.jpg" width="250" style="border:2px solid black;" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Fernsehturm, Berlin 1968 (Horst Sturm)</p>
 </div>
 
 <p>
-Last updated: "<span class="timestamp-wrapper"><span class="timestamp">[2023-04-03 Mon 11:06]</span></span>" 
+Last updated: "<span class="timestamp-wrapper"><span class="timestamp">[2023-04-03 Mon 11:21]</span></span>" 
 </p>
 
-<div id="outline-container-orga8f6b66" class="outline-2">
-<h2 id="orga8f6b66"><span class="section-number-2">1.</span> Course description</h2>
+<div id="outline-container-orgccaaca0" class="outline-2">
+<h2 id="orgccaaca0"><span class="section-number-2">1.</span> Course description</h2>
 <div class="outline-text-2" id="text-1">
 <blockquote>
 <p>
@@ -227,13 +227,133 @@ This will be an extremely hands-on course, and students should ideally expect to
 </div>
 </div>
 
-<div id="outline-container-orgdcc6a8f" class="outline-2">
-<h2 id="orgdcc6a8f"><span class="section-number-2">2.</span> <span class="todo TODO">TODO</span> Schedule</h2>
+<div id="outline-container-org7086334" class="outline-2">
+<h2 id="org7086334"><span class="section-number-2">2.</span> Haskell resources</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>Run haskell programs in your browser using the <a href="https://play.haskell.org/">haskell playground</a>.</li>
+<li>Setting up a haskell environment: <a href="https://www.haskell.org/get-started/">Get Started</a></li>
+<li>The <a href="https://haskellbook.com/">Haskell from first principles</a> textbook.</li>
+</ul>
+</div>
 </div>
 
-<div id="outline-container-orge2aba17" class="outline-2">
-<h2 id="orge2aba17"><span class="section-number-2">3.</span> References</h2>
+<div id="outline-container-orgc4d17e8" class="outline-2">
+<h2 id="orgc4d17e8"><span class="section-number-2">3.</span> Schedule</h2>
 <div class="outline-text-2" id="text-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">date</th>
+<th scope="col" class="org-left">class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">April 4</td>
+<td class="org-left"><a href="#orge3a94ac">The lambda calculus</a></td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">April 11</td>
+<td class="org-left">Haskell: basic syntax</td>
+</tr>
+
+<tr>
+<td class="org-left">April 18</td>
+<td class="org-left">Strings</td>
+</tr>
+
+<tr>
+<td class="org-left">April 25</td>
+<td class="org-left">Basic datatypes</td>
+</tr>
+
+<tr>
+<td class="org-left">May 2</td>
+<td class="org-left">Types and typeclasses</td>
+</tr>
+
+<tr>
+<td class="org-left">May 9</td>
+<td class="org-left">Formal syntax for fragments</td>
+</tr>
+
+<tr>
+<td class="org-left">May 16</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">May 23</td>
+<td class="org-left">Formal semantics for fragments</td>
+</tr>
+
+<tr>
+<td class="org-left">May 30</td>
+<td class="org-left">Model checking</td>
+</tr>
+
+<tr>
+<td class="org-left">June 6</td>
+<td class="org-left">Meaning composition</td>
+</tr>
+
+<tr>
+<td class="org-left">June 13</td>
+<td class="org-left">Functors and applicatives</td>
+</tr>
+
+<tr>
+<td class="org-left">June 20</td>
+<td class="org-left">Monads</td>
+</tr>
+
+<tr>
+<td class="org-left">June 27</td>
+<td class="org-left">Monads in natural language</td>
+</tr>
+
+<tr>
+<td class="org-left">July 4</td>
+<td class="org-left">project presentations</td>
+</tr>
+
+<tr>
+<td class="org-left">July 11</td>
+<td class="org-left">project presentations</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgc0f473d" class="outline-2">
+<h2 id="orgc0f473d"><span class="section-number-2">4.</span> Topics</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orge3a94ac" class="outline-3">
+<h3 id="orge3a94ac"><span class="section-number-3">4.1.</span> The lambda calculus</h3>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgffeedf6" class="outline-2">
+<h2 id="orgffeedf6"><span class="section-number-2">5.</span> References</h2>
+<div class="outline-text-2" id="text-5">
 <style>.csl-entry{text-indent: -1.5em; margin-left: 1.5em;}</style><div class="csl-bib-body">
 </div>
 </div>
@@ -241,7 +361,7 @@ This will be an extremely hands-on course, and students should ideally expect to
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2023-04-03 Mon 11:06</p>
+<p class="date">Created: 2023-04-03 Mon 11:21</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
