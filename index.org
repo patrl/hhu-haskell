@@ -11,14 +11,14 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-03 11:22]" 
+Last updated: "[2023-04-03 11:26]" 
 
 * Course description
 
 #+begin_quote
 This course is intended primarily as a first introduction to functional programming, aimed at students with an existing background in logic and/or linguistics. The programming language we'll be using in this course is Haskell - a statically-typed, purely functional language, with a focus on referential transparency (don't worry, you'll find out what all of this means if you take the course!). Although not as common as languages such as python, Haskell is a general-purpose programming language with industrial applications (used, e.g., for spam-filtering at Meta). For our purposes, Haskell is especially compelling since its design is inspired by mathematical tools commonly deployed in linguistic theory, such as the lambda calculus, type theory, and category theory. The main topic of this course is "computational semantics", but from a symbolic/algorithmic, rather than a data-driven perspective. Over the course of the semester, we'll gradually build up a working knowledge of Haskell by implementing logical constructs used in linguistics, such as Context Free Grammars and Montagovian fragments as *programs*.
 
-This will be an extremely hands-on course, and students should ideally expect to bring a laptop to class. We'll set up a Haskell development environment together, and homework exercises will involve concrete programming tasks. 
+This will be an extremely hands-on course, and students should ideally expect jto bring a laptop to class. We'll set up a Haskell development environment together, and homework exercises will involve concrete programming tasks. 
 #+end_quote
 
 * Haskell resources
@@ -29,6 +29,8 @@ This will be an extremely hands-on course, and students should ideally expect to
 
 * Schedule
 
+Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
+
 | date     | class                          |
 |----------+--------------------------------|
 | April 4  | [[*The lambda calculus][The lambda calculus]]    |
@@ -38,7 +40,7 @@ This will be an extremely hands-on course, and students should ideally expect to
 | April 25 | Basic datatypes                |
 | May 2    | Types and typeclasses          |
 | May 9    | Formal syntax for fragments    |
-| May 16   |                                |
+| May 16   | NO CLASS                       |
 | May 23   | Formal semantics for fragments |
 | May 30   | Model checking                 |
 | June 6   | Meaning composition            |
@@ -52,8 +54,8 @@ This will be an extremely hands-on course, and students should ideally expect to
 
 ** The lambda calculus
 
+- *Homework*: Read chapter one of /Haskell from first principles/ [cite:@AllenMoronuki2016]
 
- 
 * References
   
 #+print_bibliography:
