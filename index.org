@@ -11,7 +11,9 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-03 11:29]" 
+Last updated: "[2023-04-03 11:47]" 
+
+[[./syllabus.pdf][Syllabus]]
 
 * Course description
 

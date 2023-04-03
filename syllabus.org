@@ -1,7 +1,16 @@
 #+title: Implementing semantic fragments in haskell
+#+subtitle: HHU Spring/Summer semester seminar
 #+author: Patrick D. Elliott
 #+bibliography: ../bibliography/master.bib
+#+LaTeX_CLASS: scrartcl
+#+LaTeX_CLASS_OPTIONS: [letterpaper,parskip=half]
+#+LaTeX_HEADER: \input{handouts/boilerplate}
+#+LaTeX_COMPILER: pdflatex
+#+EXPORT_FILE_NAME: ./docs/syllabus.pdf
+#+OPTIONS: ':t toc:nil
 #+cite_export: biblatex
+
+*Class homepage:* [[https://patrickdelliott.com/hhu-haskell]]
 
 * Description
 
@@ -11,11 +20,15 @@ This course is intended primarily as a first introduction to functional programm
 This will be an extremely hands-on course, and students should ideally expect to bring a laptop to class. We'll set up a Haskell development environment together, and homework exercises will involve concrete programming tasks. 
 #+end_quote
 
+* Team
+
+- *Instructor:* Dr. Patrick D. Elliott
+  * [[mailto:Patrick.Elliott@hhu.de][Patrick.Elliott@hhu.de]]
+  * [[https://patrickdelliott.com]]
+- *Secretary:* Tim Martion
+  * [[mailto:tim.marton@phil.hhu.de][tim.marton@phil.hhu.de]]
+
 * Practical information
-
-** Class homepage
-
-[[https://patrickdelliott.com/hhu-haskell]]
 
 ** Laptops
 
@@ -55,7 +68,7 @@ I hold office hours at 4-5pm on Tuesdays. You can find me in building 23.21, roo
 
 ** Email
 
-For any questions regarding the class, please post in rocketchat, so that others can benefit from the response. For any private queries, you can email me at ~patrick.elliott@hhu.edu~.
+For any questions regarding the class, please post in rocketchat, so that others can benefit from the response. For any private queries, you can email me at [[mailto:Patrick.Elliott@hhu.edu][Patrick.Elliott@hhu.de]].
 
 * Readings
 
@@ -71,7 +84,6 @@ For any questions regarding the class, please post in rocketchat, so that others
 - /The haskell road to logic, maths, and programming/ (LMP)
   [cite:@DoetsEijck2012]
   
-
 * Resources for getting started with haskell
 
 - The haskell playground
