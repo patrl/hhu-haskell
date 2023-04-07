@@ -3,12 +3,18 @@
 #+BEAMER_THEME: metropolis
 #+BEAMER_COLOR_THEME: owl [snowy]
 #+LATEX_HEADER_EXTRA: \usepackage[linguistics]{forest}
+#+LATEX_HEADER_EXTRA: \usepackage{fvextra}
 #+LATEX_HEADER_EXTRA: \usepackage[euler-digits,euler-hat-accent]{eulervm}
 #+LATEX_HEADER_EXTRA: \usefonttheme[onlymath]{serif} 
 #+EXPORT_FILE_NAME: ../docs/hello-haskell.pdf
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:nil H:2
 
-* Lambda calculus summary
+* Preliminaries
+
+** TODO Homework
+
+** Lambda calculus summary
+
 
 - The lambda calculus is a /formal system/ (i.e., a logic) for reasoning about /functions/.
 - In the lambda calculus, computation is modelled as a form of simplification, using the following rules:
@@ -21,7 +27,7 @@
 - Haskell can be thought of as a kind of lambda calculi, where /running a program/ amounts to reducing a complex expression until we reach normal form.
 - Reduction doesn't always converge on a normal form; sometimes expressions diverge; this corresponds to /non-terminating computations/ (imagine, for example, a program implementing a timer that runs indefinitely).
 
-* Chapter 1 exercises, p18 n7 
+** Chapter 1 exercises, p18 n7 
 
 \[(\lambda x y z . x z(yz))(\lambda x . z)(\lambda x . a)\]
 
@@ -34,7 +40,9 @@
    
 - Normal form!
   
-* Expressions and declarations
+* Getting started with Haskell
+  
+** Expressions and declarations
 
 - Everything you write in Haskell is either an /expression/ or a /declaration/.
   * Expressions can be values, functions, functions applied to values, etc.
@@ -48,7 +56,7 @@ Here are some examples of expressions in Haskell:
   "Icarus"
 #+end_src
 
-* The REPL
+** The REPL
 
 - The GHCi REPL stands for the /Glasgow Haskell Compiler interactive Read-Eval-Print-Loop/.
 - It allows us to evaluation Haskell expressions directly without the need to save the program in a source file.
@@ -56,32 +64,32 @@ Here are some examples of expressions in Haskell:
   * In the browser: [[https://tryhaskell.org/]]
   * By installing GHC and running ~ghci~ in the terminal.
 
-* REPL cont.
+** REPL cont.
 
 - When we type an expression into the REPL it automatically evaluates it for us. 
 - The following expressions are already in normal form, so they simply evaluate to themselves.
   
 #+begin_src haskell
-  Prelude> 1
+  ghci> 1
   1
-  Prelude> "Icarus"
+  ghci> "Icarus"
   "Icarus"
 #+end_src
 
-* Evaluating arithmetic expressions
+** Evaluating arithmetic expressions
 
 - GHCi can be used as a basic calculator by inputting arithmetic expressions.
 - Complex expressions are evaluated until we reach normal form:
   
 #+begin_src haskell
-  Prelude> ((1 + 2) * 3) + 100
+  ghci> ((1 + 2) * 3) + 100
   109
 #+end_src
 
 - Note that GHCi doesn't show us any of the intermediate steps.
 - N.b. expressions that can be reduced are called *redexes* (i.e., /reducible expressions/).
 
-* Functions  
+** Functions  
 
 - /Functions/ in haskell are particular kinds of expressions, which play a very important role.
 - Just like mathematical functions, they map inputs to outputs, in a determinate fashion.
@@ -89,7 +97,7 @@ Here are some examples of expressions in Haskell:
   * This property is known as /referential transparency/, and makes Haskell programs extremely straightforward to reason about.
   * For those of you with some experience programming in an imperative language like C, this is quite a departure! In imperative languages, evaluating a line of code might affect the state in a way which changes subsequent evaluations.
 
-* Referential transparency    
+** Referential transparency    
 
 #+ATTR_LATEX: :width 0.4\textwidth
 [[./img/einstein.jpg]]
@@ -98,39 +106,39 @@ Here are some examples of expressions in Haskell:
 "Insanity is doing the same thing over and over and expecting different results." (Albert Einstein)
 #+end_quote
 
-* More on functions
+** More on functions
 
 There are a number of different ways of declaring functions in haskell. Here is the simplest way:
 
 #+begin_src haskell
-  Prelude> triple x = x * 3
-  Prelude> triple 4
+  ghci> triple x = x * 3
+  ghci> triple 4
   12
 #+end_src
 
 Function names always start with lower case letters in haskell. It's good practice to use descriptive function names, which conventionally use camel case, e.g.:
 
 #+begin_src haskell
-    Prelude> multiplyByThree x = x * 3
-    Prelude> multiplyByThree 4
+    ghci> multiplyByThree x = x * 3
+    ghci> multiplyByThree 4
     12
 #+end_src
 
-* Abstractions
+** Abstractions
 
 - Note that the equals sign ~=~ indicates that this is a /declaration/ rather than an expression.
 - Note that declarations are much like abstractions, in the sense that the variable(s) to the left of the ~=~ bind the corresponding variable(s) to the right.
 - In fact it's also possible to define functions directly as abstractions, using the following syntax:
 
 #+begin_src haskell
-  Prelude> triple = \x -> x * 3
-  Prelude> triple 4
+  ghci> triple = \x -> x * 3
+  ghci> triple 4
   12
-  Prelude> (\x -> x * 3) 4
+  ghci> (\x -> x * 3) 4
   12 
 #+end_src
 
-* Intermission 
+** Intermission 
 
 How would we declare a function that has one parameter and words for al the following expressions?
 
@@ -143,51 +151,51 @@ pi * (4 * 4)
 
 Note that ~pi~ is an expression that is given by the Haskell ~Prelude~. The prelude is a module (i.e., a set of declarations) that is implicitly imported by default.
 
-* Solution
+** Solution
 
 #+begin_src haskell
-    Prelude> circleArea radius = pi * (radius * radius)
-    Prelude> circleArea 5
+    ghci> circleArea radius = pi * (radius * radius)
+    ghci> circleArea 5
     78.53981633974483
 #+end_src
 
 Note that as well descriptive function names, we can also use descriptive /variable/ names; there's no reason (aside from brevity) that we have to use single letters as variable names.
 
-* Prefix vs. infix
+** Prefix vs. infix
 
 As you've probably gathered, the syntax for /function application/ in Haskell just involves whitespace, i.e.., ~f x~ means \(f(x)\).
 
 The arithmetic operators like ~+~ are /infix operators/; they can be used as ordinary functions by enclosing them in paretheses:
 
 #+begin_src haskell
-  Prelude> 200 + 300
+  ghci> 200 + 300
   500
-  Prelude> (+) 200 300
+  ghci> (+) 200 300
   500
-  Prelude> ((+) 200) 300
+  ghci> ((+) 200) 300
   500
 #+end_src
 
-* Declarations in the REPL
+** Declarations in the REPL
 
 We can define functions and later use them with a single REPL session; the REPL has a limited form of state.
 
 #+begin_src haskell
-  Prelude> y = 10
-  Prelude> x = 10 * 5 + y
-  Prelude> myResult = x * 5
-  Prelude> myResult
+  ghci> y = 10
+  ghci> x = 10 * 5 + y
+  ghci> myResult = x * 5
+  ghci> myResult
   300
 #+end_src
 
 You can quit the REPL by typing ~:q~; declarations won't persist between REPL sessions, so typing ~myResult~ in a new session will give you the following error:
 
 #+begin_src 
-  Prelude> myResult
+  ghci> myResult
   error: Variable not in scope: myResult
 #+end_src
 
-* Declarations in source files
+** Declarations in source files
 
 In order to get your declarations to persist, you need to write them into source files (called /modules/). Try saving the following as ~learn.hs~.
 
@@ -202,13 +210,13 @@ In order to get your declarations to persist, you need to write them into source
 You can now /load/ the module in GHCi.
 
 #+begin_src haskell
-Prelude> :l learn.hs
+ghci> :l learn.hs
 Ok, one module loaded.
-Prelude> myResult
+ghci> myResult
 300
 #+end_src
 
-* Tips for writing source files
+** Tips for writing source files
 
 A module must always start with a module declaration ~module MyModule where~; the module name should always start with a capital letter, unlike a function declaration.
 
@@ -226,7 +234,20 @@ Comments are lines starting with a double dash.
 x = 10 * 5 + y
 #+end_src
 
-* Basic arithmetic
+** More tips
+
+Using a text editor with support for Haskell syntax highlighting will be a big help. Some options:
+
+- VS Code.
+  * Probably the most popular text editor right now, with excellent haskell support built in.
+- Emacs (with ~haskell-mode~).
+  * This is what I use. If you're not already familiar with emacs, I definitely wouldn't recommend it. 
+- Notepad++
+  * I don't really know anything about this, but apparently it's a good option if you're running Windows.
+
+You can also just use the online Haskell playground, which has syntax highlighting baked in.    
+
+** Basic arithmetic
 
 Basic arithmetic can help us get a feel for how haskell expressions are evaluated, e.g., ~1 + 2 * 9 - 10~.
 
@@ -248,7 +269,7 @@ Basic arithmetic can help us get a feel for how haskell expressions are evaluate
 \end{forest}
 #+end_export
 
-* Associativity and precedence
+** Associativity and precedence
 
 Arithmetic infix operators in haskell:
 
@@ -260,13 +281,13 @@ Arithmetic infix operators in haskell:
 You can get information about operator /associativity/ and /precedence/ using the ~:info~ command in GHCi.
 
 #+begin_src haskell
-  Prelude> :i (+)
+  ghci> :i (+)
   infixl 6 +
 #+end_src
 
 N.b. this will also give you information about the /type/ of the expression. This won't be relevant yet, but will be important soon.
 
-* The ~$~ operator
+** The ~$~ operator
 
 This ~$~ is an important infix operator that is often used to write terse haskell code without parentheses. Here is its definition:
 
@@ -281,7 +302,7 @@ This is an ~infixr~ operator with the lowest possible precedence:
   (2^) (2 + 2)
 #+end_src
 
-* ~let~ and ~where~
+** ~let~ and ~where~
 
 - ~let~ is used to introduce an expression.
 - ~where~ is a /declaration/ that is bound in its containing syntactic construct.
@@ -296,7 +317,7 @@ This is an ~infixr~ operator with the lowest possible precedence:
 		 in print plusTwo
 #+end_src
 
-* Intermission
+** Intermission
 
 #+begin_src haskell
   z = 7
@@ -312,8 +333,225 @@ Write out what will happen when you run the following:
 - ~(-) 15 waxOn~
 - ~(-) waxOn 15~
   
-* Intro to Strings
+* Types and strings
+  
+** Types in formal semantics
+
+Types in Haskell are a way of /categorizing values/; they provide a syntactic restriction on how complex expressions are built.
+
+You might be familiar with types if you've ever taken a semantics course before.
+
+- /is happy/: \(\langle e,t \rangle\)
+- /Henning/: \(e\)
+  
+** Types in Haskell 
+
+- Haskell has a more complex and powerful type-system than the one you might be used to from formal semantics. 
+  * Formal semantics typically uses the /simply-typed lambda calculus/ as a basis.
+  * Haskell is based on System F, i.e., the /polymorphic lambda calculus/, which allows for universal quantification over types.
+  * Various /language extensions/ exist to make Haskell's type system even more powerful (dependent types, linear types, etc).
+  * In this course, we won't go much beyond simple types and some basic polymorphism.
+    
+** Getting information about types
+
+You can find out the type of any haskell expression quite easily using the ~:type~ command in GHCi:
+
+#+begin_src haskell
+  ghci> :t "hello haskell!"
+  "hello haskell!" :: String
+  ghci> :t 'a'
+  'a' :: Char
+#+end_src
+
+- Note that single characters are enclosed in single quotes.
+- The double colon ~::~ is interpreted as /has the type/.
+  
+** Type annotations
+
+We explicitly annotate expressons with their type using ~::~. 
+
+#+begin_src haskell
+  ghci> :t ("hello haskell!" :: String)
+  "hello haskell!" :: String
+#+end_src
+
+If we annotate an expression with the wrong type, we'll get an error:
+
+#+begin_src haskell
+ghci> :t ("hello haskell!" :: Char)
+<interactive>:1:2: error:
+    • Couldn't match type ‘[Char]’ with ‘Char’
+      Expected: Char
+        Actual: String
+#+end_src
+
+** String types
+
+~String~ is actually a name for a /complex type/, ~[Char]~.
+
+That is to say, strings in haskell are actually just /lists of characters/.
+
+In general, for any type ~a~, the type ~[a]~ is the type of a list of things of type ~a~.
+
+** Printing strings
+
+We can print strings to the standard output in GHCi using the ~putStrLn~ or ~putStr~ functions.
+
+#+begin_src haskell
+ghci> putStrLn "hello haskell!"
+hello haskell!
+#+end_src
+
+Examine the type of ~putStrLn~. You'll notice something quite interesting.
+
+#+begin_src haskell
+ghci> :t putStrLn
+putStrLn :: String -> IO ()
+#+end_src
+
+In Haskell, we use arrow notation for function types (we'll come back to this later). ~IO ()~ is a special type to indicate that the program has some effect beyond evaluation of functions and arguments.
+
+** Printing strings from a source file
+
+#+begin_src haskell
+    -- print1.hs
+
+  module Print1 where
+
+  main :: IO ()
+  main = putStrLn "hello world!"
+#+end_src
+
+If we load ~print1.hs~ from GHCi and execute ~main~, /hello world!/ will be printed to the standard output.
+
+In haskell ~main~ is the default action when building an executable, or running it in GHCi, and it must always be of type ~IO ()~.
+
+Input/output is much more complicated in Haskell than in most other programming languages, since it involves exploiting Haskell's type system to reason about /side effects/. This will be a topic for later in the semester.
+
+** Concatenating strings
+
+There are two functions for concatenating strings in the haskell prelude:
+
+#+begin_src haskell
+  (++) :: [a] -> [a] -> [a]
+  concat :: [[a]] -> [a]
+#+end_src
+
+- ~++~ is an infix operator, whereas ~concat is just an ordinary function.
+- Note that ~a~ in the type signature is a /type variable/. Free variables in type signatures are implicitly universally quantified in Haskell.
+- This means that both ~++~ and ~concat~ are /polymorphic/ functions; they can be used to combine lists more generally.
+  
+** Strings as lists of chars  
+
+#+begin_src haskell
+  "hello haskell!"
+  ['h','e','l','l','o',' ','h','a','s','k','e','l','l','!']
+#+end_src
+
+- Strings surrounded by double quotes are really just /syntactic sugar/ for lists of characters.
+- Syntactic sugar is just a notational convention built into the language that makes our lives as programmers easier.
+- Lists are actually also syntactic sugar! We'll learn what lists really are in a bit.
+ 
+** Polymorphism
+
+What do you think the following evaluates to?
+
+#+begin_src haskell
+[1,2,3] ++ [4,5,6]
+#+end_src
+
+What happens if we try to evaluate the following:
+
+#+begin_src haskell
+"hello" ++ [4,5,6]
+#+end_src
+
+** More list manipulation
+
+#+begin_src haskell
+  ghci> head "Henning"
+  'H'
+  ghci> tail "Henning"
+  "enning"
+  ghci> take 0 "Henning"
+  ""
+  ghci> take 3 "Henning"
+  "Hen"
+  ghci> drop 3 "Henning"
+  "ning"
+  ghci> "Henning" !! 2
+  'n'
+#+end_src
+
+** Totality and safety
+
+What happens when you run the following in GHCi:
+
+#+begin_src haskell
+ghci> "yo" !! 2
+#+end_src
+
+Let's examine the type of ~!!~; as expected, its a function from a list of \(a\)s, to an integer, to an \(a\).
+
+#+begin_src haskell
+(!!) :: [a] -> Int -> a
+#+end_src
+
+Note however, that this isn't a /total/ function; there are some lists and integers for which this function will be undefined.
+
+Partial functions in haskell are considered /unsafe/, because the type system doesn't prevent us from providing an illicit value as an argument to the function.
+
+** Building lists with ~cons~
+
+The final list manipulation function we'll look at is an important one: ~cons~.
+
+#+begin_src haskell
+  ghci> 'h' : []
+  [h]
+  ghci> 'h' : "enning"
+  "henning"
+#+end_src
+
+In haskell, lists are built up by successive application of ~cons~:
+
+#+begin_src haskell
+  'h' : ('e' : ('n' : ('n' : ('i' : ('n' : ('g' : []))))))
+#+end_src
+
+Since ~:~ is right associative we can drop the parentheses.
+
+Lists in haskell are therefore /singly-linked lists of characters/.
+
+** Singly-linked lists
+
+#+begin_export latex
+\begin{center}
+\begin{forest}
+  \texttt
+  [{:}
+    [{j}]
+    [{:}
+      [{o}]
+      [{:}
+        [{s}]
+        [{:}
+          [{i}]
+          [{:}
+            [{e}]
+            [{[]}]
+            ]
+          ]
+        ]
+    ]
+    ]
+  \end{forest}
+  \end{center}
+#+end_export
 
 * References
 
 #+print_bibliography:
+
+# Local Variables:
+# org-latex-src-block-backend: engraved
+# End:

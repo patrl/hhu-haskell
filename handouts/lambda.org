@@ -21,7 +21,7 @@
  
 * Why study the lambda calculus
 
-- The lambda calculus is a formal logic for reasoning about computation; the simply-typed lambda calculus is Turing complete, and can therefore be used to reason about /any/ computation.
+- The lambda calculus is a formal logic for reasoning about computation; the simple untyped lambda calculus is Turing complete, and can therefore be used to reason about /any/ computation.
 - Haskell is based on a more restrictive, but still extremely expressive variant of the lambda calculus called *System F* (i.e., the polymorphic lambda calculus).   
 - Moreover, the lambda calculus undergirds the functional programming paradigm more generally (see, e.g., one of the many variants of /lisp/).
 - The lambda calculus is a common formal tool in theoretical linguistics; more specifically, it is a /lingua franca/ in compositional semantics.
