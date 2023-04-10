@@ -13,6 +13,11 @@
 
 ** TODO Homework
 
+- Optionally, read chapters 2-3 of /Haskell programming from first principles/, covering basic Haskell syntax, and basic string/list manipulation.
+  * You should be able to skim, since we're covering most of this material today.
+- Do the *building functions* exercises, at the end of chapter 3, from p83-85.
+  * The exercises simply involve writing a function to produce the desired results, so you should be able to test your answers yourselves using GHCi.
+ 
 ** Lambda calculus summary
 
 
@@ -441,6 +446,28 @@ There are two functions for concatenating strings in the haskell prelude:
 - Note that ~a~ in the type signature is a /type variable/. Free variables in type signatures are implicitly universally quantified in Haskell.
 - This means that both ~++~ and ~concat~ are /polymorphic/ functions; they can be used to combine lists more generally.
   
+** Types primer i 
+
+In formal semantics, functional types are often written using angled-brackets (e.g., \(\langle e,t \rangle\)), following the convention used by [cite:@HeimKratzer1998].
+
+Haskell uses arrow notation, which is more commonly found in the computer science/programming language literature, although some semantics texts use arrow notation [cite:@Carpenter1998].
+
+Arrow notation in Haskell is /right associative/:
+
+- ~a -> b -> c~ \(\iff \) ~a -> (b -> c)~
+  
+** Types primer ii
+
+Let's look again at the type for list concatenation:
+
+#+begin_src haskell
+  (++) :: [a] -> [a] -> [a]
+#+end_src
+
+- ~(->)~ is a type /constructor/. It takes two types ~a~, ~b~ and returns the type of a function from \(a\)s to \(b\)s.
+- One important feature of haskell is the possibility of defining arbitrary constructors; ~([.])~ takes a type ~a~ and returns the type of a list of \(a\)s.
+- Remember, free type variables are implicitly universally quanitified, which means that list concatenation is defined for something of type ~[a]~, where ~a~ can be /any type/.
+
 ** Strings as lists of chars  
 
 #+begin_src haskell
@@ -548,7 +575,21 @@ Lists in haskell are therefore /singly-linked lists of characters/.
   \end{center}
 #+end_export
 
-* References
+** An aside on performance
+
+- For most industrial applications, singly-linked lists of chars would be a terrible choice.
+- On the other hand, this means that strings "come for free" on the basis of chars and extremely general list manipulation functions. 
+- For anything we do in this class, performance won't be an issue. For serious work with strings, the standard is the Haskell ~text~ library.
+
+** 
+   :PROPERTIES:
+   :BEAMER_opt: label=findings,standout
+   :END:
+ 
+   \(\mathscr{Fin}\)
+
+
+** References
 
 #+print_bibliography:
 
