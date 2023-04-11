@@ -1,11 +1,8 @@
 #+title:  The lambda calculus
 #+subtitle: Prolegomenon to functional programming
 #+author: Patrick D. Elliott
-#+BEAMER_THEME: metropolis
-#+BEAMER_COLOR_THEME: owl [snowy]
-#+LATEX_HEADER_EXTRA: \usepackage[linguistics]{forest}
-#+LATEX_HEADER_EXTRA: \usepackage[euler-digits,euler-hat-accent]{eulervm}
-#+LATEX_HEADER_EXTRA: \usefonttheme[onlymath]{serif} 
+#+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
+#+LATEX_COMPILER: xelatex
 #+EXPORT_FILE_NAME: ../docs/lambda.pdf
 #+OPTIONS: toc:nil
 

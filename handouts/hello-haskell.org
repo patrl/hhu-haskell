@@ -1,12 +1,8 @@
 #+title: Hello Haskell! 
 #+author: Patrick D. Elliott
-#+BEAMER_THEME: metropolis
-#+BEAMER_COLOR_THEME: owl [snowy]
-#+LATEX_HEADER_EXTRA: \usepackage[linguistics]{forest}
-#+LATEX_HEADER_EXTRA: \usepackage{fvextra}
-#+LATEX_HEADER_EXTRA: \usepackage[euler-digits,euler-hat-accent]{eulervm}
-#+LATEX_HEADER_EXTRA: \usefonttheme[onlymath]{serif} 
+#+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
 #+EXPORT_FILE_NAME: ../docs/hello-haskell.pdf
+#+LATEX_COMPILER: xelatex
 #+OPTIONS: toc:nil H:2
 
 * Preliminaries
@@ -86,6 +82,13 @@ Here are some examples of expressions in Haskell:
   "Icarus"
 #+end_src
 
+** A complication
+
+- In reality, it's a bit more complex than that.
+- An expression like ~1~ evaluates to an /integer/, but technically speaking integers aren't the kind of things that can be printed to an output, rather their /string representations/.
+- Under the hood, GHCi exploits Haskell's type system to determine whether an expression is /showable/; what we see is given by the function associated with the showable type class.
+  * We'll learn more about what this means later in the semester.
+
 ** Evaluating arithmetic expressions
 
 - GHCi can be used as a basic calculator by inputting arithmetic expressions.
@@ -146,6 +149,15 @@ Function names always start with lower case letters in haskell. It's good practi
   12
   ghci> (\x -> x * 3) 4
   12 
+#+end_src
+
+** Call back
+
+- Remember when I said that printing values in GHCi is more complicated than it first appears?
+- Try evaluating an abstraction, e.g.,
+
+#+begin_src haskell
+  ghci> (\x -> x * 3)
 #+end_src
 
 ** Intermission 
@@ -433,6 +445,8 @@ In Haskell, we use arrow notation for function types (we'll come back to this la
 #+end_src
 
 If we load ~print1.hs~ from GHCi and execute ~main~, /hello world!/ will be printed to the standard output.
+
+** The ~main~ function
 
 In haskell ~main~ is the default action when building an executable, or running it in GHCi, and it must always be of type ~IO ()~.
 
