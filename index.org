@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-11 12:10]" 
+Last updated: "[2023-04-11 15:23]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -61,7 +61,7 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 ** Hello Haskell!
 
 - The slides can be downloaded [[./hello-haskell.pdf][here]].
-- *Homework*: Read chapters 2-3 of /Haskell from first principles/ [cite:@AllenMoronuki2016] and do the exercises at the end of chapter 3, beginning from p83: "Building functions".
+- *Homework*: Read chapters 2 of /Haskell from first principles/ [cite:@AllenMoronuki2016] and do the exercises at the end of chapter 2.
  
 
 * References
