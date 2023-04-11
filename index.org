@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-10 15:10]" 
+Last updated: "[2023-04-11 08:39]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -36,18 +36,18 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 | date     | class                          |
 |----------+--------------------------------|
 | April 4  | [[*The lambda calculus][The lambda calculus]]    |
-| April 11 | Haskell: basic syntax          |
-| April 18 | Strings                        |
-| April 25 | Basic datatypes                |
-| May 2    | Types and typeclasses          |
-| May 9    | Formal syntax for fragments    |
+| April 11 | [[Haskell basic syntax and strings]] |
+| April 18 | Datatypes|
+| April 25 | Types and typeclasses |
+| May 2    | Formal syntax for fragments |
+| May 9    | Formal semantics for fragments (remote) |
 | May 16   | NO CLASS                       |
-| May 23   | Formal semantics for fragments |
-| May 30   | Model checking                 |
-| June 6   | Meaning composition            |
-| June 13  | Functors and applicatives      |
+| May 23   | Model checking |
+| May 30   | Meaning composition |
+| June 6   | Functors    |
+| June 13  | Applicative functors  |
 | June 20  | Monads                         |
-| June 27  | Monads in natural language     |
+| June 27  | Continuation passing style |
 | July 4   | project presentations          |
 | July 11  | project presentations          |
 
@@ -58,7 +58,7 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 - The slides can be downloaded [[./lambda.pdf][here]].
 - *Homework*: Read chapter 1 of /Haskell from first principles/ [cite:@AllenMoronuki2016] and do the chapter exercises.
 
-** Haskell basic syntax  
+** Haskell basic syntax and strings
 
 - The slides can be downloaded [[./hello-haskell.pdf][here]].
 - *Homework*: Read chapters 2-3 of /Haskell from first principles/ [cite:@AllenMoronuki2016] and do the exercises at the end of chapter 3, beginning from p83: "Building functions".

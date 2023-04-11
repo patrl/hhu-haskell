@@ -98,7 +98,7 @@ https://play.haskell.org/
 | April 18 | Strings                        | Chapter 3 of FP     |
 | April 25 | Basic datatypes                | Chapter 4 of FP     |
 | May 2    | Types and typeclasses          | Chapter 5-6 of FP   |
-| May 9    | Formal syntax for fragments    | Chapter 4 of CS     |
+| May 9    | Formal syntax for fragments (remote) | Chapter 4 of CS     |
 | May 16   |                                | NO CLASS (SALT)     |
 | May 23   | Formal semantics for fragments | Chapter 5 of CS     |
 | May 30   | Model checking                 | Chapter 6 of CS     |

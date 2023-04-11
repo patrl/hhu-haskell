@@ -11,13 +11,18 @@
 
 * Preliminaries
 
-** TODO Homework
+** Homework
 
 - Optionally, read chapters 2-3 of /Haskell programming from first principles/, covering basic Haskell syntax, and basic string/list manipulation.
   * You should be able to skim, since we're covering most of this material today.
 - Do the *building functions* exercises, at the end of chapter 3, from p83-85.
-  * The exercises simply involve writing a function to produce the desired results, so you should be able to test your answers yourselves using GHCi.
- 
+  * The exercises simply involve writing a function to produce the desired results, so you should be able to test your answers yourselves using GHCi. If you get stuck send me an email before next week's class.
+
+** Organizational    
+
+- Class on May 9th will take place remotely (I'll distribute a webex link via rocketchat closer to the time).
+- Class on May 16th will be cancelled - I'm in America for a conference.
+
 ** Lambda calculus summary
 
 
@@ -581,14 +586,121 @@ Lists in haskell are therefore /singly-linked lists of characters/.
 - On the other hand, this means that strings "come for free" on the basis of chars and extremely general list manipulation functions. 
 - For anything we do in this class, performance won't be an issue. For serious work with strings, the standard is the Haskell ~text~ library.
 
+* Prolegomenon to types
+
+** The simply-typed lambda calculus
+
+- In preparation for next week's class with type.
+- Types are syntactic categories used to restrict what counts as a valid expression.
+- Basic ingredients:
+  * A set of primitive types.
+  * A recursive rule for constructing complex (i.e., functional) types.
+  * Rules for computing the type of a complex expression from the types of its parts.
+    
+** Primitive types
+
+- Let's keep things simple, and start with just two primitive types:
+
+\[\mathbf{Typ} := \set{\mathtt{Int},\mathtt{Bool}}\]
+
+- We'll assume that integers are possible values and have the type ~Int~:
+  
+\[73 :: \mathtt{Int}\]
+
+- We'll also assume two primitive values with the type ~Bool~:
+
+\[\mathbf{true} :: \mathtt{Bool}, \mathbf{false} :: \mathtt{Bool}\]
+
+** Functional types
+
+We'll now state a recursive rule for complex (functional) types, using the Haskell convention for types.
+
+- If \(\mathtt{a} \in \mathbf{Typ}\), then \(\mathtt{a}\) is a type. 
+- If \(\mathtt{a}\) is a type, and \(\mathtt{b}\) is a type, then \(\mathtt{a \to  b}\) is a type.
+- Nothing else is a type.
+
+This means that we have many complex types like the following:
+
+- \(\mathtt{(Bool \to Bool) \to Int}\)
+- \(\mathtt{Int \to Int}\)
+  
+** Functions and their types
+
+- We can assign some useful operations their types:
+
+  \[(+) :: \mathtt{Int \to Int \to Int}\]
+  \[(-) :: \mathtt{Int \to Int \to Int}\]
+  \[\mathbf{factorial} :: \mathtt{Int \to Int}\]
+  \[\mathbf{odd} :: \mathtt{Int \to Bool}\]
+  \[\mathbf{even} :: \mathtt{Int \to Bool}\]
+  \[\mathbf{and} :: \mathtt{Bool \to Bool \to Bool}\]
+
+** Types of complex expressions  
+
+*Functional applications*: Let \(\beta  :: \mathtt{a \to b}\), \(\alpha :: \mathtt{a}\) be an expression of the SLTC. \(\beta(\alpha)\) is an expression of type \(\mathtt{b}\).
+
+*Abstractions:* Let \(\beta :: \mathtt{b}\) be an expression of the SLTC, and \(v\) a variable of type \(\mathtt{a}\). \(\lambda v . \beta \) is an expression of type \(\mathtt{a \to b}\).
+
+** Exercise
+
+Can you infer the types of the following expressions? Go step by step.
+
+\[\mathbf{and}(\mathbf{odd}(4))(t)\]
+
+\[\lambda x . \mathbf{odd}(\mathbf{factorial}(x))\]
+
+\[\lambda f . f(\lambda x . (+)(x)(2))\]
+
+** Type inference
+
+Often, you can /infer/ the type of an expression without specifying the type of all of its sub-parts.
+
+When you try to compile a haskell source file, or evaluate an expression in GHCi, the compiler will attempt to check that it is well-typed, by inferring the types of any expressions that don't have an explicit type provided.
+
+Since haskell's type system is more expressive than we have here, the type-inference algorithm is quite complicated (the compiler is based on an algorithm called /Hindley-Milner/).
+
+** Restrictions of a first-order type system
+
+In a first order type-system, we can only state typed identity functions. What is the type of /the/ identity function?
+
+\[\lambda x. x :: ?\]
+
+** Restrictions of a first-order type system cont.
+
+Consider the following functions:
+
+\[\mathbf{not} :: \mathtt{Bool \to Bool}\]
+\[\mathbf{not'} :: \lambda f . \lambda x . \mathbf{not}(f(x))\]
+\[\mathbf{not''} :: \lambda r . \lambda x . \lambda y .  \mathbf{not}(r(x)(y))\]
+
+- What are the types of *not'* and *not''*?
+- Is there a way of expressing all three functions as a single-operation? If not, why not?
+  
+** Bonus: recursion
+
+Remember the expression \(\omega\):
+
+\[(\lambda x . x x) (\lambda x . x x)\]
+
+- Try to give it a concrete type.
+- This problem is related to the lack of Turing completeness of the SLTC.
+- On the other hand, because the SLTC is relatively constrained it has some extremely nice logical properties:
+  * The SLTC is a sound and complete logic.
+  * /Type-checking/ (checking whether an expression is well-typed), and /type inference/ are *decidable*.
+    
+** Next time
+
+- Next time we'll learn much more about Haskell's type system.
+- Haskell's type system is more expressive than the SLTC - we can do everything we can in the SLTC and more.
+- We'll learn about /polymorphic functions/ corresponding /polymorphic datatypes/; a first step in understanding the kinds of powerful abstractions that Haskell provides to reason about computation. 
+
 ** 
    :PROPERTIES:
    :BEAMER_opt: label=findings,standout
    :END:
  
    \(\mathscr{Fin}\)
-
-
+   
 ** References
 
 #+print_bibliography:
