@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-13 11:53]" 
+Last updated: "[2023-04-13 12:17]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -37,7 +37,7 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 |----------+--------------------------------|
 | April 4  | [[*The lambda calculus][The lambda calculus]]    |
 | April 11 | [[Hello Haskell!][Hello Haskell!]] |
-| April 18 | Datatypes|
+| April 18 | [[Types and strings]] |
 | April 25 | Types and typeclasses |
 | May 2    | Formal syntax for fragments |
 | May 9    | Formal semantics for fragments (remote) |
@@ -65,6 +65,10 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
   * You can also browse the content [[./hello-haskell.html][here]].
 - *Homework*: Read chapters 2 of /Haskell from first principles/ [cite:@AllenMoronuki2016] and do the exercises at the end of chapter 2.
  
+** Types and strings
+
+- Preliminary slides can be downloaded [[./types-and-strings.pdf][here]].
+  * You can also browse the content [[./types-and-strings.html][here]].
 
 * References
   
