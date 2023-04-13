@@ -9,7 +9,7 @@
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
 #+BEAMER_FONT_THEME: professionalfonts
 #+LATEX_COMPILER: xelatex
-#+OPTIONS: toc:nil H:2
+#+OPTIONS: toc:nil
 
 * The plan
 
