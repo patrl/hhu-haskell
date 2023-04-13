@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-04-13 Thu 11:51 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Types and strings</title>
+<meta name="author" content="Patrick D. Elliott" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Types and strings</h1>
+
+<div id="outline-container-orgdaa4e2e" class="outline-2">
+<h2 id="orgdaa4e2e"><span class="section-number-2">1.</span> Types and strings</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgf7246c2" class="outline-3">
+<h3 id="orgf7246c2"><span class="section-number-3">1.1.</span> Types in formal semantics</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Types in Haskell are a way of <i>categorizing values</i>; they provide a syntactic restriction on how complex expressions are built.
+</p>
+
+<p>
+You might be familiar with types if you've ever taken a semantics course before.
+</p>
+
+<ul class="org-ul">
+<li><i>is happy</i>: \(\langle e,t \rangle\)</li>
+<li><i>Henning</i>: \(e\)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org66ff5a3" class="outline-3">
+<h3 id="org66ff5a3"><span class="section-number-3">1.2.</span> Types in Haskell</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Haskell has a more complex and powerful type-system than the one you might be used to from formal semantics. 
+<ul class="org-ul">
+<li>Formal semantics typically uses the <i>simply-typed lambda calculus</i> as a basis.</li>
+<li>Haskell is based on System F, i.e., the <i>polymorphic lambda calculus</i>, which allows for universal quantification over types.</li>
+<li>Various <i>language extensions</i> exist to make Haskell's type system even more powerful (dependent types, linear types, etc).</li>
+<li>In this course, we won't go much beyond simple types and some basic polymorphism.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4807332" class="outline-3">
+<h3 id="org4807332"><span class="section-number-3">1.3.</span> Getting information about types</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+You can find out the type of any haskell expression quite easily using the <code>:type</code> command in GHCi:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</span>t <span style="color: #a6e3a1;">"hello haskell!"</span>
+<span style="color: #a6e3a1;">"hello haskell!"</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">String</span>
+ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</span>t <span style="color: #a6e3a1;">'a'</span>
+<span style="color: #a6e3a1;">'a'</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Char</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Note that single characters are enclosed in single quotes.</li>
+<li>The double colon <code>::</code> is interpreted as <i>has the type</i>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb56cc4b" class="outline-3">
+<h3 id="orgb56cc4b"><span class="section-number-3">1.4.</span> Type annotations</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+We explicitly annotate expressons with their type using <code>::</code>. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</span>t (<span style="color: #a6e3a1;">"hello haskell!"</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">String</span>)
+<span style="color: #a6e3a1;">"hello haskell!"</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">String</span>
+</pre>
+</div>
+
+<p>
+If we annotate an expression with the wrong type, we'll get an error:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</span>t (<span style="color: #a6e3a1;">"hello haskell!"</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Char</span>)
+<span style="color: #89dceb;">&lt;</span>interactive<span style="color: #89dceb;">&gt;:</span>1<span style="color: #cba6f7;">:</span>2<span style="color: #cba6f7;">:</span> error<span style="color: #cba6f7;">:</span>
+    <span style="color: #89dceb;">&#8226;</span> <span style="color: #cba6f7;">Couldn't</span> match <span style="color: #cba6f7;">type</span> &#8216;[<span style="color: #b4befe;">Char</span>]&#8217; with &#8216;<span style="color: #b4befe;">Char</span>&#8217;
+      <span style="color: #cba6f7;">Expected:</span> <span style="color: #cba6f7;">Char</span>
+        <span style="color: #cba6f7;">Actual:</span> <span style="color: #cba6f7;">String</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org317ef59" class="outline-3">
+<h3 id="org317ef59"><span class="section-number-3">1.5.</span> String types</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+<code>String</code> is actually a name for a <i>complex type</i>, <code>[Char]</code>.
+</p>
+
+<p>
+That is to say, strings in haskell are actually just <i>lists of characters</i>.
+</p>
+
+<p>
+In general, for any type <code>a</code>, the type <code>[a]</code> is the type of a list of things of type <code>a</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbac573a" class="outline-3">
+<h3 id="orgbac573a"><span class="section-number-3">1.6.</span> Printing strings</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+We can print strings to the standard output in GHCi using the <code>putStrLn</code> or <code>putStr</code> functions.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> putStrLn <span style="color: #a6e3a1;">"hello haskell!"</span>
+<span style="color: #89b4fa;">hello</span> haskell<span style="color: #89dceb;">!</span>
+</pre>
+</div>
+
+<p>
+Examine the type of <code>putStrLn</code>. You'll notice something quite interesting.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</span>t putStrLn
+<span style="color: #89b4fa;">putStrLn</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">String</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">IO</span> <span style="color: #cba6f7;">()</span>
+</pre>
+</div>
+
+<p>
+In Haskell, we use arrow notation for function types (we'll come back to this later). <code>IO ()</code> is a special type to indicate that the program has some effect beyond evaluation of functions and arguments.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7dc0eb0" class="outline-3">
+<h3 id="org7dc0eb0"><span class="section-number-3">1.7.</span> Printing strings from a source file</h3>
+<div class="outline-text-3" id="text-1-7">
+<div class="org-src-container">
+<pre class="src src-haskell">  <span style="color: #585b70;">-- </span><span style="color: #585b70;">print1.hs</span>
+
+<span style="color: #cba6f7;">module</span> <span style="color: #cba6f7;">Print1</span> <span style="color: #cba6f7;">where</span>
+
+<span style="color: #89b4fa;">main</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">IO</span> <span style="color: #cba6f7;">()</span>
+<span style="color: #89b4fa;">main</span> <span style="color: #89dceb;">=</span> putStrLn <span style="color: #a6e3a1;">"hello world!"</span>
+</pre>
+</div>
+
+<p>
+If we load <code>print1.hs</code> from GHCi and execute <code>main</code>, <i>hello world!</i> will be printed to the standard output.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org04cec6d" class="outline-3">
+<h3 id="org04cec6d"><span class="section-number-3">1.8.</span> The <code>main</code> function</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+In haskell <code>main</code> is the default action when building an executable, or running it in GHCi, and it must always be of type <code>IO ()</code>.
+</p>
+
+<p>
+Input/output is much more complicated in Haskell than in most other programming languages, since it involves exploiting Haskell's type system to reason about <i>side effects</i>. This will be a topic for later in the semester.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2565e47" class="outline-3">
+<h3 id="org2565e47"><span class="section-number-3">1.9.</span> Concatenating strings</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+There are two functions for concatenating strings in the haskell prelude:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">(<span style="color: #89b4fa;">++</span>) <span style="color: #89dceb;">::</span> [a] <span style="color: #89dceb;">-&gt;</span> [a] <span style="color: #89dceb;">-&gt;</span> [a]
+<span style="color: #89b4fa;">concat</span> <span style="color: #89dceb;">::</span> [[a]] <span style="color: #89dceb;">-&gt;</span> [a]
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><code>++</code> is an infix operator, whereas ~concat is just an ordinary function.</li>
+<li>Note that <code>a</code> in the type signature is a <i>type variable</i>. Free variables in type signatures are implicitly universally quantified in Haskell.</li>
+<li>This means that both <code>++</code> and <code>concat</code> are <i>polymorphic</i> functions; they can be used to combine lists more generally.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf7989f7" class="outline-3">
+<h3 id="orgf7989f7"><span class="section-number-3">1.10.</span> Types primer i</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+In formal semantics, functional types are often written using angled-brackets (e.g., \(\langle e,t \rangle\)), following the convention used by (Heim, Irene and Kratzer, Angelika, 1998).
+</p>
+
+<p>
+Haskell uses arrow notation, which is more commonly found in the computer science/programming language literature, although some semantics texts use arrow notation (Carpenter, Bob, 1998).
+</p>
+
+<p>
+Arrow notation in Haskell is <i>right associative</i>:
+</p>
+
+<ul class="org-ul">
+<li><code>a -&gt; b -&gt; c</code> \(\iff \) <code>a -&gt; (b -&gt; c)</code></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6feda46" class="outline-3">
+<h3 id="org6feda46"><span class="section-number-3">1.11.</span> Types primer ii</h3>
+<div class="outline-text-3" id="text-1-11">
+<p>
+Let's look again at the type for list concatenation:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">(<span style="color: #89b4fa;">++</span>) <span style="color: #89dceb;">::</span> [a] <span style="color: #89dceb;">-&gt;</span> [a] <span style="color: #89dceb;">-&gt;</span> [a]
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><code>(-&gt;)</code> is a type <i>constructor</i>. It takes two types <code>a</code>, <code>b</code> and returns the type of a function from \(a\)s to \(b\)s.</li>
+<li>One important feature of haskell is the possibility of defining arbitrary constructors; <code>([.])</code> takes a type <code>a</code> and returns the type of a list of \(a\)s.</li>
+<li>Remember, free type variables are implicitly universally quanitified, which means that list concatenation is defined for something of type <code>[a]</code>, where <code>a</code> can be <i>any type</i>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd248fc4" class="outline-3">
+<h3 id="orgd248fc4"><span class="section-number-3">1.12.</span> Strings as lists of chars</h3>
+<div class="outline-text-3" id="text-1-12">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #a6e3a1;">"hello haskell!"</span>
+[<span style="color: #a6e3a1;">'h'</span>,<span style="color: #a6e3a1;">'e'</span>,<span style="color: #a6e3a1;">'l'</span>,<span style="color: #a6e3a1;">'l'</span>,<span style="color: #a6e3a1;">'o'</span>,<span style="color: #a6e3a1;">' '</span>,<span style="color: #a6e3a1;">'h'</span>,<span style="color: #a6e3a1;">'a'</span>,<span style="color: #a6e3a1;">'s'</span>,<span style="color: #a6e3a1;">'k'</span>,<span style="color: #a6e3a1;">'e'</span>,<span style="color: #a6e3a1;">'l'</span>,<span style="color: #a6e3a1;">'l'</span>,<span style="color: #a6e3a1;">'!'</span>]
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Strings surrounded by double quotes are really just <i>syntactic sugar</i> for lists of characters.</li>
+<li>Syntactic sugar is just a notational convention built into the language that makes our lives as programmers easier.</li>
+<li>Lists are actually also syntactic sugar! We'll learn what lists really are in a bit.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org70a80a8" class="outline-3">
+<h3 id="org70a80a8"><span class="section-number-3">1.13.</span> Polymorphism</h3>
+<div class="outline-text-3" id="text-1-13">
+<p>
+What do you think the following evaluates to?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">[1,2,3] <span style="color: #89dceb;">++</span> [4,5,6]
+</pre>
+</div>
+
+<p>
+What happens if we try to evaluate the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #a6e3a1;">"hello"</span> <span style="color: #89dceb;">++</span> [4,5,6]
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org548dbf8" class="outline-3">
+<h3 id="org548dbf8"><span class="section-number-3">1.14.</span> More list manipulation</h3>
+<div class="outline-text-3" id="text-1-14">
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> head <span style="color: #a6e3a1;">"Henning"</span>
+<span style="color: #a6e3a1;">'H'</span>
+ghci<span style="color: #89b4fa;">&gt;</span> tail <span style="color: #a6e3a1;">"Henning"</span>
+<span style="color: #a6e3a1;">"enning"</span>
+ghci<span style="color: #89b4fa;">&gt;</span> take 0 <span style="color: #a6e3a1;">"Henning"</span>
+<span style="color: #a6e3a1;">""</span>
+ghci<span style="color: #89b4fa;">&gt;</span> take 3 <span style="color: #a6e3a1;">"Henning"</span>
+<span style="color: #a6e3a1;">"Hen"</span>
+ghci<span style="color: #89b4fa;">&gt;</span> drop 3 <span style="color: #a6e3a1;">"Henning"</span>
+<span style="color: #a6e3a1;">"ning"</span>
+ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #a6e3a1;">"Henning"</span> <span style="color: #89dceb;">!!</span> 2
+<span style="color: #a6e3a1;">'n'</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org66ccf82" class="outline-3">
+<h3 id="org66ccf82"><span class="section-number-3">1.15.</span> Totality and safety</h3>
+<div class="outline-text-3" id="text-1-15">
+<p>
+What happens when you run the following in GHCi:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #a6e3a1;">"yo"</span> <span style="color: #89dceb;">!!</span> 2
+</pre>
+</div>
+
+<p>
+Let's examine the type of <code>!!</code>; as expected, its a function from a list of \(a\)s, to an integer, to an \(a\).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">(<span style="color: #89b4fa;">!!</span>) <span style="color: #89dceb;">::</span> [a] <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Int</span> <span style="color: #89dceb;">-&gt;</span> a
+</pre>
+</div>
+
+<p>
+Note however, that this isn't a <i>total</i> function; there are some lists and integers for which this function will be undefined.
+</p>
+
+<p>
+Partial functions in haskell are considered <i>unsafe</i>, because the type system doesn't prevent us from providing an illicit value as an argument to the function.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc43fa8b" class="outline-3">
+<h3 id="orgc43fa8b"><span class="section-number-3">1.16.</span> Building lists with <code>cons</code></h3>
+<div class="outline-text-3" id="text-1-16">
+<p>
+The final list manipulation function we'll look at is an important one: <code>cons</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #a6e3a1;">'h'</span> <span style="color: #cba6f7;">:</span> <span style="color: #cba6f7;">[]</span>
+[h]
+ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #a6e3a1;">'h'</span> <span style="color: #cba6f7;">:</span> <span style="color: #a6e3a1;">"enning"</span>
+<span style="color: #a6e3a1;">"henning"</span>
+</pre>
+</div>
+
+<p>
+In haskell, lists are built up by successive application of <code>cons</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #a6e3a1;">'h'</span> <span style="color: #cba6f7;">:</span> (<span style="color: #a6e3a1;">'e'</span> <span style="color: #cba6f7;">:</span> (<span style="color: #a6e3a1;">'n'</span> <span style="color: #cba6f7;">:</span> (<span style="color: #a6e3a1;">'n'</span> <span style="color: #cba6f7;">:</span> (<span style="color: #a6e3a1;">'i'</span> <span style="color: #cba6f7;">:</span> (<span style="color: #a6e3a1;">'n'</span> <span style="color: #cba6f7;">:</span> (<span style="color: #a6e3a1;">'g'</span> <span style="color: #cba6f7;">:</span> <span style="color: #cba6f7;">[]</span>))))))
+</pre>
+</div>
+
+<p>
+Since <code>:</code> is right associative we can drop the parentheses.
+</p>
+
+<p>
+Lists in haskell are therefore <i>singly-linked lists of characters</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd2804d2" class="outline-3">
+<h3 id="orgd2804d2"><span class="section-number-3">1.17.</span> Singly-linked lists</h3>
+<div class="outline-text-3" id="text-1-17">
+</div>
+</div>
+
+<div id="outline-container-orgdd2c450" class="outline-3">
+<h3 id="orgdd2c450"><span class="section-number-3">1.18.</span> An aside on performance</h3>
+<div class="outline-text-3" id="text-1-18">
+<ul class="org-ul">
+<li>For most industrial applications, singly-linked lists of chars would be a terrible choice.</li>
+<li>On the other hand, this means that strings "come for free" on the basis of chars and extremely general list manipulation functions.</li>
+<li>For anything we do in this class, performance won't be an issue. For serious work with strings, the standard is the Haskell <code>text</code> library.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0a3b26a" class="outline-2">
+<h2 id="org0a3b26a"><span class="section-number-2">2.</span> Prolegomenon to types</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgf91d0ff" class="outline-3">
+<h3 id="orgf91d0ff"><span class="section-number-3">2.1.</span> The simply-typed lambda calculus</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>In preparation for next week's class with type.</li>
+<li>Types are syntactic categories used to restrict what counts as a valid expression.</li>
+<li>Basic ingredients:
+<ul class="org-ul">
+<li>A set of primitive types.</li>
+<li>A recursive rule for constructing complex (i.e., functional) types.</li>
+<li>Rules for computing the type of a complex expression from the types of its parts.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd082d37" class="outline-3">
+<h3 id="orgd082d37"><span class="section-number-3">2.2.</span> Primitive types</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>Let's keep things simple, and start with just two primitive types:</li>
+</ul>
+
+<p>
+\[\mathbf{Typ} := \{\mathtt{Int},\mathtt{Bool}\}\]
+</p>
+
+<ul class="org-ul">
+<li>We'll assume that integers are possible values and have the type <code>Int</code>:</li>
+</ul>
+
+<p>
+\[73 :: \mathtt{Int}\]
+</p>
+
+<ul class="org-ul">
+<li>We'll also assume two primitive values with the type <code>Bool</code>:</li>
+</ul>
+
+<p>
+\[\mathbf{true} :: \mathtt{Bool}, \mathbf{false} :: \mathtt{Bool}\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb659de2" class="outline-3">
+<h3 id="orgb659de2"><span class="section-number-3">2.3.</span> Functional types</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+We'll now state a recursive rule for complex (functional) types, using the Haskell convention for types.
+</p>
+
+<ul class="org-ul">
+<li>If \(\mathtt{a} \in \mathbf{Typ}\), then \(\mathtt{a}\) is a type.</li>
+<li>If \(\mathtt{a}\) is a type, and \(\mathtt{b}\) is a type, then \(\mathtt{a \to  b}\) is a type.</li>
+<li>Nothing else is a type.</li>
+</ul>
+
+<p>
+This means that we have many complex types like the following:
+</p>
+
+<ul class="org-ul">
+<li>\(\mathtt{(Bool \to Bool) \to Int}\)</li>
+<li>\(\mathtt{Int \to Int}\)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org97f323a" class="outline-3">
+<h3 id="org97f323a"><span class="section-number-3">2.4.</span> Functions and their types</h3>
+<div class="outline-text-3" id="text-2-4">
+<ul class="org-ul">
+<li><p>
+We can assign some useful operations their types:
+</p>
+
+<p>
+\[(+) :: \mathtt{Int \to Int \to Int}\]
+\[(-) :: \mathtt{Int \to Int \to Int}\]
+\[\mathbf{factorial} :: \mathtt{Int \to Int}\]
+\[\mathbf{odd} :: \mathtt{Int \to Bool}\]
+\[\mathbf{even} :: \mathtt{Int \to Bool}\]
+\[\mathbf{and} :: \mathtt{Bool \to Bool \to Bool}\]
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0bb6acf" class="outline-3">
+<h3 id="org0bb6acf"><span class="section-number-3">2.5.</span> Types of complex expressions</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+<b>Functional applications</b>: Let \(\beta  :: \mathtt{a \to b}\), \(\alpha :: \mathtt{a}\) be an expression of the SLTC. \(\beta(\alpha)\) is an expression of type \(\mathtt{b}\).
+</p>
+
+<p>
+<b>Abstractions:</b> Let \(\beta :: \mathtt{b}\) be an expression of the SLTC, and \(v\) a variable of type \(\mathtt{a}\). \(\lambda v . \beta \) is an expression of type \(\mathtt{a \to b}\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org84adf85" class="outline-3">
+<h3 id="org84adf85"><span class="section-number-3">2.6.</span> Exercise</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+Can you infer the types of the following expressions? Go step by step.
+</p>
+
+<p>
+\[\mathbf{and}(\mathbf{odd}(4))(t)\]
+</p>
+
+<p>
+\[\lambda x . \mathbf{odd}(\mathbf{factorial}(x))\]
+</p>
+
+<p>
+\[\lambda f . f(\lambda x . (+)(x)(2))\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcec83fc" class="outline-3">
+<h3 id="orgcec83fc"><span class="section-number-3">2.7.</span> Type inference</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+Often, you can <i>infer</i> the type of an expression without specifying the type of all of its sub-parts.
+</p>
+
+<p>
+When you try to compile a haskell source file, or evaluate an expression in GHCi, the compiler will attempt to check that it is well-typed, by inferring the types of any expressions that don't have an explicit type provided.
+</p>
+
+<p>
+Since haskell's type system is more expressive than we have here, the type-inference algorithm is quite complicated (the compiler is based on an algorithm called <i>Hindley-Milner</i>).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org42d2628" class="outline-3">
+<h3 id="org42d2628"><span class="section-number-3">2.8.</span> Restrictions of a first-order type system</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+In a first order type-system, we can only state typed identity functions. What is the type of <i>the</i> identity function?
+</p>
+
+<p>
+\[\lambda x. x :: ?\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd35e5cb" class="outline-3">
+<h3 id="orgd35e5cb"><span class="section-number-3">2.9.</span> Restrictions of a first-order type system cont.</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+Consider the following functions:
+</p>
+
+<p>
+\[\mathbf{not} :: \mathtt{Bool \to Bool}\]
+\[\mathbf{not'} :: \lambda f . \lambda x . \mathbf{not}(f(x))\]
+\[\mathbf{not''} :: \lambda r . \lambda x . \lambda y .  \mathbf{not}(r(x)(y))\]
+</p>
+
+<ul class="org-ul">
+<li>What are the types of <b>not'</b> and <b>not''</b>?</li>
+<li>Is there a way of expressing all three functions as a single-operation? If not, why not?</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6819080" class="outline-3">
+<h3 id="org6819080"><span class="section-number-3">2.10.</span> Bonus: recursion</h3>
+<div class="outline-text-3" id="text-2-10">
+<p>
+Remember the expression \(\omega\):
+</p>
+
+<p>
+\[(\lambda x . x x) (\lambda x . x x)\]
+</p>
+
+<ul class="org-ul">
+<li>Try to give it a concrete type.</li>
+<li>This problem is related to the lack of Turing completeness of the SLTC.</li>
+<li>On the other hand, because the SLTC is relatively constrained it has some extremely nice logical properties:
+<ul class="org-ul">
+<li>The SLTC is a sound and complete logic.</li>
+<li><i>Type-checking</i> (checking whether an expression is well-typed), and <i>type inference</i> are <b>decidable</b>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4ce4b04" class="outline-3">
+<h3 id="org4ce4b04"><span class="section-number-3">2.11.</span> Next time</h3>
+<div class="outline-text-3" id="text-2-11">
+<ul class="org-ul">
+<li>Next time we'll learn much more about Haskell's type system.</li>
+<li>Haskell's type system is more expressive than the SLTC - we can do everything we can in the SLTC and more.</li>
+<li>We'll learn about <i>polymorphic functions</i> corresponding <i>polymorphic datatypes</i>; a first step in understanding the kinds of powerful abstractions that Haskell provides to reason about computation.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5a7b299" class="outline-3">
+<h3 id="org5a7b299"><span class="section-number-3">2.12.</span> </h3>
+<div class="outline-text-3" id="text-2-12">
+<p>
+\(\mathscr{Fin}\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb5604cf" class="outline-3">
+<h3 id="orgb5604cf"><span class="section-number-3">2.13.</span> References</h3>
+<div class="outline-text-3" id="text-2-13">
+<p>
+Carpenter, Bob (1998). <i>Type-Logical Semantics</i>, {MIT Press}.</p>
+
+<p>
+Heim, Irene and Kratzer, Angelika (1998). <i>Semantics in Generative Grammar</i>, {Blackwell}.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Patrick D. Elliott</p>
+<p class="date">Created: 2023-04-13 Thu 11:51</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

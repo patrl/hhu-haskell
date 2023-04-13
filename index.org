@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-11 15:23]" 
+Last updated: "[2023-04-13 11:53]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -56,11 +56,13 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 ** The lambda calculus
 
 - The slides can be downloaded [[./lambda.pdf][here]].
+  * You can also browse the content [[./lambda.html][here]].
 - *Homework*: Read chapter 1 of /Haskell from first principles/ [cite:@AllenMoronuki2016] and do the chapter exercises.
 
 ** Hello Haskell!
 
-- The slides can be downloaded [[./hello-haskell.pdf][here]].
+- The (updated) slides can be downloaded [[./hello-haskell.pdf][here]].
+  * You can also browse the content [[./hello-haskell.html][here]].
 - *Homework*: Read chapters 2 of /Haskell from first principles/ [cite:@AllenMoronuki2016] and do the exercises at the end of chapter 2.
  
 

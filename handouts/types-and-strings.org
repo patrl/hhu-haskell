@@ -1,0 +1,382 @@
+#+title:  Types and strings
+#+author: Patrick D. Elliott
+#+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
+#+EXPORT_FILE_NAME: ../docs/types-and-strings.html
+#+BEAMER_THEME: metropolis
+#+BEAMER_COLOR_THEME: owl [snowy]
+#+BEAMER_HEADER: \input{beamerplate.tex}
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+EXPORT_FILE_NAME: ./docs/types-and-strings.html
+#+BEAMER_FONT_THEME: professionalfonts
+#+LATEX_COMPILER: xelatex
+#+OPTIONS: toc:nil H:2
+
+* Types and strings
+  
+** Types in formal semantics
+
+Types in Haskell are a way of /categorizing values/; they provide a syntactic restriction on how complex expressions are built.
+
+You might be familiar with types if you've ever taken a semantics course before.
+
+- /is happy/: \(\langle e,t \rangle\)
+- /Henning/: \(e\)
+  
+** Types in Haskell 
+
+- Haskell has a more complex and powerful type-system than the one you might be used to from formal semantics. 
+  * Formal semantics typically uses the /simply-typed lambda calculus/ as a basis.
+  * Haskell is based on System F, i.e., the /polymorphic lambda calculus/, which allows for universal quantification over types.
+  * Various /language extensions/ exist to make Haskell's type system even more powerful (dependent types, linear types, etc).
+  * In this course, we won't go much beyond simple types and some basic polymorphism.
+    
+** Getting information about types
+
+You can find out the type of any haskell expression quite easily using the ~:type~ command in GHCi:
+
+#+begin_src haskell
+  ghci> :t "hello haskell!"
+  "hello haskell!" :: String
+  ghci> :t 'a'
+  'a' :: Char
+#+end_src
+
+- Note that single characters are enclosed in single quotes.
+- The double colon ~::~ is interpreted as /has the type/.
+  
+** Type annotations
+
+We explicitly annotate expressons with their type using ~::~. 
+
+#+begin_src haskell
+  ghci> :t ("hello haskell!" :: String)
+  "hello haskell!" :: String
+#+end_src
+
+If we annotate an expression with the wrong type, we'll get an error:
+
+#+begin_src haskell
+ghci> :t ("hello haskell!" :: Char)
+<interactive>:1:2: error:
+    • Couldn't match type ‘[Char]’ with ‘Char’
+      Expected: Char
+        Actual: String
+#+end_src
+
+** String types
+
+~String~ is actually a name for a /complex type/, ~[Char]~.
+
+That is to say, strings in haskell are actually just /lists of characters/.
+
+In general, for any type ~a~, the type ~[a]~ is the type of a list of things of type ~a~.
+
+** Printing strings
+
+We can print strings to the standard output in GHCi using the ~putStrLn~ or ~putStr~ functions.
+
+#+begin_src haskell
+ghci> putStrLn "hello haskell!"
+hello haskell!
+#+end_src
+
+Examine the type of ~putStrLn~. You'll notice something quite interesting.
+
+#+begin_src haskell
+ghci> :t putStrLn
+putStrLn :: String -> IO ()
+#+end_src
+
+In Haskell, we use arrow notation for function types (we'll come back to this later). ~IO ()~ is a special type to indicate that the program has some effect beyond evaluation of functions and arguments.
+
+** Printing strings from a source file
+
+#+begin_src haskell
+    -- print1.hs
+
+  module Print1 where
+
+  main :: IO ()
+  main = putStrLn "hello world!"
+#+end_src
+
+If we load ~print1.hs~ from GHCi and execute ~main~, /hello world!/ will be printed to the standard output.
+
+** The ~main~ function
+
+In haskell ~main~ is the default action when building an executable, or running it in GHCi, and it must always be of type ~IO ()~.
+
+Input/output is much more complicated in Haskell than in most other programming languages, since it involves exploiting Haskell's type system to reason about /side effects/. This will be a topic for later in the semester.
+
+** Concatenating strings
+
+There are two functions for concatenating strings in the haskell prelude:
+
+#+begin_src haskell
+  (++) :: [a] -> [a] -> [a]
+  concat :: [[a]] -> [a]
+#+end_src
+
+- ~++~ is an infix operator, whereas ~concat is just an ordinary function.
+- Note that ~a~ in the type signature is a /type variable/. Free variables in type signatures are implicitly universally quantified in Haskell.
+- This means that both ~++~ and ~concat~ are /polymorphic/ functions; they can be used to combine lists more generally.
+  
+** Types primer i 
+
+In formal semantics, functional types are often written using angled-brackets (e.g., \(\langle e,t \rangle\)), following the convention used by [cite:@HeimKratzer1998].
+
+Haskell uses arrow notation, which is more commonly found in the computer science/programming language literature, although some semantics texts use arrow notation [cite:@Carpenter1998].
+
+Arrow notation in Haskell is /right associative/:
+
+- ~a -> b -> c~ \(\iff \) ~a -> (b -> c)~
+  
+** Types primer ii
+
+Let's look again at the type for list concatenation:
+
+#+begin_src haskell
+  (++) :: [a] -> [a] -> [a]
+#+end_src
+
+- ~(->)~ is a type /constructor/. It takes two types ~a~, ~b~ and returns the type of a function from \(a\)s to \(b\)s.
+- One important feature of haskell is the possibility of defining arbitrary constructors; ~([.])~ takes a type ~a~ and returns the type of a list of \(a\)s.
+- Remember, free type variables are implicitly universally quanitified, which means that list concatenation is defined for something of type ~[a]~, where ~a~ can be /any type/.
+
+** Strings as lists of chars  
+
+#+begin_src haskell
+  "hello haskell!"
+  ['h','e','l','l','o',' ','h','a','s','k','e','l','l','!']
+#+end_src
+
+- Strings surrounded by double quotes are really just /syntactic sugar/ for lists of characters.
+- Syntactic sugar is just a notational convention built into the language that makes our lives as programmers easier.
+- Lists are actually also syntactic sugar! We'll learn what lists really are in a bit.
+ 
+** Polymorphism
+
+What do you think the following evaluates to?
+
+#+begin_src haskell
+[1,2,3] ++ [4,5,6]
+#+end_src
+
+What happens if we try to evaluate the following:
+
+#+begin_src haskell
+"hello" ++ [4,5,6]
+#+end_src
+
+** More list manipulation
+
+#+begin_src haskell
+  ghci> head "Henning"
+  'H'
+  ghci> tail "Henning"
+  "enning"
+  ghci> take 0 "Henning"
+  ""
+  ghci> take 3 "Henning"
+  "Hen"
+  ghci> drop 3 "Henning"
+  "ning"
+  ghci> "Henning" !! 2
+  'n'
+#+end_src
+
+** Totality and safety
+
+What happens when you run the following in GHCi:
+
+#+begin_src haskell
+ghci> "yo" !! 2
+#+end_src
+
+Let's examine the type of ~!!~; as expected, its a function from a list of \(a\)s, to an integer, to an \(a\).
+
+#+begin_src haskell
+(!!) :: [a] -> Int -> a
+#+end_src
+
+Note however, that this isn't a /total/ function; there are some lists and integers for which this function will be undefined.
+
+Partial functions in haskell are considered /unsafe/, because the type system doesn't prevent us from providing an illicit value as an argument to the function.
+
+** Building lists with ~cons~
+
+The final list manipulation function we'll look at is an important one: ~cons~.
+
+#+begin_src haskell
+  ghci> 'h' : []
+  [h]
+  ghci> 'h' : "enning"
+  "henning"
+#+end_src
+
+In haskell, lists are built up by successive application of ~cons~:
+
+#+begin_src haskell
+  'h' : ('e' : ('n' : ('n' : ('i' : ('n' : ('g' : []))))))
+#+end_src
+
+Since ~:~ is right associative we can drop the parentheses.
+
+Lists in haskell are therefore /singly-linked lists of characters/.
+
+** Singly-linked lists
+
+#+begin_export latex
+\begin{center}
+\begin{forest}
+  \texttt
+  [{:}
+    [{j}]
+    [{:}
+      [{o}]
+      [{:}
+        [{s}]
+        [{:}
+          [{i}]
+          [{:}
+            [{e}]
+            [{[]}]
+            ]
+          ]
+        ]
+    ]
+    ]
+  \end{forest}
+  \end{center}
+#+end_export
+
+** An aside on performance
+
+- For most industrial applications, singly-linked lists of chars would be a terrible choice.
+- On the other hand, this means that strings "come for free" on the basis of chars and extremely general list manipulation functions. 
+- For anything we do in this class, performance won't be an issue. For serious work with strings, the standard is the Haskell ~text~ library.
+
+* Prolegomenon to types
+
+** The simply-typed lambda calculus
+
+- In preparation for next week's class with type.
+- Types are syntactic categories used to restrict what counts as a valid expression.
+- Basic ingredients:
+  * A set of primitive types.
+  * A recursive rule for constructing complex (i.e., functional) types.
+  * Rules for computing the type of a complex expression from the types of its parts.
+    
+** Primitive types
+
+- Let's keep things simple, and start with just two primitive types:
+
+\[\mathbf{Typ} := \{\mathtt{Int},\mathtt{Bool}\}\]
+
+- We'll assume that integers are possible values and have the type ~Int~:
+  
+\[73 :: \mathtt{Int}\]
+
+- We'll also assume two primitive values with the type ~Bool~:
+
+\[\mathbf{true} :: \mathtt{Bool}, \mathbf{false} :: \mathtt{Bool}\]
+
+** Functional types
+
+We'll now state a recursive rule for complex (functional) types, using the Haskell convention for types.
+
+- If \(\mathtt{a} \in \mathbf{Typ}\), then \(\mathtt{a}\) is a type. 
+- If \(\mathtt{a}\) is a type, and \(\mathtt{b}\) is a type, then \(\mathtt{a \to  b}\) is a type.
+- Nothing else is a type.
+
+This means that we have many complex types like the following:
+
+- \(\mathtt{(Bool \to Bool) \to Int}\)
+- \(\mathtt{Int \to Int}\)
+  
+** Functions and their types
+
+- We can assign some useful operations their types:
+
+  \[(+) :: \mathtt{Int \to Int \to Int}\]
+  \[(-) :: \mathtt{Int \to Int \to Int}\]
+  \[\mathbf{factorial} :: \mathtt{Int \to Int}\]
+  \[\mathbf{odd} :: \mathtt{Int \to Bool}\]
+  \[\mathbf{even} :: \mathtt{Int \to Bool}\]
+  \[\mathbf{and} :: \mathtt{Bool \to Bool \to Bool}\]
+
+** Types of complex expressions  
+
+*Functional applications*: Let \(\beta  :: \mathtt{a \to b}\), \(\alpha :: \mathtt{a}\) be an expression of the SLTC. \(\beta(\alpha)\) is an expression of type \(\mathtt{b}\).
+
+*Abstractions:* Let \(\beta :: \mathtt{b}\) be an expression of the SLTC, and \(v\) a variable of type \(\mathtt{a}\). \(\lambda v . \beta \) is an expression of type \(\mathtt{a \to b}\).
+
+** Exercise
+
+Can you infer the types of the following expressions? Go step by step.
+
+\[\mathbf{and}(\mathbf{odd}(4))(t)\]
+
+\[\lambda x . \mathbf{odd}(\mathbf{factorial}(x))\]
+
+\[\lambda f . f(\lambda x . (+)(x)(2))\]
+
+** Type inference
+
+Often, you can /infer/ the type of an expression without specifying the type of all of its sub-parts.
+
+When you try to compile a haskell source file, or evaluate an expression in GHCi, the compiler will attempt to check that it is well-typed, by inferring the types of any expressions that don't have an explicit type provided.
+
+Since haskell's type system is more expressive than we have here, the type-inference algorithm is quite complicated (the compiler is based on an algorithm called /Hindley-Milner/).
+
+** Restrictions of a first-order type system
+
+In a first order type-system, we can only state typed identity functions. What is the type of /the/ identity function?
+
+\[\lambda x. x :: ?\]
+
+** Restrictions of a first-order type system cont.
+
+Consider the following functions:
+
+\[\mathbf{not} :: \mathtt{Bool \to Bool}\]
+\[\mathbf{not'} :: \lambda f . \lambda x . \mathbf{not}(f(x))\]
+\[\mathbf{not''} :: \lambda r . \lambda x . \lambda y .  \mathbf{not}(r(x)(y))\]
+
+- What are the types of *not'* and *not''*?
+- Is there a way of expressing all three functions as a single-operation? If not, why not?
+  
+** Bonus: recursion
+
+Remember the expression \(\omega\):
+
+\[(\lambda x . x x) (\lambda x . x x)\]
+
+- Try to give it a concrete type.
+- This problem is related to the lack of Turing completeness of the SLTC.
+- On the other hand, because the SLTC is relatively constrained it has some extremely nice logical properties:
+  * The SLTC is a sound and complete logic.
+  * /Type-checking/ (checking whether an expression is well-typed), and /type inference/ are *decidable*.
+    
+** Next time
+
+- Next time we'll learn much more about Haskell's type system.
+- Haskell's type system is more expressive than the SLTC - we can do everything we can in the SLTC and more.
+- We'll learn about /polymorphic functions/ corresponding /polymorphic datatypes/; a first step in understanding the kinds of powerful abstractions that Haskell provides to reason about computation.
+  
+** 
+   :PROPERTIES:
+   :BEAMER_opt: label=findings,standout
+   :END:
+ 
+   \(\mathscr{Fin}\)
+   
+** References
+
+#+print_bibliography:
+
+# Local Variables:
+# org-latex-src-block-backend: engraved
+# End:
+
+

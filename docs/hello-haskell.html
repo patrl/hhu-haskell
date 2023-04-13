@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-04-13 Thu 11:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hello Haskell!</title>
+<meta name="author" content="Patrick D. Elliott" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Hello Haskell!</h1>
+
+<div id="outline-container-orgf15f7c8" class="outline-2">
+<h2 id="orgf15f7c8"><span class="section-number-2">1.</span> Preliminaries</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orgd4ea077" class="outline-3">
+<h3 id="orgd4ea077"><span class="section-number-3">1.1.</span> Homework</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Read chapter 2 of <i>Haskell programming from first principles</i>, covering basic Haskell syntax.</li>
+<li>To the end-of-chapter exercises.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb49627c" class="outline-3">
+<h3 id="orgb49627c"><span class="section-number-3">1.2.</span> Organizational</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Class on May 9th will take place remotely (I'll distribute a webex link via rocketchat closer to the time).</li>
+<li>Class on May 16th will be cancelled - I'm in America for a conference.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf0b1c79" class="outline-3">
+<h3 id="orgf0b1c79"><span class="section-number-3">1.3.</span> Lambda calculus summary</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>The lambda calculus is a <i>formal system</i> (i.e., a logic) for reasoning about <i>functions</i>.</li>
+<li>In the lambda calculus, computation is modelled as a form of simplification, using the following rules:
+<ul class="org-ul">
+<li>\(\beta \)-reduction.
+\((\lambda x . f(x))(y) \Rightarrow f(y)\)</li>
+<li>\(\alpha \)-conversion.
+\(\lambda x . x \Rightarrow \lambda y . y\)</li>
+<li>\(\eta\)-reduction.
+\(\lambda x . f(x) \Rightarrow f\)</li>
+</ul></li>
+<li>Haskell can be thought of as a kind of lambda calculi, where <i>running a program</i> amounts to reducing a complex expression until we reach normal form.</li>
+<li>Reduction doesn't always converge on a normal form; sometimes expressions diverge; this corresponds to <i>non-terminating computations</i> (imagine, for example, a program implementing a timer that runs indefinitely).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org167ff87" class="outline-3">
+<h3 id="org167ff87"><span class="section-number-3">1.4.</span> Chapter 1 exercises, p18 n7</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+\[(\lambda x y z . x z(yz))(\lambda x . z)(\lambda x . a)\]
+</p>
+
+<ol class="org-ol">
+<li>Curry arguments: \(( \alert{\lambda x . \lambda y . \lambda z} . xz(yz) )(\lambda x . z)(\lambda x . a)\)</li>
+<li>\(\alpha \)-conversion: \((\lambda x . \lambda y . \alert{\lambda z_1} . x\alert{z_1}(yz_1))(\lambda x . z)(\lambda x . a)\)</li>
+<li>\(\beta \)-reduce: \((\lambda y . \lambda z_1 . (\alert{\lambda x.z})z_1(yz_1))(\lambda x . a )\)</li>
+<li>\(\beta \)-reduce: \(\lambda z_1 . (\lambda x . z)z_1(\alert{(\lambda x . a)}z_1)\)</li>
+<li>\(\beta \)-reduce:  \(\lambda z_1 . (\lambda x . z)z_1 \alert{a}\)</li>
+<li>\(\beta \)-reduce:  \(\lambda z_1 . \alert{z} a\)</li>
+
+<li>Normal form!</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org765abb0" class="outline-2">
+<h2 id="org765abb0"><span class="section-number-2">2.</span> Getting started with Haskell</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org73bf4aa" class="outline-3">
+<h3 id="org73bf4aa"><span class="section-number-3">2.1.</span> Expressions and declarations</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>Everything you write in Haskell is either an <i>expression</i> or a <i>declaration</i>.
+<ul class="org-ul">
+<li>Expressions can be values, functions, functions applied to values, etc.</li>
+<li>Declarations are bindings that allow us to name complex expressions.</li>
+</ul></li>
+</ul>
+
+<p>
+Here are some examples of expressions in Haskell:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">1
+1 <span style="color: #89dceb;">+</span> 1
+<span style="color: #a6e3a1;">"Icarus"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4cec37d" class="outline-3">
+<h3 id="org4cec37d"><span class="section-number-3">2.2.</span> The REPL</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>The GHCi REPL stands for the <i>Glasgow Haskell Compiler interactive Read-Eval-Print-Loop</i>.</li>
+<li>It allows us to evaluation Haskell expressions directly without the need to save the program in a source file.</li>
+<li>There are a few different ways to get a GHCi instance:
+<ul class="org-ul">
+<li>In the browser: <a href="https://tryhaskell.org/">https://tryhaskell.org/</a></li>
+<li>By installing GHC and running <code>ghci</code> in the terminal.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org28a3785" class="outline-3">
+<h3 id="org28a3785"><span class="section-number-3">2.3.</span> REPL cont.</h3>
+<div class="outline-text-3" id="text-2-3">
+<ul class="org-ul">
+<li>When we type an expression into the REPL it automatically evaluates it for us.</li>
+<li>The following expressions are already in normal form, so they simply evaluate to themselves.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> 1
+1
+ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #a6e3a1;">"Icarus"</span>
+<span style="color: #a6e3a1;">"Icarus"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf55092c" class="outline-3">
+<h3 id="orgf55092c"><span class="section-number-3">2.4.</span> A complication</h3>
+<div class="outline-text-3" id="text-2-4">
+<ul class="org-ul">
+<li>In reality, it's a bit more complex than that.</li>
+<li>An expression like <code>1</code> evaluates to an <i>integer</i>, but technically speaking integers aren't the kind of things that can be printed to an output, rather their <i>string representations</i>.</li>
+<li>Under the hood, GHCi exploits Haskell's type system to determine whether an expression is <i>showable</i>; what we see is given by the function associated with the showable type class.
+<ul class="org-ul">
+<li>We'll learn more about what this means later in the semester.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org983f262" class="outline-3">
+<h3 id="org983f262"><span class="section-number-3">2.5.</span> Evaluating arithmetic expressions</h3>
+<div class="outline-text-3" id="text-2-5">
+<ul class="org-ul">
+<li>GHCi can be used as a basic calculator by inputting arithmetic expressions.</li>
+<li>Complex expressions are evaluated until we reach normal form:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> ((1 <span style="color: #89dceb;">+</span> 2) <span style="color: #89dceb;">*</span> 3) <span style="color: #89dceb;">+</span> 100
+109
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Note that GHCi doesn't show us any of the intermediate steps.</li>
+<li>N.b. expressions that can be reduced are called <b>redexes</b> (i.e., <i>reducible expressions</i>).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org65df0bb" class="outline-3">
+<h3 id="org65df0bb"><span class="section-number-3">2.6.</span> Functions</h3>
+<div class="outline-text-3" id="text-2-6">
+<ul class="org-ul">
+<li><i>Functions</i> in haskell are particular kinds of expressions, which play a very important role.</li>
+<li>Just like mathematical functions, they map inputs to outputs, in a determinate fashion.</li>
+<li>A Haskell function always evaluates to the same result when given the same argument values.
+<ul class="org-ul">
+<li>This property is known as <i>referential transparency</i>, and makes Haskell programs extremely straightforward to reason about.</li>
+<li>For those of you with some experience programming in an imperative language like C, this is quite a departure! In imperative languages, evaluating a line of code might affect the state in a way which changes subsequent evaluations.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1e4839e" class="outline-3">
+<h3 id="org1e4839e"><span class="section-number-3">2.7.</span> Referential transparency</h3>
+<div class="outline-text-3" id="text-2-7">
+
+<div id="orgb8a3086" class="figure">
+<p><img src="./img/einstein.jpg" alt="einstein.jpg" />
+</p>
+</div>
+
+<blockquote>
+<p>
+"Insanity is doing the same thing over and over and expecting different results." (Albert Einstein)
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org10a224b" class="outline-3">
+<h3 id="org10a224b"><span class="section-number-3">2.8.</span> More on functions</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+There are a number of different ways of declaring functions in haskell. Here is the simplest way:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> triple x <span style="color: #89dceb;">=</span> x <span style="color: #89dceb;">*</span> 3
+ghci<span style="color: #89b4fa;">&gt;</span> triple 4
+12
+</pre>
+</div>
+
+<p>
+Function names always start with lower case letters in haskell. It's good practice to use descriptive function names, which conventionally use camel case, e.g.:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> multiplyByThree x <span style="color: #89dceb;">=</span> x <span style="color: #89dceb;">*</span> 3
+ghci<span style="color: #89b4fa;">&gt;</span> multiplyByThree 4
+12
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc5c0bd0" class="outline-3">
+<h3 id="orgc5c0bd0"><span class="section-number-3">2.9.</span> Abstractions</h3>
+<div class="outline-text-3" id="text-2-9">
+<ul class="org-ul">
+<li>Note that the equals sign <code>=</code> indicates that this is a <i>declaration</i> rather than an expression.</li>
+<li>Note that declarations are much like abstractions, in the sense that the variable(s) to the left of the <code>=</code> bind the corresponding variable(s) to the right.</li>
+<li>In fact it's also possible to define functions directly as abstractions, using the following syntax:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> triple <span style="color: #89dceb;">=</span> <span style="color: #89dceb;">\</span>x <span style="color: #89dceb;">-&gt;</span> x <span style="color: #89dceb;">*</span> 3
+ghci<span style="color: #89b4fa;">&gt;</span> triple 4
+12
+ghci<span style="color: #89b4fa;">&gt;</span> (<span style="color: #89dceb;">\</span>x <span style="color: #89dceb;">-&gt;</span> x <span style="color: #89dceb;">*</span> 3) 4
+12 
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga2e17a9" class="outline-3">
+<h3 id="orga2e17a9"><span class="section-number-3">2.10.</span> Call back</h3>
+<div class="outline-text-3" id="text-2-10">
+<ul class="org-ul">
+<li>Remember when I said that printing values in GHCi is more complicated than it first appears?</li>
+<li>Try evaluating an abstraction, e.g.,</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> (<span style="color: #89dceb;">\</span>x <span style="color: #89dceb;">-&gt;</span> x <span style="color: #89dceb;">*</span> 3)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org238b642" class="outline-3">
+<h3 id="org238b642"><span class="section-number-3">2.11.</span> Intermission</h3>
+<div class="outline-text-3" id="text-2-11">
+<p>
+How would we declare a function that has one parameter and words for al the following expressions?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">pi <span style="color: #89b4fa;">*</span> (5 <span style="color: #89dceb;">*</span> 5)
+pi <span style="color: #89b4fa;">*</span> (10 <span style="color: #89dceb;">*</span> 10)
+pi <span style="color: #89b4fa;">*</span> (2 <span style="color: #89dceb;">*</span> 2)
+pi <span style="color: #89b4fa;">*</span> (4 <span style="color: #89dceb;">*</span> 4)
+</pre>
+</div>
+
+<p>
+Note that <code>pi</code> is an expression that is given by the Haskell <code>Prelude</code>. The prelude is a module (i.e., a set of declarations) that is implicitly imported by default.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1d656c6" class="outline-3">
+<h3 id="org1d656c6"><span class="section-number-3">2.12.</span> Solution</h3>
+<div class="outline-text-3" id="text-2-12">
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> circleArea radius <span style="color: #89dceb;">=</span> pi <span style="color: #89dceb;">*</span> (radius <span style="color: #89dceb;">*</span> radius)
+ghci<span style="color: #89b4fa;">&gt;</span> circleArea 5
+78.53981633974483
+</pre>
+</div>
+
+<p>
+Note that as well descriptive function names, we can also use descriptive <i>variable</i> names; there's no reason (aside from brevity) that we have to use single letters as variable names.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3f791b0" class="outline-3">
+<h3 id="org3f791b0"><span class="section-number-3">2.13.</span> Prefix vs. infix</h3>
+<div class="outline-text-3" id="text-2-13">
+<p>
+As you've probably gathered, the syntax for <i>function application</i> in Haskell just involves whitespace, i.e.., <code>f x</code> means \(f(x)\).
+</p>
+
+<p>
+The arithmetic operators like <code>+</code> are <i>infix operators</i>; they can be used as ordinary functions by enclosing them in paretheses:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> 200 <span style="color: #89dceb;">+</span> 300
+500
+ghci<span style="color: #89b4fa;">&gt;</span> (<span style="color: #89dceb;">+</span>) 200 300
+500
+ghci<span style="color: #89b4fa;">&gt;</span> ((<span style="color: #89dceb;">+</span>) 200) 300
+500
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgceec3f8" class="outline-3">
+<h3 id="orgceec3f8"><span class="section-number-3">2.14.</span> Declarations in the REPL</h3>
+<div class="outline-text-3" id="text-2-14">
+<p>
+We can define functions and later use them with a single REPL session; the REPL has a limited form of state.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> y <span style="color: #89dceb;">=</span> 10
+ghci<span style="color: #89b4fa;">&gt;</span> x <span style="color: #89dceb;">=</span> 10 <span style="color: #89dceb;">*</span> 5 <span style="color: #89dceb;">+</span> y
+ghci<span style="color: #89b4fa;">&gt;</span> myResult <span style="color: #89dceb;">=</span> x <span style="color: #89dceb;">*</span> 5
+ghci<span style="color: #89b4fa;">&gt;</span> myResult
+300
+</pre>
+</div>
+
+<p>
+You can quit the REPL by typing <code>:q</code>; declarations won't persist between REPL sessions, so typing <code>myResult</code> in a new session will give you the following error:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">ghci&gt; myResult
+error: Variable not in scope: myResult
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org322e82d" class="outline-3">
+<h3 id="org322e82d"><span class="section-number-3">2.15.</span> Declarations in source files</h3>
+<div class="outline-text-3" id="text-2-15">
+<p>
+In order to get your declarations to persist, you need to write them into source files (called <i>modules</i>). Try saving the following as <code>learn.hs</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">module</span> <span style="color: #cba6f7;">Learn</span> <span style="color: #cba6f7;">where</span>
+
+<span style="color: #89b4fa;">y</span> <span style="color: #89dceb;">=</span> 10
+<span style="color: #89b4fa;">x</span> <span style="color: #89dceb;">=</span> 10 <span style="color: #89dceb;">*</span> 5 <span style="color: #89dceb;">+</span> y
+<span style="color: #89b4fa;">myResult</span> <span style="color: #89dceb;">=</span> x <span style="color: #89dceb;">*</span> 5
+</pre>
+</div>
+
+<p>
+You can now <i>load</i> the module in GHCi.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</span>l learn<span style="color: #89dceb;">.</span>hs
+<span style="color: #cba6f7;">Ok</span>, one <span style="color: #cba6f7;">module</span> loaded<span style="color: #89dceb;">.</span>
+ghci<span style="color: #89b4fa;">&gt;</span> myResult
+300
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3647830" class="outline-3">
+<h3 id="org3647830"><span class="section-number-3">2.16.</span> Tips for writing source files</h3>
+<div class="outline-text-3" id="text-2-16">
+<p>
+A module must always start with a module declaration <code>module MyModule where</code>; the module name should always start with a capital letter, unlike a function declaration.
+</p>
+
+<p>
+White space and line-breaks are <i>significant</i>; the following won't compile; the second line should be indented:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">x</span> <span style="color: #89dceb;">=</span> 10 <span style="color: #89dceb;">*</span>
+5 <span style="color: #89dceb;">+</span> y
+</pre>
+</div>
+
+<p>
+Comments are lines starting with a double dash.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #585b70;">-- </span><span style="color: #585b70;">a random declaration serving no apparent purpose:</span>
+<span style="color: #89b4fa;">x</span> <span style="color: #89dceb;">=</span> 10 <span style="color: #89dceb;">*</span> 5 <span style="color: #89dceb;">+</span> y
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9feafa4" class="outline-3">
+<h3 id="org9feafa4"><span class="section-number-3">2.17.</span> More tips</h3>
+<div class="outline-text-3" id="text-2-17">
+<p>
+Using a text editor with support for Haskell syntax highlighting will be a big help. Some options:
+</p>
+
+<ul class="org-ul">
+<li>VS Code.
+<ul class="org-ul">
+<li>Probably the most popular text editor right now, with excellent haskell support built in.</li>
+</ul></li>
+<li>Emacs (with <code>haskell-mode</code>).
+<ul class="org-ul">
+<li>This is what I use. If you're not already familiar with emacs, I definitely wouldn't recommend it.</li>
+</ul></li>
+<li>Notepad++
+<ul class="org-ul">
+<li>I don't really know anything about this, but apparently it's a good option if you're running Windows.</li>
+</ul></li>
+</ul>
+
+<p>
+You can also just use the online Haskell playground, which has syntax highlighting baked in.    
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb3af4ea" class="outline-3">
+<h3 id="orgb3af4ea"><span class="section-number-3">2.18.</span> Basic arithmetic</h3>
+<div class="outline-text-3" id="text-2-18">
+<p>
+Basic arithmetic can help us get a feel for how haskell expressions are evaluated, e.g., <code>1 + 2 * 9 - 10</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf907baa" class="outline-3">
+<h3 id="orgf907baa"><span class="section-number-3">2.19.</span> Associativity and precedence</h3>
+<div class="outline-text-3" id="text-2-19">
+<p>
+Arithmetic infix operators in haskell:
+</p>
+
+<ul class="org-ul">
+<li><code>+</code> : addition</li>
+<li><code>-</code>: subtraction</li>
+<li><code>*</code>: multiplication</li>
+<li><code>/</code>: fractional division</li>
+</ul>
+
+<p>
+You can get information about operator <i>associativity</i> and <i>precedence</i> using the <code>:info</code> command in GHCi.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</span>i (<span style="color: #89dceb;">+</span>)
+<span style="color: #cba6f7;">infixl</span> 6 <span style="color: #89dceb;">+</span>
+</pre>
+</div>
+
+<p>
+N.b. this will also give you information about the <i>type</i> of the expression. This won't be relevant yet, but will be important soon.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org96226ca" class="outline-3">
+<h3 id="org96226ca"><span class="section-number-3">2.20.</span> The <code>$</code> operator</h3>
+<div class="outline-text-3" id="text-2-20">
+<p>
+This <code>$</code> is an important infix operator that is often used to write terse haskell code without parentheses. Here is its definition:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">f <span style="color: #89b4fa;">$</span> a <span style="color: #89dceb;">=</span> f a
+</pre>
+</div>
+
+<p>
+This is an <code>infixr</code> operator with the lowest possible precedence:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">(2<span style="color: #89dceb;">^</span>) <span style="color: #89dceb;">$</span> 2 <span style="color: #89dceb;">+</span> 2
+(2<span style="color: #89dceb;">^</span>) (2 <span style="color: #89dceb;">+</span> 2)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org303057d" class="outline-3">
+<h3 id="org303057d"><span class="section-number-3">2.21.</span> <code>let</code> and <code>where</code></h3>
+<div class="outline-text-3" id="text-2-21">
+<ul class="org-ul">
+<li><code>let</code> is used to introduce an expression.</li>
+<li><code>where</code> is a <i>declaration</i> that is bound in its containing syntactic construct.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">printInc</span> n <span style="color: #89dceb;">=</span> print plusTwo
+  <span style="color: #cba6f7;">where</span> plusTwo <span style="color: #89dceb;">=</span> n <span style="color: #89dceb;">+</span> 2
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">printInc</span> n <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">let</span> plusTwo <span style="color: #89dceb;">=</span> n <span style="color: #89dceb;">+</span> 2
+               <span style="color: #cba6f7;">in</span> print plusTwo
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfe8249c" class="outline-3">
+<h3 id="orgfe8249c"><span class="section-number-3">2.22.</span> Intermission</h3>
+<div class="outline-text-3" id="text-2-22">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">z</span> <span style="color: #89dceb;">=</span> 7
+<span style="color: #89b4fa;">x</span> <span style="color: #89dceb;">=</span> y <span style="color: #89dceb;">^</span> 2
+<span style="color: #89b4fa;">waxOn</span> <span style="color: #89dceb;">=</span> x <span style="color: #89dceb;">*</span> 5
+<span style="color: #89b4fa;">y</span> <span style="color: #89dceb;">=</span> z <span style="color: #89dceb;">+</span> 8
+</pre>
+</div>
+
+<p>
+Write out what will happen when you run the following:
+</p>
+
+<ul class="org-ul">
+<li><code>10 + waxOn</code></li>
+<li><code>(+ 10) waxOn</code></li>
+<li><code>(-) 15 waxOn</code></li>
+<li><code>(-) waxOn 15</code></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6191c54" class="outline-3">
+<h3 id="org6191c54"><span class="section-number-3">2.23.</span> </h3>
+<div class="outline-text-3" id="text-2-23">
+<p>
+\(\mathscr{Fin}\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org045be7c" class="outline-3">
+<h3 id="org045be7c"><span class="section-number-3">2.24.</span> References</h3>
+<div class="outline-text-3" id="text-2-24">
+
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Patrick D. Elliott</p>
+<p class="date">Created: 2023-04-13 Thu 11:50</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

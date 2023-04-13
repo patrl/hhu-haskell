@@ -2,9 +2,14 @@
 #+subtitle: Prolegomenon to functional programming
 #+author: Patrick D. Elliott
 #+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
+#+EXPORT_FILE_NAME: ../docs/lambda.html
+#+BEAMER_THEME: metropolis
+#+BEAMER_COLOR_THEME: owl [snowy]
+#+BEAMER_HEADER: \input{beamerplate.tex}
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+BEAMER_FONT_THEME: professionalfonts
 #+LATEX_COMPILER: xelatex
-#+EXPORT_FILE_NAME: ../docs/lambda.pdf
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:nil H:2
 
 * The plan
 

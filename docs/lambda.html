@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-04-13 Thu 11:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The lambda calculus</title>
+<meta name="author" content="Patrick D. Elliott" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">The lambda calculus
+<br />
+<span class="subtitle">Prolegomenon to functional programming</span>
+</h1>
+
+<div id="outline-container-org1591325" class="outline-2">
+<h2 id="org1591325"><span class="section-number-2">1.</span> The plan</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li><b>Today:</b> theoretical preliminaries to programming in haskell - functions and the (simple, untyped) lambda calculus.</li>
+<li><b>Week 2:</b>
+<ul class="org-ul">
+<li>Setting up a haskell dev environment.</li>
+<li>Getting started with haskell - basic concepts and syntax.</li>
+</ul></li>
+<li><b>Week 3:</b> strings and lists.</li>
+<li><b>Week 4:</b> datatypes, typeclasses, etc.</li>
+<li>In subsequent weeks, once we have a grasp of functional programming basics, we'll start to tackle linguistics-specific topics, using (van Eijck, Jan and Unger, Christina, 2010).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3575781" class="outline-2">
+<h2 id="org3575781"><span class="section-number-2">2.</span> Why study the lambda calculus</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>The lambda calculus is a formal logic for reasoning about computation; the simple untyped lambda calculus is Turing complete, and can therefore be used to reason about <i>any</i> computation.</li>
+<li>Haskell is based on a more restrictive, but still extremely expressive variant of the lambda calculus called <b>System F</b> (i.e., the polymorphic lambda calculus).</li>
+<li>Moreover, the lambda calculus undergirds the functional programming paradigm more generally (see, e.g., one of the many variants of <i>lisp</i>).</li>
+<li>The lambda calculus is a common formal tool in theoretical linguistics; more specifically, it is a <i>lingua franca</i> in compositional semantics.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1479fb1" class="outline-2">
+<h2 id="org1479fb1"><span class="section-number-2">3.</span> Semantic computation as a program</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>If you've taken a formal semantics class before, the following might look familiar:</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org508b8f2" class="outline-2">
+<h2 id="org508b8f2"><span class="section-number-2">4.</span> Embedding a semantic fragment in haskell</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">Chomsky</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Reinhart</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Borer</span> <span style="color: #89dceb;">|</span> <span style="color: #89dceb;">...</span>
+
+<span style="color: #89b4fa;">_people</span> <span style="color: #89dceb;">::</span> [<span style="color: #b4befe;">E</span>]
+<span style="color: #89b4fa;">_people</span> <span style="color: #89dceb;">=</span> [<span style="color: #cba6f7;">Chomsky</span>,<span style="color: #cba6f7;">Reinhart</span>,<span style="color: #cba6f7;">Borer</span>,<span style="color: #89dceb;">...</span>]
+
+<span style="color: #89b4fa;">_reads</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>
+
+<span style="color: #89b4fa;">_everyone</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">E</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>) <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>
+<span style="color: #89b4fa;">_everyone</span> f <span style="color: #89dceb;">=</span> all f _people
+
+<span style="color: #585b70;">-- </span><span style="color: #585b70;">&gt;&gt;&gt; (_everyone (_reads Chomsky)) :: Bool</span>
+<span style="color: #585b70;">-- </span><span style="color: #585b70;">&gt;&gt;&gt; ((_reads Chomsky) _Borer) :: Bool</span>
+<span style="color: #585b70;">-- </span><span style="color: #585b70;">&gt;&gt;&gt; (everyone (\x -&gt; (_reads x Borer))) :: Bool</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcf997df" class="outline-2">
+<h2 id="orgcf997df"><span class="section-number-2">5.</span> Functions</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li>A function is a special kind of relation between <i>inputs</i> and <i>outputs</i>.</li>
+<li>For example, we might imaging a function \(f\) that defines the following relations:
+<ul class="org-ul">
+<li>\(f(1) = A\)</li>
+<li>\(f(2) = B\)</li>
+<li>\(f(3) = C\)</li>
+</ul></li>
+<li>The input set is \(\{1,2,3\}\)</li>
+<li>and the output set is \(\{A,B,C\}\).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc231160" class="outline-2">
+<h2 id="orgc231160"><span class="section-number-2">6.</span> Determinacy</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>Is \(f\) in the following a valid function?
+<ul class="org-ul">
+<li>\(f(1) = A\)</li>
+<li>\(f(1) = B\)</li>
+<li>\(f(2) = C\)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge5c02a6" class="outline-2">
+<h2 id="orge5c02a6"><span class="section-number-2">7.</span> Uniqueness</h2>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li>Is \(f\) in the following a valid function?
+<ul class="org-ul">
+<li>\(f(1) = A\)</li>
+<li>\(f(2) = A\)</li>
+<li>\(f(3) = B\)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd785ead" class="outline-2">
+<h2 id="orgd785ead"><span class="section-number-2">8.</span> Function terminology</h2>
+<div class="outline-text-2" id="text-8">
+<ul class="org-ul">
+<li>We call the set of values from which a function draws its inputs the <b>domain</b> of the function.</li>
+<li>We call the set of values from which a function draws its outputs the <b>codomain</b>.</li>
+<li>A function always maps <i>every</i> member of the domain to a member of the codomain, but not every member of the codomain is necessarily paired with an input. We call the subset of values in the codomain paired with inputs the <b>image</b> of the function.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org87dfc7c" class="outline-2">
+<h2 id="org87dfc7c"><span class="section-number-2">9.</span> Functions as relations</h2>
+<div class="outline-text-2" id="text-9">
+<ul class="org-ul">
+<li>Functions can be represented as <i>relations</i>, i.e., sets of ordered pairs.</li>
+<li>For example, the following is a valid function:
+<ul class="org-ul">
+<li>\(\{(1,A),(2,B),(3,C)\}\)</li>
+</ul></li>
+<li>A relation \(R\) is <i>functional</i> iff \(\forall (x,y),(x',y'), x = x' \rightarrow y = y')\).</li>
+<li>Which of the following relations are functional?
+<ul class="org-ul">
+<li>\(\{(\text{Chomsky},\text{SynStr}),(\text{Reinhart},\text{Int}),(\text{Chomsky},\text{Asp})\}\)</li>
+<li>\(\{(\text{Ross} ,\text{Chomsky}),(\text{Pesetsky} ,\text{Chomsky} ),(\text{Nevins} ,\text{Halle} )\}\)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org452eef7" class="outline-2">
+<h2 id="org452eef7"><span class="section-number-2">10.</span> Extension vs. intension</h2>
+<div class="outline-text-2" id="text-10">
+<ul class="org-ul">
+<li>The intuition behind functions is that they define <b>determinate</b> <i>procedures</i> for getting from an input to a fixed output.</li>
+<li>Sometimes we can simply list the input-output pairings defined by the function (this is called the function's <i>extension</i>).</li>
+<li>Most of the time this either isn't useful or it's impossible, rather we describe the procedure - this is called giving the function's <i>intension</i>. One famous function is the <i>successor function</i>.
+<ul class="org-ul">
+<li>\(f(x) = x + 1\)</li>
+</ul></li>
+<li>We could try giving the extension:
+<ul class="org-ul">
+<li>\(\{(0,1),(1,2),(2,3),(4,5),\ldots\}\)</li>
+</ul></li>
+<li>Given that the domain and codomain are infinite,  this is practically impossible.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6731266" class="outline-2">
+<h2 id="org6731266"><span class="section-number-2">11.</span> Lambda expressions</h2>
+<div class="outline-text-2" id="text-11">
+<ul class="org-ul">
+<li>The lambda calculus is used as a logic used to reason about functions, how they compose, and computation more generally.</li>
+<li>Valid <b>expressions</b> of the lambda calculus can be variables, abstraction, or combinations of both; variables have no intrinsic meaning, they're just names for possible inputs to functions.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org343f630" class="outline-2">
+<h2 id="org343f630"><span class="section-number-2">12.</span> Structure of an abstraction</h2>
+<div class="outline-text-2" id="text-12">
+<ul class="org-ul">
+<li><b>Abstractions</b> are made up of two parts: a <i>head</i> and a <i>body</i>.
+<ul class="org-ul">
+<li>\(\lambda x . x\)</li>
+</ul></li>
+<li>The head is the \(\lambda\) symbol followed by a variable name. Variables in the body matching the variable name are <i>bound</i>.</li>
+<li>The body is a valid expression of the lambda calculus which follows the dot.</li>
+<li>Abstractions in the lambda calculus are interpreted as functions; the head of the abstraction stands in for the input to the function, and the body of the abstraction tells us how we arrive at the output.</li>
+<li>Lambda abstractions allow us to describe what functions do without naming them; we'll sometimes call lambda abstractions <i>anonymous functions</i>.</li>
+<li><b>Question:</b> what kind of function is the abstraction above? What does it do?</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org70b6df2" class="outline-2">
+<h2 id="org70b6df2"><span class="section-number-2">13.</span> \(\alpha \)-conversion</h2>
+<div class="outline-text-2" id="text-13">
+<ul class="org-ul">
+<li>So, abstractions are used to express functions. The choice of variable name used in the head is arbitrary - this gives rise to an intuitive notion of sameness: <b>alpha equivalence</b>.</li>
+<li>The following expressions are all <i>alpha equivalent</i> (that is, they all express the same function):
+<ul class="org-ul">
+<li>\(\lambda x . x\)</li>
+<li>\(\lambda d . d\)</li>
+<li>\(\lambda z . z\)</li>
+</ul></li>
+<li>The procedure of substituting some expression for an \(\alpha \)-equivalent variant is known as <b>alpha conversion</b>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8a0349b" class="outline-2">
+<h2 id="org8a0349b"><span class="section-number-2">14.</span> \(\beta \)-reduction</h2>
+<div class="outline-text-2" id="text-14">
+<ul class="org-ul">
+<li>Beta reduction corresponds to applying a function to an argument, in the lambda calculus.</li>
+<li>A <i>functional application</i> is written as \(f(x)\) where \(f\) is the function, and \(x\) is the argument. In anticipation of haskell syntactic conventions, we'll often indicate function application with a space, i.e., \(f\,x\)</li>
+<li>Beta reduction involves deleting the head, and substituting all occurrences of the bound variable in the body with the function's argument.
+<ul class="org-ul">
+<li>\((\lambda x . x + 1)\,2\)</li>
+</ul></li>
+<li><b>Question:</b> What is the result of beta reduction?</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc5d8273" class="outline-2">
+<h2 id="orgc5d8273"><span class="section-number-2">15.</span> \(\eta\)-reduction</h2>
+<div class="outline-text-2" id="text-15">
+<ul class="org-ul">
+<li>A named function can always be expressed as an anonymous function by applying it to a variable \(x\), and then <i>abstracting</i> over that variable with a \(\lambda x\).</li>
+<li>This gives rise to a notion of <i>eta equivalence</i>. The following functions are eta equivalent:
+<ul class="org-ul">
+<li>\(f\)</li>
+<li>\(\lambda x . f(x)\)</li>
+</ul></li>
+<li>Simplifying some expression with some eta-equivalent variable is called <i>eta conversion</i>; the special case of simplification is called <i>eta reduction</i>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1f865b9" class="outline-2">
+<h2 id="org1f865b9"><span class="section-number-2">16.</span> More reductions</h2>
+<div class="outline-text-2" id="text-16">
+<ul class="org-ul">
+<li>Nothing stops us from applying a <i>function</i> to another <i>function</i>:
+<ul class="org-ul">
+<li>\((\lambda x . x)(\lambda y . y)\)</li>
+<li>\([x := (\lambda y . y)]\)</li>
+<li>\(\lambda y . y\)</li>
+</ul></li>
+<li>Note that \([x := \alpha]\) indicates that the variable \(x\) is substituted with the expression \(\alpha \) in the function body.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga244ae8" class="outline-2">
+<h2 id="orga244ae8"><span class="section-number-2">17.</span> Associativity</h2>
+<div class="outline-text-2" id="text-17">
+<ul class="org-ul">
+<li>Functional application is <i>left associative</i>:
+<ul class="org-ul">
+<li>\((\lambda x. x) (\lambda y . y) z := ((\lambda x . x) (\lambda y . y)) z\)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9a15fab" class="outline-2">
+<h2 id="org9a15fab"><span class="section-number-2">18.</span> Normal form</h2>
+<div class="outline-text-2" id="text-18">
+<ul class="org-ul">
+<li>The previous expression involved a functional application nested within a functional application:
+<ul class="org-ul">
+<li>\(((\lambda x . x) (\lambda y . y)) z\)</li>
+</ul></li>
+<li>We typically reduce from the inside out:
+<ul class="org-ul">
+<li>\([x := (\lambda y . y)]\)</li>
+<li>\((\lambda y . y) z\)</li>
+<li>\([y := z]\)</li>
+<li>\(z\)</li>
+</ul></li>
+<li>If no further reductions are possible, we say that the expression is in <b>normal form</b>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org36c7fe2" class="outline-2">
+<h2 id="org36c7fe2"><span class="section-number-2">19.</span> Free variables</h2>
+<div class="outline-text-2" id="text-19">
+<ul class="org-ul">
+<li>Sometimes, the body of an abstraction contains variables which aren't bound by the head - these variables are <i>free</i> (within the abstraction):
+<ul class="org-ul">
+<li>\(\lambda x . xy\)</li>
+</ul></li>
+<li>Let's try applying an abstraction with free variables to an argument:
+<ul class="org-ul">
+<li>\((\lambda x . xy) z\)</li>
+<li>\([x := z]\)</li>
+<li>\(zy\)</li>
+</ul></li>
+<li>Note that alpha equivalence doesn't apply to free variables: \(\lambda x . xy\) and \(\lambda x . xz\) are different expressions, because \(y\) and \(z\) might be assigned distinct values.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org646e791" class="outline-2">
+<h2 id="org646e791"><span class="section-number-2">20.</span> Multiple arguments</h2>
+<div class="outline-text-2" id="text-20">
+<ul class="org-ul">
+<li>Each \(\lambda \) can only bind one parameter and can only accept one argument.</li>
+<li>Multiple arguments are encoded by multiple \(\lambda \)s (this is called <i>currying</i>; semanticists call it <i>Schönfinkelization</i>).
+<ul class="org-ul">
+<li>\(\lambda xy.xy := \lambda x . (\lambda y . x y)\)</li>
+</ul></li>
+<li>N.b. in haskell we'll be able to express functions that take tuples of arguments by using something called <i>pattern matching</i>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc069f3d" class="outline-2">
+<h2 id="orgc069f3d"><span class="section-number-2">21.</span> Reduction with multiple arguments 1</h2>
+<div class="outline-text-2" id="text-21">
+<ol class="org-ol">
+<li>\(\lambda xy . xy\)</li>
+<li>\((\lambda xy . xy)\,1\,2\)</li>
+<li>\((\lambda x . (\lambda y . xy))\,1\,2\)</li>
+<li>\([x := 1]\)</li>
+<li>\((\lambda y . 1\,y)\, 2\)</li>
+<li>\([y := 2]\)</li>
+<li>\(1\,2\)</li>
+</ol>
+
+<p>
+We've reached normal form, since we can't apply \(1\) to \(2\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org43c0dc6" class="outline-2">
+<h2 id="org43c0dc6"><span class="section-number-2">22.</span> Reduction with multiple arguments 2</h2>
+<div class="outline-text-2" id="text-22">
+<ol class="org-ol">
+<li>\((\lambda xy . xy)\,(\lambda z. a)\,1\)</li>
+<li>\((\lambda x . (\lambda y. xy))\,(\lambda z . a)\,1\)</li>
+<li>\([x := (\lambda z . a)]\)</li>
+<li>\((\lambda y.(\lambda z. a)\,y)\, 1\)</li>
+<li>\([y := 1]\)</li>
+<li>\((\lambda z . a)\,1\)</li>
+<li>\([z := 1]\)</li>
+<li>\(a\)</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org938c533" class="outline-2">
+<h2 id="org938c533"><span class="section-number-2">23.</span> Proof-theory</h2>
+<div class="outline-text-2" id="text-23">
+<ul class="org-ul">
+<li>Simplification rules for the lambda calculus:
+<ul class="org-ul">
+<li>\(\beta \)-reduction</li>
+<li>\(\alpha \)-conversion</li>
+<li>\(\eta\)-reduction</li>
+</ul></li>
+
+<li>The lambda calculus can be thought of as a <i>logic</i>, and these rules constitute its proof theory.</li>
+<li>We've left the (denotational) semantics of the lambda calculus implicit, but intuitively \(\beta \)-reduction is licit <i>because</i> applications are interpreted by applying the function to the argument, etc.</li>
+<li>The variant of the lambda calculus we're considering here is <i>Turing complete</i>, which means that it can be used to simulate an arbitrary Turing machine.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd3a12f8" class="outline-2">
+<h2 id="orgd3a12f8"><span class="section-number-2">24.</span> More alpha conversions</h2>
+<div class="outline-text-2" id="text-24">
+<ul class="org-ul">
+<li>How do we go about reducing this expression?
+<ul class="org-ul">
+<li>\((\lambda xy . x x y)\,(\lambda x . xy)\,(\lambda x . xz)\)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge582a0a" class="outline-2">
+<h2 id="orge582a0a"><span class="section-number-2">25.</span> Evaluation and simplification</h2>
+<div class="outline-text-2" id="text-25">
+<ul class="org-ul">
+<li>Remember, when we can no longer simplify an expression, the result is said to be in <b>normal form</b> (N.b., there are different kinds of normal forms, but the differences aren't relevant to us).</li>
+<li>In programming terms, this corresponds to a <b>fully executed program</b>.</li>
+<li>Artithmetic expressions can be thought of as a simple logic/programming language.
+<ul class="org-ul">
+<li>\((10 + 2) * 100 / 2\)</li>
+</ul></li>
+<li>What's the normal form of this arithmetic expression?</li>
+<li>Remember that complex expressions can nevertheless be in normal form, such as \(\lambda x . x\).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org96e2361" class="outline-2">
+<h2 id="org96e2361"><span class="section-number-2">26.</span> Combinators</h2>
+<div class="outline-text-2" id="text-26">
+<ul class="org-ul">
+<li>Combinators are special kinds of lambda expressions with no free variables.</li>
+<li>Which of the following are (not) combinators?
+<ul class="org-ul">
+<li>\(\lambda x . x\)</li>
+<li>\(\lambda xy . x\)</li>
+<li>\(\lambda  xyz . xz(yz)\)</li>
+<li>\(\lambda y . x\)</li>
+<li>\(\lambda x . xz\)</li>
+</ul></li>
+<li>As the name suggests, combinators serve to combine their arguments.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfcefe12" class="outline-2">
+<h2 id="orgfcefe12"><span class="section-number-2">27.</span> Function composition</h2>
+<div class="outline-text-2" id="text-27">
+<ul class="org-ul">
+<li>A combinator which we'll encounter quite a lot is <i>function composition</i>:
+<ul class="org-ul">
+<li>\(\lambda f . \lambda g . \lambda x . g(f(x))\)</li>
+</ul></li>
+<li>Simplify the following expression. 
+<ul class="org-ul">
+<li>\((\lambda f . \lambda g . \lambda x . g(f(x)))\,(\lambda n . n / 2)\,(\lambda z . z * 12)\,100\)</li>
+</ul></li>
+<li>The <i>composition</i> of two functions is often abbreviated using dot notation:
+<ul class="org-ul">
+<li>\(g \cdot f := \lambda x . g(f(x))\)</li>
+</ul></li>
+<li>This means we could write the previous expression as:
+<ul class="org-ul">
+<li>\(((\lambda z . z * 12) \cdot (\lambda n . n / 2))\,100\)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7c3caf1" class="outline-2">
+<h2 id="org7c3caf1"><span class="section-number-2">28.</span> Divergence</h2>
+<div class="outline-text-2" id="text-28">
+<ul class="org-ul">
+<li>Ordinarily, reducing a lambda expression <i>converges</i> to normal form.</li>
+<li>Not every <i>reducible</i> lambda expression reduces to normal form; some lambda expressions <i>diverge</i>.</li>
+<li>This underlies the Turing-completeness of the simple lambda calculus.</li>
+<li>Reduce the following expression (called omega) until you're satisfied it doesn't converge:
+<ul class="org-ul">
+<li>\((\lambda x . x x)\,(\lambda x . x x)\)</li>
+</ul></li>
+<li>Diverging expressions correspond to non-terminating programs.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4de6ce1" class="outline-2">
+<h2 id="org4de6ce1"><span class="section-number-2">29.</span> Homework</h2>
+<div class="outline-text-2" id="text-29">
+<ul class="org-ul">
+<li><b>Obligatory:</b> Do the <i>chapter exercises</i> from chapter 1 of <b>Haskell programming from first principles</b> (p17-18). If you get stuck somewhere, send me a note before next week's class.</li>
+<li>Optionally, do either of the following:
+<ul class="org-ul">
+<li>Read chapter 1 of <b>Haskell programming from first principles</b>.</li>
+<li>Re-read the slides from today's class at your own pace.</li>
+</ul></li>
+<li>If you have time, you can start setting up a haskell development environment; instructions here: <a href="https://www.haskell.org/get-started/">https://www.haskell.org/get-started/</a>, but <a href="https://play.haskell.org/">https://play.haskell.org/</a> will be sufficient for the first few weeks.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org38c157a" class="outline-2">
+<h2 id="org38c157a"><span class="section-number-2">30.</span> Further reading</h2>
+<div class="outline-text-2" id="text-30">
+<ul class="org-ul">
+<li>For an in-depth introduction to the <i>simply-typed</i> lambda calculus, from a logical perspective, read (Carpenter, Bob, 1998)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfdde185" class="outline-2">
+<h2 id="orgfdde185"><span class="section-number-2">31.</span> </h2>
+<div class="outline-text-2" id="text-31">
+<p>
+\(\mathscr{Fin}\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0f8710c" class="outline-2">
+<h2 id="org0f8710c"><span class="section-number-2">32.</span> References</h2>
+<div class="outline-text-2" id="text-32">
+<p>
+Carpenter, Bob (1998). <i>Type-Logical Semantics</i>, {MIT Press}.</p>
+
+<p>
+van Eijck, Jan and Unger, Christina (2010). <i>Computational {{Semantics}} with {{Functional Programming}}</i>, {Cambridge University Press}.</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Patrick D. Elliott</p>
+<p class="date">Created: 2023-04-13 Thu 11:50</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
