@@ -11,6 +11,8 @@
 #+LATEX_COMPILER: xelatex
 #+OPTIONS: toc:nil H:2
 
+** TODO homework
+
 * Types and strings
   
 ** Types in formal semantics
@@ -358,11 +360,159 @@ Remember the expression \(\omega\):
   * The SLTC is a sound and complete logic.
   * /Type-checking/ (checking whether an expression is well-typed), and /type inference/ are *decidable*.
     
-** Next time
+* Types in haskell
 
-- Next time we'll learn much more about Haskell's type system.
-- Haskell's type system is more expressive than the SLTC - we can do everything we can in the SLTC and more.
-- We'll learn about /polymorphic functions/ corresponding /polymorphic datatypes/; a first step in understanding the kinds of powerful abstractions that Haskell provides to reason about computation.
+** Types we've seen so far
+
+Some of the primitive types we've seen so far:
+
+- ~Int~
+- ~Char~
+- ~[Char]~
+- ~String~
+- ~Bool~
+  
+** Data declarations
+
+*Data decalarations* are declarations used for defining /types/.
+
+We call the values that inhabit the type they are defined in *data constructors*.
+
+** Sum types
+
+The simplest kind of data declaration we see in Haskell is for a *sum type*. Consider the data declaration for ~Bool~:
+
+#+begin_src haskell
+  data Bool = False | True
+#+end_src
+
+The name immediately following the ~data~ keyword is the name of the type, which shows up in type signatures.
+
+The /data constructors/ follow the equals sign; sum types are declared by separating the constructors with ~|~, which stands in for logical disjunction.
+
+** Using GHCi
+
+You can inspect the data declaration associated with a particular type by using the ~:i~ command in GHCi.
+
+#+begin_src haskell
+  ghci> :i Bool
+  type Bool :: *
+  data Bool = False | True
+  -- ...
+#+end_src
+
+Depending on the version of ghc, this will also give you a bunch of extraneous information (the first line is the /kind signature/, and after the data decalaration we have information about /type classes/ - we'll learn about these later).
+
+** Declaring your own datatypes
+
+It's easy to declare your own sum types in haskell. Consider the following:
+
+#+begin_src haskell
+  data E = John | Mary | Bill | Sue
+#+end_src
+
+This declares a new type ~E~ whose inhabitants are all (and only) the values ~John~, ~Mary~, ~Bill~, ~Sue~.
+
+** Pattern matching
+
+We can define functions that take our new constructors as arguments by using /pattern matching/.
+
+#+begin_src haskell
+  isHappy :: E -> Bool
+  isHappy Mary = True
+  isHappy _ = False
+#+end_src
+
+Note that the underscore is interpreted as an /elsewhere/ condition.
+
+What do you think the result of evaluating the following will be?
+
+#+begin_src haskell
+  not (isHappy John || isHappy Mary)
+#+end_src
+
+** Modelling composition: first steps
+
+#+begin_export latex
+\begin{center}
+\begin{scriptsize}
+\begin{forest}
+  [{\texttt{False :: Bool}}
+    [{\texttt{not :: Bool -> Bool}}]
+    [{\texttt{True :: Bool}}
+    [{\texttt{(False || True) :: Bool}}
+    [{\texttt{(\backslash t -> False || t) :: Bool -> Bool}}
+      [{\texttt{(||) :: Bool -> Bool -> Bool}}]
+      [{\texttt{False :: Bool}}
+        [{\texttt{isHappy :: E -> Bool}}]
+        [{\texttt{John :: E}}]
+      ]
+    ]
+      [{\texttt{True :: Bool}}
+        [{\texttt{isHappy :: E -> Bool}}]
+        [{\texttt{Mary :: E}}]
+      ]
+    ]
+  ]]\end{forest}
+  \end{scriptsize}
+  \end{center}
+#+end_export
+
+** Basic typeclasses
+
+Recall our basic type for individuals.
+
+#+begin_src haskell
+  data E = John | Mary | Bill | Sue
+#+end_src
+
+We haven't given ghc any further information about this type, so there's not much we can do with it. See what happens if you evaluate the following:
+
+#+begin_src haskell
+  John == John
+#+end_src
+
+What about the following:
+
+#+begin_src haskell
+  True == True
+#+end_src
+
+** Basic typeclasses cont.
+
+The reason for the contrast here is that ~Bool~ by default is an instance of the type class ~Eq~, which is the class of types that contain things that can be compared and determined to be equal in value.
+
+Since we didn't explicitly say that ~E~ is an instance of ~Eq~, ghc doesn't assume that it is.
+
+Likewise, try evaluating the following in ghci:
+
+#+begin_src haskell
+  ghci> John
+#+end_src
+
+** Deriving typeclasses
+
+We'll learn later how to declare typeclass instances, but in the mean time ghc has convenient mechanisms for automatically generating sensible typeclass instances for simple types.
+
+ #+begin_src haskell
+  data E = John | Mary | Bill | Sue deriving (Eq,Show)
+#+end_src
+
+** Constrained polymorphism
+
+- Inspect the type of ~id~.
+- Now inspect the type of ~(==)~, which is a function that tests for equality.
+  * Polymorphism is used to constrain typeclasses.
+  * The fewer typeclass constraints on a polymorphic type signature, the fewer assumptions the polymorphic function can make about its arguments.
+    
+** Bound variables in polymorphic type signatures
+
+What do you think will happen if you declare the following function:
+
+#+begin_src haskell
+  same :: Eq a => a -> b -> Bool
+  same a b = a == b
+#+end_src
   
 ** 
    :PROPERTIES:
