@@ -11,7 +11,18 @@
 #+LATEX_COMPILER: xelatex
 #+OPTIONS: toc:nil H:2
 
-** TODO homework
+** Gameplan
+
+- Next week we'll finish our initial survey of the very basics of Haskell, by talking more about types and typeclasses.
+- In the following couple of weeks (May 2; May 9) we'll start implementing some basic natural language fragments in haskell, following the textbook /Computational Semantics with Functional Programming/ [cite:@vanEijckUnger2010].
+  * Note: you should be able to access this textbook electronically via the HHU library.
+
+** Homework
+
+- Do the /building functions/ exercises at the end of chapter 3 (p83-85)
+- Do chapter exercises 1-10 at the end of chapter 4.
+- Optionally read chapter 3 and 4 of /Haskell from first principles/ (skip 4.4, on numeric types).
+  
 
 * Types and strings
   
@@ -23,6 +34,11 @@ You might be familiar with types if you've ever taken a semantics course before.
 
 - /is happy/: \(\langle e,t \rangle\)
 - /Henning/: \(e\)
+- /and/ : \(\langle t, \langle t, t\rangle\rangle\)
+  
+Note that formal semantics often uses a different convention for functional types, but it's easy to translate between the two:
+
+\[\langle a,b \rangle := a \to b\]
   
 ** Types in Haskell 
 
@@ -30,7 +46,7 @@ You might be familiar with types if you've ever taken a semantics course before.
   * Formal semantics typically uses the /simply-typed lambda calculus/ as a basis.
   * Haskell is based on System F, i.e., the /polymorphic lambda calculus/, which allows for universal quantification over types.
   * Various /language extensions/ exist to make Haskell's type system even more powerful (dependent types, linear types, etc).
-  * In this course, we won't go much beyond simple types and some basic polymorphism.
+  * In this course, we won't go beyond anything expressible in the polymorphic lambda calculus. 
     
 ** Getting information about types
 
@@ -108,6 +124,10 @@ If we load ~print1.hs~ from GHCi and execute ~main~, /hello world!/ will be prin
 
 In haskell ~main~ is the default action when building an executable, or running it in GHCi, and it must always be of type ~IO ()~.
 
+#+begin_src haskell
+putStrLn :: String -> IO ()
+#+end_src
+
 Input/output is much more complicated in Haskell than in most other programming languages, since it involves exploiting Haskell's type system to reason about /side effects/. This will be a topic for later in the semester.
 
 ** Concatenating strings
@@ -119,7 +139,7 @@ There are two functions for concatenating strings in the haskell prelude:
   concat :: [[a]] -> [a]
 #+end_src
 
-- ~++~ is an infix operator, whereas ~concat is just an ordinary function.
+- ~++~ is an infix operator, whereas ~concat~ is just an ordinary function.
 - Note that ~a~ in the type signature is a /type variable/. Free variables in type signatures are implicitly universally quantified in Haskell.
 - This means that both ~++~ and ~concat~ are /polymorphic/ functions; they can be used to combine lists more generally.
   
@@ -204,6 +224,14 @@ Let's examine the type of ~!!~; as expected, its a function from a list of \(a\)
 Note however, that this isn't a /total/ function; there are some lists and integers for which this function will be undefined.
 
 Partial functions in haskell are considered /unsafe/, because the type system doesn't prevent us from providing an illicit value as an argument to the function.
+
+** A note on safety
+
+In Haskell, it's good practice to avoid unsafe functions wherever possible.
+
+This is because the type-checker is an extremely powerful programming aid - if a program type-checks successfully, we can generally be reasonably sure that it will run without any errors and give back a sensible result.
+
+This promise only holds just so long as we use /total/ functions. There is some neat type-level machinery in haskell to rewrite functions like ~(!!)~ as total functions which we'll learn about later in the semester!
 
 ** Building lists with ~cons~
 
@@ -505,15 +533,127 @@ We'll learn later how to declare typeclass instances, but in the mean time ghc h
   * Polymorphism is used to constrain typeclasses.
   * The fewer typeclass constraints on a polymorphic type signature, the fewer assumptions the polymorphic function can make about its arguments.
     
-** Bound variables in polymorphic type signatures
+** Using typeclasses
 
-What do you think will happen if you declare the following function:
+What do you think will happen if you declare the in a source file?
 
 #+begin_src haskell
   same :: Eq a => a -> b -> Bool
   same a b = a == b
 #+end_src
+
+** Using typeclasses cont. 
+
+Remember that free type variables are /implicitly universally quantified/.
+
+#+begin_src haskell
+  id :: a -> a
+#+end_src
+
+Informally, this means that the type of ~id~ is ~a -> a~, for all ~a~ in the set of types.
   
+Type class constraints restrict the universal quantification to just types which belong to particular classes:
+
+#+begin_src haskell
+  (==) :: Eq => a -> a -> Bool
+#+end_src
+
+This means that the type of ~(==)~ is ~a -> a -> Bool~, for all ~a~ that belong to the ~Eq~ class.
+
+** Combining typeclass restrictions
+
+Typeclass restrictions can be combined. We've alluded to this before, but the typeclass ~Show~ is used to classify types whose inhabitants can be converted into strings (via the ~show~) function.
+
+What does the following function do?
+
+#+begin_src haskell
+  func :: (Eq a, Show a) => a -> a -> String
+  func a b = if 
+    a == b
+    then (show a) ++ " is equal to " ++ (show b)
+    else "try again!"
+#+end_src
+
+** Sidenote: conditionals
+
+Haskell has syntactic sugar for conditional states like /if A then B/, which are conventionally written as follows:
+
+#+begin_src haskell
+  if _condition then _expressionA else _expressionB
+#+end_src
+
+You can use conditionals anywhere where you could use ~_expressionA~ or ~_expressionB~ (the expressions must be of the same type).
+
+What does the following function do?
+
+#+begin_src haskell
+toyFunc n = if even n then n + 1 else n - 1
+#+end_src
+
+** Conditionals and syntactic sugar
+
+It's important to remember that anything that isn't function-argument application in haskell is /syntactic sugar/.
+
+To illustrate, we could implement conditionals as a standard function:
+
+#+begin_src haskell
+  cond :: Bool -> a -> a -> a
+  cond True a b = a
+  cond False a b = b
+    
+  toyFunc2 n = cond (even n) (n + 1) (n - 1)
+#+end_src
+
+** Tuples
+
+Tuples are a ubiquitous syntactic construct, defined in haskell as a special kind of type known as a /product type/.
+
+Let's look at the data declaration for tuples:
+
+#+begin_src haskell
+  (,) a b = (,) a b
+#+end_src
+
+- This is quite different from what we've seen so far.
+  * The datatype declaration involves a function (called a /type constructor/) that takes two type arguments ~a~, ~b~.
+  * Type constructors create types from types.    
+  * For example, ~(,) Int String~ is a distinct type from ~(,) String Int~.
+  * ~(a,b)~ is /syntactic sugar/ for ~(,) a b~.
+
+** Working with tuples
+
+Consider some tuples:
+
+#+begin_src haskell
+  ("haskell", "rocks")
+  ("haskell", 1)
+#+end_src
+
+We can write functions ~fst~ and ~snd~ using pattern matching to extract the elements of a tuple (these are provided already in the prelude).
+
+#+begin_src haskell
+  fst :: (a,b) -> a
+  fst (a,b) = a
+  snd :: (a,b) -> b
+  snd (a,b) = b
+#+end_src
+
+** Exercise
+
+- Write a function ~swap~ that takes a tuple, and swaps the elements around.
+- write a function ~condTup~ that takes a bool ~t~, two tuples, ~(a,b)~, ~(c,d)~, and gives back a tuple of tuples ~(a,c)~ if ~t~ is true, and ~(b,d)~ otherwise (tip: think carefully about the type signature!).
+
+** Solution
+
+#+begin_src haskell
+  swap :: (a,b) -> (b,a)
+  swap (a,b) = (b,a)
+
+  condTup :: Bool -> (a,a) -> (b,b) -> (a,b)
+  condTup True (a,b) (c,d) = (a,c)
+  condTup False (a,b) (c,d) = (b,d)
+#+end_src
+
 ** 
    :PROPERTIES:
    :BEAMER_opt: label=findings,standout
