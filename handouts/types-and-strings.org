@@ -336,9 +336,9 @@ This means that we have many complex types like the following:
 
 ** Types of complex expressions  
 
-*Functional applications*: Let \(\beta  :: \mathtt{a \to b}\), \(\alpha :: \mathtt{a}\) be an expression of the SLTC. \(\beta(\alpha)\) is an expression of type \(\mathtt{b}\).
+*Functional applications*: Let \(\beta  :: \mathtt{a \to b}\), \(\alpha :: \mathtt{a}\) be an expression of the STLC. \(\beta(\alpha)\) is an expression of type \(\mathtt{b}\).
 
-*Abstractions:* Let \(\beta :: \mathtt{b}\) be an expression of the SLTC, and \(v\) a variable of type \(\mathtt{a}\). \(\lambda v . \beta \) is an expression of type \(\mathtt{a \to b}\).
+*Abstractions:* Let \(\beta :: \mathtt{b}\) be an expression of the STLC, and \(v\) a variable of type \(\mathtt{a}\). \(\lambda v . \beta \) is an expression of type \(\mathtt{a \to b}\).
 
 ** Exercise
 
@@ -382,9 +382,9 @@ Remember the expression \(\omega\):
 \[(\lambda x . x x) (\lambda x . x x)\]
 
 - Try to give it a concrete type.
-- This problem is related to the lack of Turing completeness of the SLTC.
-- On the other hand, because the SLTC is relatively constrained it has some extremely nice logical properties:
-  * The SLTC is a sound and complete logic.
+- This problem is related to the lack of Turing completeness of the STLC.
+- On the other hand, because the STLC is relatively constrained it has some extremely nice logical properties:
+  * The STLC is a sound and complete logic.
   * /Type-checking/ (checking whether an expression is well-typed), and /type inference/ are *decidable*.
     
 * Types in haskell
@@ -395,7 +395,6 @@ Some of the primitive types we've seen so far:
 
 - ~Int~
 - ~Char~
-- ~[Char]~
 - ~String~
 - ~Bool~
   
