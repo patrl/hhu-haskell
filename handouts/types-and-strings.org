@@ -290,7 +290,6 @@ Lists in haskell are therefore /singly-linked lists of characters/.
 
 ** The simply-typed lambda calculus
 
-- In preparation for next week's class with type.
 - Types are syntactic categories used to restrict what counts as a valid expression.
 - Basic ingredients:
   * A set of primitive types.
