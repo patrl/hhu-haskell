@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-13 12:18]" 
+Last updated: "[2023-04-20 12:26]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -27,7 +27,7 @@ This will be an extremely hands-on course, and students should ideally expect jt
 
 - Run haskell programs in your browser using the [[https://play.haskell.org/][haskell playground]]. 
 - Setting up a haskell environment: [[https://www.haskell.org/get-started/][Get Started]] 
-- The [[https://haskellbook.com/][Haskell from first principles]] textbook.
+- The [[https://haskellbook.com/][Haskell from first principles]] textbook [cite:@AllenMoronuki2016].
 
 * Schedule
 
@@ -57,18 +57,22 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 
 - The slides can be downloaded [[./lambda.pdf][here]].
   * You can also browse the content [[./lambda.html][here]].
-- *Homework*: Read chapter 1 of /Haskell from first principles/ [cite:@AllenMoronuki2016] and do the chapter exercises.
+- *Homework*: Read chapter 1 of /Haskell from first principles/ and do the chapter exercises.
 
 ** Hello Haskell!
 
 - The (updated) slides can be downloaded [[./hello-haskell.pdf][here]].
   * You can also browse the content [[./hello-haskell.html][here]].
-- *Homework*: Read chapters 2 of /Haskell from first principles/ [cite:@AllenMoronuki2016] and do the exercises at the end of chapter 2.
+- *Homework*: Read chapters 2 of /Haskell from first principles/ and do the exercises at the end of chapter 2.
  
 ** Types and strings
 
-- Preliminary slides can be downloaded [[./types-and-strings.pdf][here]].
+- The slides can be downloaded [[./types-and-strings.pdf][here]].
   * You can also browse the content [[./types-and-strings.html][here]].
+- *Homework:* 
+  * Optionally read chapter 3 and 4 of Haskell from first principles (skip 4.4, on numeric types).
+  * Do the building functions exercises at the end of chapter 3 (p83-85)
+  * Do chapter exercises 1-10 at the end of chapter 4.
 
 * References
   
