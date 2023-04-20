@@ -1,0 +1,196 @@
+#+title:  Types and strings
+#+author: Patrick D. Elliott
+#+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
+#+EXPORT_FILE_NAME: ../docs/typeclasses
+#+BEAMER_THEME: metropolis
+#+BEAMER_COLOR_THEME: owl [snowy]
+#+BEAMER_HEADER: \input{beamerplate.tex}
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+BEAMER_FONT_THEME: professionalfonts
+#+LATEX_COMPILER: xelatex
+#+OPTIONS: toc:nil H:2
+
+** Basic typeclasses
+
+Recall our basic type for individuals.
+
+#+begin_src haskell
+  data E = John | Mary | Bill | Sue
+#+end_src
+
+We haven't given ghc any further information about this type, so there's not much we can do with it. See what happens if you evaluate the following:
+
+#+begin_src haskell
+  John == John
+#+end_src
+
+What about the following:
+
+#+begin_src haskell
+  True == True
+#+end_src
+
+** Basic typeclasses cont.
+
+The reason for the contrast here is that ~Bool~ by default is an instance of the type class ~Eq~, which is the class of types that contain things that can be compared and determined to be equal in value.
+
+Since we didn't explicitly say that ~E~ is an instance of ~Eq~, ghc doesn't assume that it is.
+
+Likewise, try evaluating the following in ghci:
+
+#+begin_src haskell
+  ghci> John
+#+end_src
+
+** Deriving typeclasses
+
+We'll learn later how to declare typeclass instances, but in the mean time ghc has convenient mechanisms for automatically generating sensible typeclass instances for simple types.
+
+ #+begin_src haskell
+  data E = John | Mary | Bill | Sue deriving (Eq,Show)
+#+end_src
+
+** Constrained polymorphism
+
+- Inspect the type of ~id~.
+- Now inspect the type of ~(==)~, which is a function that tests for equality.
+  * Polymorphism is used to constrain typeclasses.
+  * The fewer typeclass constraints on a polymorphic type signature, the fewer assumptions the polymorphic function can make about its arguments.
+    
+** Using typeclasses
+
+What do you think will happen if you declare the in a source file?
+
+#+begin_src haskell
+  same :: Eq a => a -> b -> Bool
+  same a b = a == b
+#+end_src
+
+** Using typeclasses cont. 
+
+Remember that free type variables are /implicitly universally quantified/.
+
+#+begin_src haskell
+  id :: a -> a
+#+end_src
+
+Informally, this means that the type of ~id~ is ~a -> a~, for all ~a~ in the set of types.
+  
+Type class constraints restrict the universal quantification to just types which belong to particular classes:
+
+#+begin_src haskell
+  (==) :: Eq => a -> a -> Bool
+#+end_src
+
+This means that the type of ~(==)~ is ~a -> a -> Bool~, for all ~a~ that belong to the ~Eq~ class.
+
+** Combining typeclass restrictions
+
+Typeclass restrictions can be combined. We've alluded to this before, but the typeclass ~Show~ is used to classify types whose inhabitants can be converted into strings (via the ~show~) function.
+
+What does the following function do?
+
+#+begin_src haskell
+  func :: (Eq a, Show a) => a -> a -> String
+  func a b = if 
+    a == b
+    then (show a) ++ " is equal to " ++ (show b)
+    else "try again!"
+#+end_src
+
+** Sidenote: conditionals
+
+Haskell has syntactic sugar for conditional states like /if A then B/, which are conventionally written as follows:
+
+#+begin_src haskell
+  if _condition then _expressionA else _expressionB
+#+end_src
+
+You can use conditionals anywhere where you could use ~_expressionA~ or ~_expressionB~ (the expressions must be of the same type).
+
+What does the following function do?
+
+#+begin_src haskell
+toyFunc n = if even n then n + 1 else n - 1
+#+end_src
+
+** Conditionals and syntactic sugar
+
+It's important to remember that anything that isn't function-argument application in haskell is /syntactic sugar/.
+
+To illustrate, we could implement conditionals as a standard function:
+
+#+begin_src haskell
+  cond :: Bool -> a -> a -> a
+  cond True a b = a
+  cond False a b = b
+    
+  toyFunc2 n = cond (even n) (n + 1) (n - 1)
+#+end_src
+
+** Tuples
+
+Tuples are a ubiquitous syntactic construct, defined in haskell as a special kind of type known as a /product type/.
+
+Let's look at the data declaration for tuples:
+
+#+begin_src haskell
+  (,) a b = (,) a b
+#+end_src
+
+- This is quite different from what we've seen so far.
+  * The datatype declaration involves a function (called a /type constructor/) that takes two type arguments ~a~, ~b~.
+  * Type constructors create types from types.    
+  * For example, ~(,) Int String~ is a distinct type from ~(,) String Int~.
+  * ~(a,b)~ is /syntactic sugar/ for ~(,) a b~.
+
+** Working with tuples
+
+Consider some tuples:
+
+#+begin_src haskell
+  ("haskell", "rocks")
+  ("haskell", 1)
+#+end_src
+
+We can write functions ~fst~ and ~snd~ using pattern matching to extract the elements of a tuple (these are provided already in the prelude).
+
+#+begin_src haskell
+  fst :: (a,b) -> a
+  fst (a,b) = a
+  snd :: (a,b) -> b
+  snd (a,b) = b
+#+end_src
+
+** Exercise
+
+- Write a function ~swap~ that takes a tuple, and swaps the elements around.
+- write a function ~condTup~ that takes a bool ~t~, two tuples, ~(a,b)~, ~(c,d)~, and gives back a tuple of tuples ~(a,c)~ if ~t~ is true, and ~(b,d)~ otherwise (tip: think carefully about the type signature!).
+
+** Solution
+
+#+begin_src haskell
+  swap :: (a,b) -> (b,a)
+  swap (a,b) = (b,a)
+
+  condTup :: Bool -> (a,a) -> (b,b) -> (a,b)
+  condTup True (a,b) (c,d) = (a,c)
+  condTup False (a,b) (c,d) = (b,d)
+#+end_src
+
+** 
+   :PROPERTIES:
+   :BEAMER_opt: label=findings,standout
+   :END:
+ 
+   \(\mathscr{Fin}\)
+   
+** References
+
+#+print_bibliography:
+
+# Local Variables:
+# org-latex-src-block-backend: engraved
+# End:
+
+

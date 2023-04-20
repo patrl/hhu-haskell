@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-20 12:26]" 
+Last updated: "[2023-04-20 14:41]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -38,16 +38,16 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 | April 4  | [[*The lambda calculus][The lambda calculus]]    |
 | April 11 | [[Hello Haskell!][Hello Haskell!]] |
 | April 18 | [[Types and strings][Types and strings]] |
-| April 25 | Types and typeclasses |
-| May 2    | Formal syntax for fragments |
-| May 9    | Formal semantics for fragments (remote) |
+| April 25 | [[Types and typeclasses][Types and typeclasses]] |
+| May 2    | [[Formal syntax for fragments][Formal syntax for fragments]] |
+| May 9    | [[Formal semantics for fragments][Formal semantics for fragments]] (remote) |
 | May 16   | NO CLASS                       |
-| May 23   | Model checking |
-| May 30   | Meaning composition |
-| June 6   | Functors    |
-| June 13  | Applicative functors  |
-| June 20  | Monads                         |
-| June 27  | Continuation passing style |
+| May 23   | [[Model checking][Model checking]] |
+| May 30   | [[Meaning composition][Meaning composition]] |
+| June 6   | [[Functors][Functors]]    |
+| June 13  | [[Applicative functors][Applicative functors]]  |
+| June 20  | [[Monads][Monads]]                         |
+| June 27  | [[Continuation-passing style][Continuation-passing style]] |
 | July 4   | project presentations          |
 | July 11  | project presentations          |
 
@@ -67,12 +67,30 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
  
 ** Types and strings
 
-- The slides can be downloaded [[./types-and-strings.pdf][here]].
+- The slides (updated) can be downloaded [[./types-and-strings.pdf][here]].
   * You can also browse the content [[./types-and-strings.html][here]].
 - *Homework:* 
   * Optionally read chapter 3 and 4 of Haskell from first principles (skip 4.4, on numeric types).
   * Do the building functions exercises at the end of chapter 3 (p83-85)
   * Do chapter exercises 1-10 at the end of chapter 4.
+    
+** TODO Types and typeclasses
+
+** TODO Formal syntax for fragments
+
+** TODO Formal semantics for fragments
+
+** TODO Model checking
+
+** TODO Meaning composition
+
+** TODO Functors
+
+** TODO Applicative functors
+
+** TODO Monads
+
+** TODO Continuation-passing style
 
 * References
   

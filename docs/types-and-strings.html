@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-18 Tue 14:02 -->
+<!-- 2023-04-20 Thu 14:59 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Types and strings</title>
@@ -231,8 +231,8 @@
 <div id="content" class="content">
 <h1 class="title">Types and strings</h1>
 
-<div id="outline-container-orgfe8aeea" class="outline-3">
-<h3 id="orgfe8aeea"><span class="section-number-3">0.1.</span> Gameplan</h3>
+<div id="outline-container-org7a045e5" class="outline-3">
+<h3 id="org7a045e5"><span class="section-number-3">0.1.</span> Gameplan</h3>
 <div class="outline-text-3" id="text-0-1">
 <ul class="org-ul">
 <li>Next week we'll finish our initial survey of the very basics of Haskell, by talking more about types and typeclasses.</li>
@@ -244,8 +244,8 @@
 </div>
 </div>
 
-<div id="outline-container-org47ea0c7" class="outline-3">
-<h3 id="org47ea0c7"><span class="section-number-3">0.2.</span> Homework</h3>
+<div id="outline-container-orgb76ec9a" class="outline-3">
+<h3 id="orgb76ec9a"><span class="section-number-3">0.2.</span> Homework</h3>
 <div class="outline-text-3" id="text-0-2">
 <ul class="org-ul">
 <li>Do the <i>building functions</i> exercises at the end of chapter 3 (p83-85)</li>
@@ -256,12 +256,12 @@
 </div>
 
 
-<div id="outline-container-org247855a" class="outline-2">
-<h2 id="org247855a"><span class="section-number-2">1.</span> Types and strings</h2>
+<div id="outline-container-org2ca64f1" class="outline-2">
+<h2 id="org2ca64f1"><span class="section-number-2">1.</span> Types and strings</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org19dd25c" class="outline-3">
-<h3 id="org19dd25c"><span class="section-number-3">1.1.</span> Types in formal semantics</h3>
+<div id="outline-container-org6718750" class="outline-3">
+<h3 id="org6718750"><span class="section-number-3">1.1.</span> Types in formal semantics</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Types in Haskell are a way of <i>categorizing values</i>; they provide a syntactic restriction on how complex expressions are built.
@@ -287,8 +287,8 @@ Note that formal semantics often uses a different convention for functional type
 </div>
 </div>
 
-<div id="outline-container-orge546305" class="outline-3">
-<h3 id="orge546305"><span class="section-number-3">1.2.</span> Types in Haskell</h3>
+<div id="outline-container-orgb5370ae" class="outline-3">
+<h3 id="orgb5370ae"><span class="section-number-3">1.2.</span> Types in Haskell</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>Haskell has a more complex and powerful type-system than the one you might be used to from formal semantics. 
@@ -302,8 +302,8 @@ Note that formal semantics often uses a different convention for functional type
 </div>
 </div>
 
-<div id="outline-container-org218fbe6" class="outline-3">
-<h3 id="org218fbe6"><span class="section-number-3">1.3.</span> Getting information about types</h3>
+<div id="outline-container-org2dcef02" class="outline-3">
+<h3 id="org2dcef02"><span class="section-number-3">1.3.</span> Getting information about types</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 You can find out the type of any haskell expression quite easily using the <code>:type</code> command in GHCi:
@@ -324,8 +324,8 @@ ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</s
 </div>
 </div>
 
-<div id="outline-container-org17748fa" class="outline-3">
-<h3 id="org17748fa"><span class="section-number-3">1.4.</span> Type annotations</h3>
+<div id="outline-container-orgbb6a0c1" class="outline-3">
+<h3 id="orgbb6a0c1"><span class="section-number-3">1.4.</span> Type annotations</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 We explicitly annotate expressons with their type using <code>::</code>. 
@@ -352,8 +352,8 @@ If we annotate an expression with the wrong type, we'll get an error:
 </div>
 </div>
 
-<div id="outline-container-org26b436f" class="outline-3">
-<h3 id="org26b436f"><span class="section-number-3">1.5.</span> String types</h3>
+<div id="outline-container-org28825af" class="outline-3">
+<h3 id="org28825af"><span class="section-number-3">1.5.</span> String types</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 <code>String</code> is actually a name for a <i>complex type</i>, <code>[Char]</code>.
@@ -369,8 +369,8 @@ In general, for any type <code>a</code>, the type <code>[a]</code> is the type o
 </div>
 </div>
 
-<div id="outline-container-org3ea8441" class="outline-3">
-<h3 id="org3ea8441"><span class="section-number-3">1.6.</span> Printing strings</h3>
+<div id="outline-container-org306084e" class="outline-3">
+<h3 id="org306084e"><span class="section-number-3">1.6.</span> Printing strings</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 We can print strings to the standard output in GHCi using the <code>putStrLn</code> or <code>putStr</code> functions.
@@ -398,8 +398,8 @@ In Haskell, we use arrow notation for function types (we'll come back to this la
 </div>
 </div>
 
-<div id="outline-container-org91179bc" class="outline-3">
-<h3 id="org91179bc"><span class="section-number-3">1.7.</span> Printing strings from a source file</h3>
+<div id="outline-container-orgf4ae380" class="outline-3">
+<h3 id="orgf4ae380"><span class="section-number-3">1.7.</span> Printing strings from a source file</h3>
 <div class="outline-text-3" id="text-1-7">
 <div class="org-src-container">
 <pre class="src src-haskell">  <span style="color: #585b70;">-- </span><span style="color: #585b70;">print1.hs</span>
@@ -417,8 +417,8 @@ If we load <code>print1.hs</code> from GHCi and execute <code>main</code>, <i>he
 </div>
 </div>
 
-<div id="outline-container-org828a8b7" class="outline-3">
-<h3 id="org828a8b7"><span class="section-number-3">1.8.</span> The <code>main</code> function</h3>
+<div id="outline-container-org205c57c" class="outline-3">
+<h3 id="org205c57c"><span class="section-number-3">1.8.</span> The <code>main</code> function</h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
 In haskell <code>main</code> is the default action when building an executable, or running it in GHCi, and it must always be of type <code>IO ()</code>.
@@ -435,8 +435,8 @@ Input/output is much more complicated in Haskell than in most other programming 
 </div>
 </div>
 
-<div id="outline-container-org33df953" class="outline-3">
-<h3 id="org33df953"><span class="section-number-3">1.9.</span> Concatenating strings</h3>
+<div id="outline-container-orge31268a" class="outline-3">
+<h3 id="orge31268a"><span class="section-number-3">1.9.</span> Concatenating strings</h3>
 <div class="outline-text-3" id="text-1-9">
 <p>
 There are two functions for concatenating strings in the haskell prelude:
@@ -456,8 +456,8 @@ There are two functions for concatenating strings in the haskell prelude:
 </div>
 </div>
 
-<div id="outline-container-orge942cc1" class="outline-3">
-<h3 id="orge942cc1"><span class="section-number-3">1.10.</span> Types primer i</h3>
+<div id="outline-container-org6352818" class="outline-3">
+<h3 id="org6352818"><span class="section-number-3">1.10.</span> Types primer i</h3>
 <div class="outline-text-3" id="text-1-10">
 <p>
 In formal semantics, functional types are often written using angled-brackets (e.g., \(\langle e,t \rangle\)), following the convention used by (Heim, Irene and Kratzer, Angelika, 1998).
@@ -477,8 +477,8 @@ Arrow notation in Haskell is <i>right associative</i>:
 </div>
 </div>
 
-<div id="outline-container-orgd19bfb2" class="outline-3">
-<h3 id="orgd19bfb2"><span class="section-number-3">1.11.</span> Types primer ii</h3>
+<div id="outline-container-org7bd51b0" class="outline-3">
+<h3 id="org7bd51b0"><span class="section-number-3">1.11.</span> Types primer ii</h3>
 <div class="outline-text-3" id="text-1-11">
 <p>
 Let's look again at the type for list concatenation:
@@ -497,8 +497,8 @@ Let's look again at the type for list concatenation:
 </div>
 </div>
 
-<div id="outline-container-org8e66f00" class="outline-3">
-<h3 id="org8e66f00"><span class="section-number-3">1.12.</span> Strings as lists of chars</h3>
+<div id="outline-container-org2703f9b" class="outline-3">
+<h3 id="org2703f9b"><span class="section-number-3">1.12.</span> Strings as lists of chars</h3>
 <div class="outline-text-3" id="text-1-12">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #a6e3a1;">"hello haskell!"</span>
@@ -514,8 +514,8 @@ Let's look again at the type for list concatenation:
 </div>
 </div>
 
-<div id="outline-container-orgeff6e14" class="outline-3">
-<h3 id="orgeff6e14"><span class="section-number-3">1.13.</span> Polymorphism</h3>
+<div id="outline-container-orgeb8c42f" class="outline-3">
+<h3 id="orgeb8c42f"><span class="section-number-3">1.13.</span> Polymorphism</h3>
 <div class="outline-text-3" id="text-1-13">
 <p>
 What do you think the following evaluates to?
@@ -537,8 +537,8 @@ What happens if we try to evaluate the following:
 </div>
 </div>
 
-<div id="outline-container-org1142e25" class="outline-3">
-<h3 id="org1142e25"><span class="section-number-3">1.14.</span> More list manipulation</h3>
+<div id="outline-container-orge12d535" class="outline-3">
+<h3 id="orge12d535"><span class="section-number-3">1.14.</span> More list manipulation</h3>
 <div class="outline-text-3" id="text-1-14">
 <div class="org-src-container">
 <pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> head <span style="color: #a6e3a1;">"Henning"</span>
@@ -558,8 +558,8 @@ ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #a6e3a1;">"Hen
 </div>
 </div>
 
-<div id="outline-container-orga06826b" class="outline-3">
-<h3 id="orga06826b"><span class="section-number-3">1.15.</span> Totality and safety</h3>
+<div id="outline-container-org4e6c48e" class="outline-3">
+<h3 id="org4e6c48e"><span class="section-number-3">1.15.</span> Totality and safety</h3>
 <div class="outline-text-3" id="text-1-15">
 <p>
 What happens when you run the following in GHCi:
@@ -589,8 +589,8 @@ Partial functions in haskell are considered <i>unsafe</i>, because the type syst
 </div>
 </div>
 
-<div id="outline-container-org1efd1fe" class="outline-3">
-<h3 id="org1efd1fe"><span class="section-number-3">1.16.</span> A note on safety</h3>
+<div id="outline-container-org9cbcd4d" class="outline-3">
+<h3 id="org9cbcd4d"><span class="section-number-3">1.16.</span> A note on safety</h3>
 <div class="outline-text-3" id="text-1-16">
 <p>
 In Haskell, it's good practice to avoid unsafe functions wherever possible.
@@ -606,8 +606,8 @@ This promise only holds just so long as we use <i>total</i> functions. There is 
 </div>
 </div>
 
-<div id="outline-container-orga5844f5" class="outline-3">
-<h3 id="orga5844f5"><span class="section-number-3">1.17.</span> Building lists with <code>cons</code></h3>
+<div id="outline-container-org8d2cdd5" class="outline-3">
+<h3 id="org8d2cdd5"><span class="section-number-3">1.17.</span> Building lists with <code>cons</code></h3>
 <div class="outline-text-3" id="text-1-17">
 <p>
 The final list manipulation function we'll look at is an important one: <code>cons</code>.
@@ -640,14 +640,14 @@ Lists in haskell are therefore <i>singly-linked lists of characters</i>.
 </div>
 </div>
 
-<div id="outline-container-orgdb81b63" class="outline-3">
-<h3 id="orgdb81b63"><span class="section-number-3">1.18.</span> Singly-linked lists</h3>
+<div id="outline-container-orgf51e042" class="outline-3">
+<h3 id="orgf51e042"><span class="section-number-3">1.18.</span> Singly-linked lists</h3>
 <div class="outline-text-3" id="text-1-18">
 </div>
 </div>
 
-<div id="outline-container-orgd189a05" class="outline-3">
-<h3 id="orgd189a05"><span class="section-number-3">1.19.</span> An aside on performance</h3>
+<div id="outline-container-orgb85a063" class="outline-3">
+<h3 id="orgb85a063"><span class="section-number-3">1.19.</span> An aside on performance</h3>
 <div class="outline-text-3" id="text-1-19">
 <ul class="org-ul">
 <li>For most industrial applications, singly-linked lists of chars would be a terrible choice.</li>
@@ -658,12 +658,12 @@ Lists in haskell are therefore <i>singly-linked lists of characters</i>.
 </div>
 </div>
 
-<div id="outline-container-org57e9831" class="outline-2">
-<h2 id="org57e9831"><span class="section-number-2">2.</span> Prolegomenon to types</h2>
+<div id="outline-container-org694dfd9" class="outline-2">
+<h2 id="org694dfd9"><span class="section-number-2">2.</span> Prolegomenon to types</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org7ec30ed" class="outline-3">
-<h3 id="org7ec30ed"><span class="section-number-3">2.1.</span> The simply-typed lambda calculus</h3>
+<div id="outline-container-org5dbe0d6" class="outline-3">
+<h3 id="org5dbe0d6"><span class="section-number-3">2.1.</span> The simply-typed lambda calculus</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>Types are syntactic categories used to restrict what counts as a valid expression.</li>
@@ -677,8 +677,8 @@ Lists in haskell are therefore <i>singly-linked lists of characters</i>.
 </div>
 </div>
 
-<div id="outline-container-orgc17a76a" class="outline-3">
-<h3 id="orgc17a76a"><span class="section-number-3">2.2.</span> Primitive types</h3>
+<div id="outline-container-orge9ba57c" class="outline-3">
+<h3 id="orge9ba57c"><span class="section-number-3">2.2.</span> Primitive types</h3>
 <div class="outline-text-3" id="text-2-2">
 <ul class="org-ul">
 <li>Let's keep things simple, and start with just two primitive types:</li>
@@ -706,8 +706,8 @@ Lists in haskell are therefore <i>singly-linked lists of characters</i>.
 </div>
 </div>
 
-<div id="outline-container-org9d008b7" class="outline-3">
-<h3 id="org9d008b7"><span class="section-number-3">2.3.</span> Functional types</h3>
+<div id="outline-container-org52ea623" class="outline-3">
+<h3 id="org52ea623"><span class="section-number-3">2.3.</span> Functional types</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 We'll now state a recursive rule for complex (functional) types, using the Haskell convention for types.
@@ -730,8 +730,8 @@ This means that we have many complex types like the following:
 </div>
 </div>
 
-<div id="outline-container-org3d772c5" class="outline-3">
-<h3 id="org3d772c5"><span class="section-number-3">2.4.</span> Functions and their types</h3>
+<div id="outline-container-orgc0ae0d2" class="outline-3">
+<h3 id="orgc0ae0d2"><span class="section-number-3">2.4.</span> Functions and their types</h3>
 <div class="outline-text-3" id="text-2-4">
 <ul class="org-ul">
 <li><p>
@@ -750,8 +750,8 @@ We can assign some useful operations their types:
 </div>
 </div>
 
-<div id="outline-container-org9f84dd2" class="outline-3">
-<h3 id="org9f84dd2"><span class="section-number-3">2.5.</span> Types of complex expressions</h3>
+<div id="outline-container-orge863cd0" class="outline-3">
+<h3 id="orge863cd0"><span class="section-number-3">2.5.</span> Types of complex expressions</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 <b>Functional applications</b>: Let \(\beta  :: \mathtt{a \to b}\), \(\alpha :: \mathtt{a}\) be an expression of the STLC. \(\beta(\alpha)\) is an expression of type \(\mathtt{b}\).
@@ -763,8 +763,8 @@ We can assign some useful operations their types:
 </div>
 </div>
 
-<div id="outline-container-orgd074644" class="outline-3">
-<h3 id="orgd074644"><span class="section-number-3">2.6.</span> Exercise</h3>
+<div id="outline-container-org3d2df77" class="outline-3">
+<h3 id="org3d2df77"><span class="section-number-3">2.6.</span> Exercise</h3>
 <div class="outline-text-3" id="text-2-6">
 <p>
 Can you infer the types of the following expressions? Go step by step.
@@ -784,8 +784,8 @@ Can you infer the types of the following expressions? Go step by step.
 </div>
 </div>
 
-<div id="outline-container-orgee40287" class="outline-3">
-<h3 id="orgee40287"><span class="section-number-3">2.7.</span> Type inference</h3>
+<div id="outline-container-org72f2814" class="outline-3">
+<h3 id="org72f2814"><span class="section-number-3">2.7.</span> Type inference</h3>
 <div class="outline-text-3" id="text-2-7">
 <p>
 Often, you can <i>infer</i> the type of an expression without specifying the type of all of its sub-parts.
@@ -801,8 +801,8 @@ Since haskell's type system is more expressive than we have here, the type-infer
 </div>
 </div>
 
-<div id="outline-container-org35c3784" class="outline-3">
-<h3 id="org35c3784"><span class="section-number-3">2.8.</span> Restrictions of a first-order type system</h3>
+<div id="outline-container-org8f4014b" class="outline-3">
+<h3 id="org8f4014b"><span class="section-number-3">2.8.</span> Restrictions of a first-order type system</h3>
 <div class="outline-text-3" id="text-2-8">
 <p>
 In a first order type-system, we can only state typed identity functions. What is the type of <i>the</i> identity function?
@@ -814,8 +814,8 @@ In a first order type-system, we can only state typed identity functions. What i
 </div>
 </div>
 
-<div id="outline-container-org1e1a1f4" class="outline-3">
-<h3 id="org1e1a1f4"><span class="section-number-3">2.9.</span> Restrictions of a first-order type system cont.</h3>
+<div id="outline-container-orgfd4ea39" class="outline-3">
+<h3 id="orgfd4ea39"><span class="section-number-3">2.9.</span> Restrictions of a first-order type system cont.</h3>
 <div class="outline-text-3" id="text-2-9">
 <p>
 Consider the following functions:
@@ -834,8 +834,8 @@ Consider the following functions:
 </div>
 </div>
 
-<div id="outline-container-org1c1a066" class="outline-3">
-<h3 id="org1c1a066"><span class="section-number-3">2.10.</span> Bonus: recursion</h3>
+<div id="outline-container-org773d236" class="outline-3">
+<h3 id="org773d236"><span class="section-number-3">2.10.</span> Bonus: recursion</h3>
 <div class="outline-text-3" id="text-2-10">
 <p>
 Remember the expression \(\omega\):
@@ -858,12 +858,12 @@ Remember the expression \(\omega\):
 </div>
 </div>
 
-<div id="outline-container-orgee5b34b" class="outline-2">
-<h2 id="orgee5b34b"><span class="section-number-2">3.</span> Types in haskell</h2>
+<div id="outline-container-orgb0839a8" class="outline-2">
+<h2 id="orgb0839a8"><span class="section-number-2">3.</span> Types in haskell</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org1fc4706" class="outline-3">
-<h3 id="org1fc4706"><span class="section-number-3">3.1.</span> Types we've seen so far</h3>
+<div id="outline-container-org53c30a3" class="outline-3">
+<h3 id="org53c30a3"><span class="section-number-3">3.1.</span> Types we've seen so far</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Some of the primitive types we've seen so far:
@@ -878,8 +878,8 @@ Some of the primitive types we've seen so far:
 </div>
 </div>
 
-<div id="outline-container-orgb79237f" class="outline-3">
-<h3 id="orgb79237f"><span class="section-number-3">3.2.</span> Data declarations</h3>
+<div id="outline-container-org5175360" class="outline-3">
+<h3 id="org5175360"><span class="section-number-3">3.2.</span> Data declarations</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 <b>Data decalarations</b> are declarations used for defining <i>types</i>.
@@ -891,8 +891,8 @@ We call the values that inhabit the type they are defined in <b>data constructor
 </div>
 </div>
 
-<div id="outline-container-org96b531c" class="outline-3">
-<h3 id="org96b531c"><span class="section-number-3">3.3.</span> Sum types</h3>
+<div id="outline-container-org1b6e09c" class="outline-3">
+<h3 id="org1b6e09c"><span class="section-number-3">3.3.</span> Sum types</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 The simplest kind of data declaration we see in Haskell is for a <b>sum type</b>. Consider the data declaration for <code>Bool</code>:
@@ -913,8 +913,8 @@ The <i>data constructors</i> follow the equals sign; sum types are declared by s
 </div>
 </div>
 
-<div id="outline-container-org2d93ea5" class="outline-3">
-<h3 id="org2d93ea5"><span class="section-number-3">3.4.</span> Using GHCi</h3>
+<div id="outline-container-org9e62c3e" class="outline-3">
+<h3 id="org9e62c3e"><span class="section-number-3">3.4.</span> Using GHCi</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 You can inspect the data declaration associated with a particular type by using the <code>:i</code> command in GHCi.
@@ -934,8 +934,8 @@ Depending on the version of ghc, this will also give you a bunch of extraneous i
 </div>
 </div>
 
-<div id="outline-container-orgfefdc33" class="outline-3">
-<h3 id="orgfefdc33"><span class="section-number-3">3.5.</span> Declaring your own datatypes</h3>
+<div id="outline-container-orge263086" class="outline-3">
+<h3 id="orge263086"><span class="section-number-3">3.5.</span> Declaring your own datatypes</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 It's easy to declare your own sum types in haskell. Consider the following:
@@ -952,8 +952,8 @@ This declares a new type <code>E</code> whose inhabitants are all (and only) the
 </div>
 </div>
 
-<div id="outline-container-orgf2ba7a8" class="outline-3">
-<h3 id="orgf2ba7a8"><span class="section-number-3">3.6.</span> Pattern matching</h3>
+<div id="outline-container-org0b4c251" class="outline-3">
+<h3 id="org0b4c251"><span class="section-number-3">3.6.</span> Pattern matching</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 We can define functions that take our new constructors as arguments by using <i>pattern matching</i>.
@@ -981,14 +981,14 @@ What do you think the result of evaluating the following will be?
 </div>
 </div>
 
-<div id="outline-container-orgb5f683f" class="outline-3">
-<h3 id="orgb5f683f"><span class="section-number-3">3.7.</span> Modelling composition: first steps</h3>
+<div id="outline-container-orgd8c0796" class="outline-3">
+<h3 id="orgd8c0796"><span class="section-number-3">3.7.</span> Modelling composition: first steps</h3>
 <div class="outline-text-3" id="text-3-7">
 </div>
 </div>
 
-<div id="outline-container-orga6c0aa2" class="outline-3">
-<h3 id="orga6c0aa2"><span class="section-number-3">3.8.</span> Higher-Order Abstract Syntax</h3>
+<div id="outline-container-orgae58227" class="outline-3">
+<h3 id="orgae58227"><span class="section-number-3">3.8.</span> Higher-Order Abstract Syntax</h3>
 <div class="outline-text-3" id="text-3-8">
 <p>
 Note: using Haskell's syntax to simulate aspects of the object-language syntax is known as <i>Higher-Order Abstract Syntax</i>.
@@ -1000,297 +1000,18 @@ We'll see more of this technique in the coming weeks.
 </div>
 </div>
 
-<div id="outline-container-org99bc38b" class="outline-3">
-<h3 id="org99bc38b"><span class="section-number-3">3.9.</span> Basic typeclasses</h3>
+<div id="outline-container-org88e8c7f" class="outline-3">
+<h3 id="org88e8c7f"><span class="section-number-3">3.9.</span> </h3>
 <div class="outline-text-3" id="text-3-9">
-<p>
-Recall our basic type for individuals.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">John</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Mary</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Bill</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Sue</span>
-</pre>
-</div>
-
-<p>
-We haven't given ghc any further information about this type, so there's not much we can do with it. See what happens if you evaluate the following:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">John</span> <span style="color: #89b4fa;">==</span> <span style="color: #cba6f7;">John</span>
-</pre>
-</div>
-
-<p>
-What about the following:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">True</span> <span style="color: #89b4fa;">==</span> <span style="color: #cba6f7;">True</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orga2c99f9" class="outline-3">
-<h3 id="orga2c99f9"><span class="section-number-3">3.10.</span> Basic typeclasses cont.</h3>
-<div class="outline-text-3" id="text-3-10">
-<p>
-The reason for the contrast here is that <code>Bool</code> by default is an instance of the type class <code>Eq</code>, which is the class of types that contain things that can be compared and determined to be equal in value.
-</p>
-
-<p>
-Since we didn't explicitly say that <code>E</code> is an instance of <code>Eq</code>, ghc doesn't assume that it is.
-</p>
-
-<p>
-Likewise, try evaluating the following in ghci:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">John</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org6b8521d" class="outline-3">
-<h3 id="org6b8521d"><span class="section-number-3">3.11.</span> Deriving typeclasses</h3>
-<div class="outline-text-3" id="text-3-11">
-<p>
-We'll learn later how to declare typeclass instances, but in the mean time ghc has convenient mechanisms for automatically generating sensible typeclass instances for simple types.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">John</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Mary</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Bill</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Sue</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org19083ab" class="outline-3">
-<h3 id="org19083ab"><span class="section-number-3">3.12.</span> Constrained polymorphism</h3>
-<div class="outline-text-3" id="text-3-12">
-<ul class="org-ul">
-<li>Inspect the type of <code>id</code>.</li>
-<li>Now inspect the type of <code>(==)</code>, which is a function that tests for equality.
-<ul class="org-ul">
-<li>Polymorphism is used to constrain typeclasses.</li>
-<li>The fewer typeclass constraints on a polymorphic type signature, the fewer assumptions the polymorphic function can make about its arguments.</li>
-</ul></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orge9c40a1" class="outline-3">
-<h3 id="orge9c40a1"><span class="section-number-3">3.13.</span> Using typeclasses</h3>
-<div class="outline-text-3" id="text-3-13">
-<p>
-What do you think will happen if you declare the in a source file?
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">same</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Eq</span> a <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> b <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>
-<span style="color: #89b4fa;">same</span> a b <span style="color: #89dceb;">=</span> a <span style="color: #89dceb;">==</span> b
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgc7fb758" class="outline-3">
-<h3 id="orgc7fb758"><span class="section-number-3">3.14.</span> Using typeclasses cont.</h3>
-<div class="outline-text-3" id="text-3-14">
-<p>
-Remember that free type variables are <i>implicitly universally quantified</i>.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">id</span> <span style="color: #89dceb;">::</span> a <span style="color: #89dceb;">-&gt;</span> a
-</pre>
-</div>
-
-<p>
-Informally, this means that the type of <code>id</code> is <code>a -&gt; a</code>, for all <code>a</code> in the set of types.
-</p>
-
-<p>
-Type class constraints restrict the universal quantification to just types which belong to particular classes:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell">(<span style="color: #89b4fa;">==</span>) <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Eq</span> <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>
-</pre>
-</div>
-
-<p>
-This means that the type of <code>(==)</code> is <code>a -&gt; a -&gt; Bool</code>, for all <code>a</code> that belong to the <code>Eq</code> class.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgf3d561f" class="outline-3">
-<h3 id="orgf3d561f"><span class="section-number-3">3.15.</span> Combining typeclass restrictions</h3>
-<div class="outline-text-3" id="text-3-15">
-<p>
-Typeclass restrictions can be combined. We've alluded to this before, but the typeclass <code>Show</code> is used to classify types whose inhabitants can be converted into strings (via the <code>show</code>) function.
-</p>
-
-<p>
-What does the following function do?
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">func</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">Eq</span> a, <span style="color: #b4befe;">Show</span> a) <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">String</span>
-<span style="color: #89b4fa;">func</span> a b <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">if</span> 
-  a <span style="color: #89dceb;">==</span> b
-  <span style="color: #cba6f7;">then</span> (show a) <span style="color: #89dceb;">++</span> <span style="color: #a6e3a1;">" is equal to "</span> <span style="color: #89dceb;">++</span> (show b)
-  <span style="color: #cba6f7;">else</span> <span style="color: #a6e3a1;">"try again!"</span>
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org2fd11af" class="outline-3">
-<h3 id="org2fd11af"><span class="section-number-3">3.16.</span> Sidenote: conditionals</h3>
-<div class="outline-text-3" id="text-3-16">
-<p>
-Haskell has syntactic sugar for conditional states like <i>if A then B</i>, which are conventionally written as follows:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">if</span> _condition <span style="color: #cba6f7;">then</span> _expressionA <span style="color: #cba6f7;">else</span> _expressionB
-</pre>
-</div>
-
-<p>
-You can use conditionals anywhere where you could use <code>_expressionA</code> or <code>_expressionB</code> (the expressions must be of the same type).
-</p>
-
-<p>
-What does the following function do?
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">toyFunc</span> n <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">if</span> even n <span style="color: #cba6f7;">then</span> n <span style="color: #89dceb;">+</span> 1 <span style="color: #cba6f7;">else</span> n <span style="color: #89dceb;">-</span> 1
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org582b5f3" class="outline-3">
-<h3 id="org582b5f3"><span class="section-number-3">3.17.</span> Conditionals and syntactic sugar</h3>
-<div class="outline-text-3" id="text-3-17">
-<p>
-It's important to remember that anything that isn't function-argument application in haskell is <i>syntactic sugar</i>.
-</p>
-
-<p>
-To illustrate, we could implement conditionals as a standard function:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">cond</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a
-<span style="color: #89b4fa;">cond</span> <span style="color: #cba6f7;">True</span> a b <span style="color: #89dceb;">=</span> a
-<span style="color: #89b4fa;">cond</span> <span style="color: #cba6f7;">False</span> a b <span style="color: #89dceb;">=</span> b
-
-<span style="color: #89b4fa;">toyFunc2</span> n <span style="color: #89dceb;">=</span> cond (even n) (n <span style="color: #89dceb;">+</span> 1) (n <span style="color: #89dceb;">-</span> 1)
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org9ad8140" class="outline-3">
-<h3 id="org9ad8140"><span class="section-number-3">3.18.</span> Tuples</h3>
-<div class="outline-text-3" id="text-3-18">
-<p>
-Tuples are a ubiquitous syntactic construct, defined in haskell as a special kind of type known as a <i>product type</i>.
-</p>
-
-<p>
-Let's look at the data declaration for tuples:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">(,)</span> a b <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">(,)</span> a b
-</pre>
-</div>
-
-<ul class="org-ul">
-<li>This is quite different from what we've seen so far.
-<ul class="org-ul">
-<li>The datatype declaration involves a function (called a <i>type constructor</i>) that takes two type arguments <code>a</code>, <code>b</code>.</li>
-<li>Type constructors create types from types.</li>
-<li>For example, <code>(,) Int String</code> is a distinct type from <code>(,) String Int</code>.</li>
-<li><code>(a,b)</code> is <i>syntactic sugar</i> for <code>(,) a b</code>.</li>
-</ul></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org16a425c" class="outline-3">
-<h3 id="org16a425c"><span class="section-number-3">3.19.</span> Working with tuples</h3>
-<div class="outline-text-3" id="text-3-19">
-<p>
-Consider some tuples:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell">(<span style="color: #a6e3a1;">"haskell"</span>, <span style="color: #a6e3a1;">"rocks"</span>)
-(<span style="color: #a6e3a1;">"haskell"</span>, 1)
-</pre>
-</div>
-
-<p>
-We can write functions <code>fst</code> and <code>snd</code> using pattern matching to extract the elements of a tuple (these are provided already in the prelude).
-</p>
-
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">fst</span> <span style="color: #89dceb;">::</span> (a,b) <span style="color: #89dceb;">-&gt;</span> a
-<span style="color: #89b4fa;">fst</span> (a,b) <span style="color: #89dceb;">=</span> a
-<span style="color: #89b4fa;">snd</span> <span style="color: #89dceb;">::</span> (a,b) <span style="color: #89dceb;">-&gt;</span> b
-<span style="color: #89b4fa;">snd</span> (a,b) <span style="color: #89dceb;">=</span> b
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-orgea1a345" class="outline-3">
-<h3 id="orgea1a345"><span class="section-number-3">3.20.</span> Exercise</h3>
-<div class="outline-text-3" id="text-3-20">
-<ul class="org-ul">
-<li>Write a function <code>swap</code> that takes a tuple, and swaps the elements around.</li>
-<li>write a function <code>condTup</code> that takes a bool <code>t</code>, two tuples, <code>(a,b)</code>, <code>(c,d)</code>, and gives back a tuple of tuples <code>(a,c)</code> if <code>t</code> is true, and <code>(b,d)</code> otherwise (tip: think carefully about the type signature!).</li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org923f90e" class="outline-3">
-<h3 id="org923f90e"><span class="section-number-3">3.21.</span> Solution</h3>
-<div class="outline-text-3" id="text-3-21">
-<div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">swap</span> <span style="color: #89dceb;">::</span> (a,b) <span style="color: #89dceb;">-&gt;</span> (b,a)
-<span style="color: #89b4fa;">swap</span> (a,b) <span style="color: #89dceb;">=</span> (b,a)
-
-<span style="color: #89b4fa;">condTup</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">-&gt;</span> (a,a) <span style="color: #89dceb;">-&gt;</span> (b,b) <span style="color: #89dceb;">-&gt;</span> (a,b)
-<span style="color: #89b4fa;">condTup</span> <span style="color: #cba6f7;">True</span> (a,b) (c,d) <span style="color: #89dceb;">=</span> (a,c)
-<span style="color: #89b4fa;">condTup</span> <span style="color: #cba6f7;">False</span> (a,b) (c,d) <span style="color: #89dceb;">=</span> (b,d)
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org444df05" class="outline-3">
-<h3 id="org444df05"><span class="section-number-3">3.22.</span> </h3>
-<div class="outline-text-3" id="text-3-22">
 <p>
 \(\mathscr{Fin}\)
 </p>
 </div>
 </div>
 
-<div id="outline-container-org69acbfa" class="outline-3">
-<h3 id="org69acbfa"><span class="section-number-3">3.23.</span> References</h3>
-<div class="outline-text-3" id="text-3-23">
+<div id="outline-container-orgd26ecee" class="outline-3">
+<h3 id="orgd26ecee"><span class="section-number-3">3.10.</span> References</h3>
+<div class="outline-text-3" id="text-3-10">
 <p>
 Carpenter, Bob (1998). <i>Type-Logical Semantics</i>, {MIT Press}.</p>
 
@@ -1305,7 +1026,7 @@ van Eijck, Jan and Unger, Christina (2010). <i>Computational {{Semantics}} with 
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2023-04-18 Tue 14:02</p>
+<p class="date">Created: 2023-04-20 Thu 14:59</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

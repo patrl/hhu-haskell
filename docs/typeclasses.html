@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-04-20 Thu 14:59 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Types and strings</title>
+<meta name="author" content="Patrick D. Elliott" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Types and strings</h1>
+
+<div id="outline-container-org3b0d379" class="outline-2">
+<h2 id="org3b0d379"><span class="section-number-2">1.</span> Basic typeclasses</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Recall our basic type for individuals.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">John</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Mary</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Bill</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Sue</span>
+</pre>
+</div>
+
+<p>
+We haven't given ghc any further information about this type, so there's not much we can do with it. See what happens if you evaluate the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">John</span> <span style="color: #89b4fa;">==</span> <span style="color: #cba6f7;">John</span>
+</pre>
+</div>
+
+<p>
+What about the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">True</span> <span style="color: #89b4fa;">==</span> <span style="color: #cba6f7;">True</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb616e61" class="outline-2">
+<h2 id="orgb616e61"><span class="section-number-2">2.</span> Basic typeclasses cont.</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The reason for the contrast here is that <code>Bool</code> by default is an instance of the type class <code>Eq</code>, which is the class of types that contain things that can be compared and determined to be equal in value.
+</p>
+
+<p>
+Since we didn't explicitly say that <code>E</code> is an instance of <code>Eq</code>, ghc doesn't assume that it is.
+</p>
+
+<p>
+Likewise, try evaluating the following in ghci:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">John</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org86cb1ad" class="outline-2">
+<h2 id="org86cb1ad"><span class="section-number-2">3.</span> Deriving typeclasses</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+We'll learn later how to declare typeclass instances, but in the mean time ghc has convenient mechanisms for automatically generating sensible typeclass instances for simple types.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">John</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Mary</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Bill</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Sue</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4a7e0b0" class="outline-2">
+<h2 id="org4a7e0b0"><span class="section-number-2">4.</span> Constrained polymorphism</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>Inspect the type of <code>id</code>.</li>
+<li>Now inspect the type of <code>(==)</code>, which is a function that tests for equality.
+<ul class="org-ul">
+<li>Polymorphism is used to constrain typeclasses.</li>
+<li>The fewer typeclass constraints on a polymorphic type signature, the fewer assumptions the polymorphic function can make about its arguments.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org76655c8" class="outline-2">
+<h2 id="org76655c8"><span class="section-number-2">5.</span> Using typeclasses</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+What do you think will happen if you declare the in a source file?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">same</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Eq</span> a <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> b <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>
+<span style="color: #89b4fa;">same</span> a b <span style="color: #89dceb;">=</span> a <span style="color: #89dceb;">==</span> b
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org389bb91" class="outline-2">
+<h2 id="org389bb91"><span class="section-number-2">6.</span> Using typeclasses cont.</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Remember that free type variables are <i>implicitly universally quantified</i>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">id</span> <span style="color: #89dceb;">::</span> a <span style="color: #89dceb;">-&gt;</span> a
+</pre>
+</div>
+
+<p>
+Informally, this means that the type of <code>id</code> is <code>a -&gt; a</code>, for all <code>a</code> in the set of types.
+</p>
+
+<p>
+Type class constraints restrict the universal quantification to just types which belong to particular classes:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">(<span style="color: #89b4fa;">==</span>) <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Eq</span> <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>
+</pre>
+</div>
+
+<p>
+This means that the type of <code>(==)</code> is <code>a -&gt; a -&gt; Bool</code>, for all <code>a</code> that belong to the <code>Eq</code> class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdee97d3" class="outline-2">
+<h2 id="orgdee97d3"><span class="section-number-2">7.</span> Combining typeclass restrictions</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Typeclass restrictions can be combined. We've alluded to this before, but the typeclass <code>Show</code> is used to classify types whose inhabitants can be converted into strings (via the <code>show</code>) function.
+</p>
+
+<p>
+What does the following function do?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">func</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">Eq</span> a, <span style="color: #b4befe;">Show</span> a) <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">String</span>
+<span style="color: #89b4fa;">func</span> a b <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">if</span> 
+  a <span style="color: #89dceb;">==</span> b
+  <span style="color: #cba6f7;">then</span> (show a) <span style="color: #89dceb;">++</span> <span style="color: #a6e3a1;">" is equal to "</span> <span style="color: #89dceb;">++</span> (show b)
+  <span style="color: #cba6f7;">else</span> <span style="color: #a6e3a1;">"try again!"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge9cfe86" class="outline-2">
+<h2 id="orge9cfe86"><span class="section-number-2">8.</span> Sidenote: conditionals</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Haskell has syntactic sugar for conditional states like <i>if A then B</i>, which are conventionally written as follows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">if</span> _condition <span style="color: #cba6f7;">then</span> _expressionA <span style="color: #cba6f7;">else</span> _expressionB
+</pre>
+</div>
+
+<p>
+You can use conditionals anywhere where you could use <code>_expressionA</code> or <code>_expressionB</code> (the expressions must be of the same type).
+</p>
+
+<p>
+What does the following function do?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">toyFunc</span> n <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">if</span> even n <span style="color: #cba6f7;">then</span> n <span style="color: #89dceb;">+</span> 1 <span style="color: #cba6f7;">else</span> n <span style="color: #89dceb;">-</span> 1
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5b9a12b" class="outline-2">
+<h2 id="org5b9a12b"><span class="section-number-2">9.</span> Conditionals and syntactic sugar</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+It's important to remember that anything that isn't function-argument application in haskell is <i>syntactic sugar</i>.
+</p>
+
+<p>
+To illustrate, we could implement conditionals as a standard function:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">cond</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a
+<span style="color: #89b4fa;">cond</span> <span style="color: #cba6f7;">True</span> a b <span style="color: #89dceb;">=</span> a
+<span style="color: #89b4fa;">cond</span> <span style="color: #cba6f7;">False</span> a b <span style="color: #89dceb;">=</span> b
+
+<span style="color: #89b4fa;">toyFunc2</span> n <span style="color: #89dceb;">=</span> cond (even n) (n <span style="color: #89dceb;">+</span> 1) (n <span style="color: #89dceb;">-</span> 1)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1b4ded9" class="outline-2">
+<h2 id="org1b4ded9"><span class="section-number-2">10.</span> Tuples</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Tuples are a ubiquitous syntactic construct, defined in haskell as a special kind of type known as a <i>product type</i>.
+</p>
+
+<p>
+Let's look at the data declaration for tuples:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">(,)</span> a b <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">(,)</span> a b
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>This is quite different from what we've seen so far.
+<ul class="org-ul">
+<li>The datatype declaration involves a function (called a <i>type constructor</i>) that takes two type arguments <code>a</code>, <code>b</code>.</li>
+<li>Type constructors create types from types.</li>
+<li>For example, <code>(,) Int String</code> is a distinct type from <code>(,) String Int</code>.</li>
+<li><code>(a,b)</code> is <i>syntactic sugar</i> for <code>(,) a b</code>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org41243c8" class="outline-2">
+<h2 id="org41243c8"><span class="section-number-2">11.</span> Working with tuples</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Consider some tuples:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">(<span style="color: #a6e3a1;">"haskell"</span>, <span style="color: #a6e3a1;">"rocks"</span>)
+(<span style="color: #a6e3a1;">"haskell"</span>, 1)
+</pre>
+</div>
+
+<p>
+We can write functions <code>fst</code> and <code>snd</code> using pattern matching to extract the elements of a tuple (these are provided already in the prelude).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">fst</span> <span style="color: #89dceb;">::</span> (a,b) <span style="color: #89dceb;">-&gt;</span> a
+<span style="color: #89b4fa;">fst</span> (a,b) <span style="color: #89dceb;">=</span> a
+<span style="color: #89b4fa;">snd</span> <span style="color: #89dceb;">::</span> (a,b) <span style="color: #89dceb;">-&gt;</span> b
+<span style="color: #89b4fa;">snd</span> (a,b) <span style="color: #89dceb;">=</span> b
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5b7ff46" class="outline-2">
+<h2 id="org5b7ff46"><span class="section-number-2">12.</span> Exercise</h2>
+<div class="outline-text-2" id="text-12">
+<ul class="org-ul">
+<li>Write a function <code>swap</code> that takes a tuple, and swaps the elements around.</li>
+<li>write a function <code>condTup</code> that takes a bool <code>t</code>, two tuples, <code>(a,b)</code>, <code>(c,d)</code>, and gives back a tuple of tuples <code>(a,c)</code> if <code>t</code> is true, and <code>(b,d)</code> otherwise (tip: think carefully about the type signature!).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org73522ee" class="outline-2">
+<h2 id="org73522ee"><span class="section-number-2">13.</span> Solution</h2>
+<div class="outline-text-2" id="text-13">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">swap</span> <span style="color: #89dceb;">::</span> (a,b) <span style="color: #89dceb;">-&gt;</span> (b,a)
+<span style="color: #89b4fa;">swap</span> (a,b) <span style="color: #89dceb;">=</span> (b,a)
+
+<span style="color: #89b4fa;">condTup</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">-&gt;</span> (a,a) <span style="color: #89dceb;">-&gt;</span> (b,b) <span style="color: #89dceb;">-&gt;</span> (a,b)
+<span style="color: #89b4fa;">condTup</span> <span style="color: #cba6f7;">True</span> (a,b) (c,d) <span style="color: #89dceb;">=</span> (a,c)
+<span style="color: #89b4fa;">condTup</span> <span style="color: #cba6f7;">False</span> (a,b) (c,d) <span style="color: #89dceb;">=</span> (b,d)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb644130" class="outline-2">
+<h2 id="orgb644130"><span class="section-number-2">14.</span> </h2>
+<div class="outline-text-2" id="text-14">
+<p>
+\(\mathscr{Fin}\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3b31cb5" class="outline-2">
+<h2 id="org3b31cb5"><span class="section-number-2">15.</span> References</h2>
+<div class="outline-text-2" id="text-15">
+
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Patrick D. Elliott</p>
+<p class="date">Created: 2023-04-20 Thu 14:59</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
