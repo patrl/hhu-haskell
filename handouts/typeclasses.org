@@ -1,4 +1,4 @@
-#+title:  Types and strings
+#+title: From types to typeclasses
 #+author: Patrick D. Elliott
 #+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
 #+EXPORT_FILE_NAME: ../docs/typeclasses
@@ -10,7 +10,91 @@
 #+LATEX_COMPILER: xelatex
 #+OPTIONS: toc:nil H:2
 
-** Basic typeclasses
+** Homework
+
+Next week we'll start implementing /linguistic/ data structures using Haskell.
+
+In preparation, you can read Chapter 4 of /Computational Semantics with Functional Programming/ "Formal syntax for fragments".
+
+* Interlude: the indirect approach to semantics 
+
+** Rolling your own datatypes
+
+In haskell, /sum types/ can be used to model primitive types with fixed domains of entities:
+
+#+begin_src haskell
+  data E = John | Mary | Bill | Sue
+#+end_src
+
+In a sense, we're modelling a small fragment of English proper names "John", "Mary", "Bill", "Sue", interpreted as individual denoting constants.
+
+** Interlude: Montagovian fragments
+
+#+ATTR_LATEX: :width 0.4\textwidth
+[[./img/montague.jpg]]
+
+#+begin_quote
+"There is in my opinion no important theoretical difference between natural languages and the artificial languages of logicians; indeed I consider it possible to comprehend the syntax and semantics of both kinds of languages with a single natural and mathematically precise theory." [cite:@Montague1970a]
+#+end_quote
+
+** Compositional semantics: the indirect approach 
+
+- Montague developed an influential technique for giving a denotational semantics for a /fragment/ of a natural language, like English.
+  * Montague's idea (inspired by the philosoher Gottlob Frege) was to first /translate/ sentences of English into sentences of a logical language.
+  * A denotational semantics could then be provided for the logical language quite straightforwardly. 
+  * This is called the /indirect approach/ to compositional semantics.
+    
+** The indirect approach cont.
+
+Montague used /Intensional Logic/ as the logical language, but more contemporary work in semantics typically uses the /Simply-Typed Lambda Calculus/, either implicitly or explicitly [cite:@Carpenter1998].
+
+- every \(\rightsquigarrow \lambda R . \lambda P . \mathbf{every}(R)(P) : (E \to T) \to T\)
+- and \(\rightsquigarrow \lambda t . \lambda u . \mathbf{and}(t)(u) : T \to T \to T\)
+- Josie \(\rightsquigarrow \mathbf{josie} : E\)
+
+** The indirect approach cont.
+
+#+begin_export latex
+\begin{scriptsize}
+\begin{center}
+  \begin{forest}
+    [{\(\mathbf{every}(\mathbf{ling})(\mathbf{love}(\mathbf{haskell}))
+      : T\)}
+    [{\(\mathbf{every}(\mathbf{ling}) : (E \to T) \to T\)}
+      [{\(\mathbf{every} : (E \to T) \to (E \to T) \to T\)\\every}]
+      [{\(\mathbf{ling} : E \to T\)\\linguist}]
+    ]
+    [{\(\mathbf{love}(\mathbf{haskell}) : E \to T\)}
+      [{\(\mathbf{love} :: E \to E \to T\)\\loves}]
+      [{\(\mathbf{haskell} :: E\)\\Haskell}]
+    ]
+    ]
+  \end{forest}\end{center}
+  \end{scriptsize}
+#+end_export
+
+- The truth-conditions of the sentence are provided by the denotational semantics of the logical language.
+  
+\[[\mathbf{ling}] = \set{(x,\mathbf{True})|x\text{ is a linguist} } \cup \set{(x,\mathbf{False})|x\text{ isn't a linguist} }\]
+
+** The Haskell connection
+
+#+begin_quote
+There is no important theoretical difference between natural languages and *the artificial languages of programmers*. 
+#+end_quote
+
+- A modern (re-)rendering of Montague's conjecture:
+  * English sentences can be systematically translated into /haskell expressions/.
+  * Determining whether or not the sentence is true amounts to /normalization/.
+  
+#+begin_src haskell
+  and(even(4))(odd(2))
+  -- False 
+#+end_src
+
+* Typeclasses
+
+** Doing things with datatypes 
 
 Recall our basic type for individuals.
 
@@ -30,39 +114,88 @@ What about the following:
   True == True
 #+end_src
 
-** Basic typeclasses cont.
+** Basic typeclasses
 
 The reason for the contrast here is that ~Bool~ by default is an instance of the type class ~Eq~, which is the class of types that contain things that can be compared and determined to be equal in value.
 
-Since we didn't explicitly say that ~E~ is an instance of ~Eq~, ghc doesn't assume that it is.
+#+begin_src haskell
+  type Bool :: *
+  data Bool = False | True
+	  -- Defined in ‘GHC.Types’
+  instance Eq Bool -- Defined in ‘GHC.Classes’
+#+end_src
 
-Likewise, try evaluating the following in ghci:
+Since we didn't explicitly say that ~E~ is an instance of ~Eq~, ghc doesn't assume that it is (you can try typing in ~:i E~ into ghci to verify this).
+
+** Basic typeclasses cont.
+
+Likewise, try evaluating the following in ghci. What do you think is responsible for the different results?
 
 #+begin_src haskell
   ghci> John
 #+end_src
 
+#+begin_src haskell
+  ghci> True 
+#+end_src
+
 ** Deriving typeclasses
 
-We'll learn later how to declare typeclass instances, but in the mean time ghc has convenient mechanisms for automatically generating sensible typeclass instances for simple types.
+We'll learn later on how to declare our own typeclass instances, but in the meantime ghc has convenient mechanisms for automatically generating sensible typeclass instances for simple types.
 
  #+begin_src haskell
   data E = John | Mary | Bill | Sue deriving (Eq,Show)
 #+end_src
+
+- By default, an ~Eq~ instance for a sum type considers data constructors to be identical only to themselves.
+- The default ~Show~ instance for a sum type simply converts the name of the data constructor into a printable string.
 
 ** Constrained polymorphism
 
 - Inspect the type of ~id~.
 - Now inspect the type of ~(==)~, which is a function that tests for equality.
   * Polymorphism is used to constrain typeclasses.
-  * The fewer typeclass constraints on a polymorphic type signature, the fewer assumptions the polymorphic function can make about its arguments.
+  * The more typeclass constraints we add to a polymorphic type signature, the more assumptions the polymorphic function can make about its arguments.
     
+** Typeclass syntax
+
+- Typeclass constraints are applied to types using the ~=>~ syntax at the beginning of the type signature.
+- Multiple typeclass constraints are separated by commas in parentheses. 
+- Typeclass constraints are interpreted /conjunctively/, e.g.,
+
+#+begin_src haskell
+  f :: (Class1 a, Class2 a) => a -> a
+#+end_src
+
+This is interpeted as a /universal quantification/ over types, where the /restriction/ of the universal is provided by the typeclasses:
+    
+\[\forall t \in \mathbf{Typ}[(t \in \mathbf{Class1} \wedge t \in \mathbf{Class2}) \rightarrow f : (t \to t)]\]
+
+** Typeclass syntax cont.
+
+- ~=>~ is a binding operator; it comes with a variable, and binds all matching variables in its scope.
+- Typeclass constraints with different variables restrict different universal quantifiers.
+  
+#+begin_src haskell
+  f2 :: (Class1 a, Class2 b) => a -> b
+#+end_src
+
+\[\forall t, t' \in \mathbf{Type}[(t \in \mathbf{Class1} \wedge t' \in \mathbf{Class2}) \rightarrow f_2 : (t \to t')]\]
+  
+
 ** Using typeclasses
 
 What do you think will happen if you declare the in a source file?
 
 #+begin_src haskell
   same :: Eq a => a -> b -> Bool
+  same a b = a == b
+#+end_src
+
+What about the following?
+
+#+begin_src haskell
+  same2 :: (Eq a, Eq b) => a -> b -> Bool
   same a b = a == b
 #+end_src
 
@@ -98,9 +231,13 @@ What does the following function do?
     else "try again!"
 #+end_src
 
-** Sidenote: conditionals
+Why do we need both typeclass constraints here?
 
-Haskell has syntactic sugar for conditional states like /if A then B/, which are conventionally written as follows:
+* Interlude: conditionals and tuples
+
+** Conditionals
+
+Haskell has syntactic sugar for conditional statements like /if A then B/, which are conventionally written as follows:
 
 #+begin_src haskell
   if _condition then _expressionA else _expressionB
@@ -118,17 +255,40 @@ toyFunc n = if even n then n + 1 else n - 1
 
 It's important to remember that anything that isn't function-argument application in haskell is /syntactic sugar/.
 
-To illustrate, we could implement conditionals as a standard function:
+As an exercise, implement conditional statements as a standard function:
 
 #+begin_src haskell
   cond :: Bool -> a -> a -> a
-  cond True a b = a
-  cond False a b = b
-    
-  toyFunc2 n = cond (even n) (n + 1) (n - 1)
 #+end_src
 
+Test your answer by rewriting ~toyFunc~ using ~cond~.
+
+** Conditionals and syntactic sugar: solution
+
+#+begin_src haskell
+  cond :: Bool -> a -> a -> a
+  cond True a _ = a
+  cond False _ b = b
+#+end_src
+
+** Lists and tuples 
+
+We learned earlier about /lists/ in haskell, of type ~[a]~, for any type ~a~.
+
+#+begin_src haskell
+  myList1 :: [Int] 
+  myList1 = [2,4,6,8]
+
+  myList2 :: [Char]
+  myList2 = "I'm a string"
+#+end_src
+
+The primary limitation of lists is that they can only contain /elements of the same type/.
+
+A ubiquitous data structure in haskell used for elements of (potentially) distinct types is the /tuple/.
+
 ** Tuples
+
 
 Tuples are a ubiquitous syntactic construct, defined in haskell as a special kind of type known as a /product type/.
 
@@ -162,10 +322,44 @@ We can write functions ~fst~ and ~snd~ using pattern matching to extract the ele
   snd (a,b) = b
 #+end_src
 
+** N-tuples
+
+Unlike lists, tuples have a /fixed number/ of elements.
+
+#+begin_src haskell
+  ("Haskell", 1, "Rocks") :: (String, Int, String)
+  ('a', 'b', "Hello", 73) :: (Char, Char, String, Int)
+#+end_src
+
+The ~fst~ and ~snd~ functions won't work for /n-tuples/, where \(n > 2\); why not?
+
+** TODO Tuples under the hood
+
+Unlike lists, tuples in haskell aren't singly-linked. To see this, try evaluating the following:
+
+#+begin_src haskell
+  ghci> (1,2,3) == ((1,2),3)
+  ghci> (1,2,3) == (1,(2,3))
+#+end_src
+
+In fact, a 2-tuple involves a distinct constructor to a 3-tuple.
+
+#+begin_src haskell
+    ghci> (,,) 1 2 3
+    (1,2,3)
+    ghci> (,,,) 1 2 3 4
+    (1,2,3,4)
+    ghci> (,,) 1 2 3 4
+    -- type mismatch error
+#+end_src
+
+This explains why ~fst~ and ~snd~ don't work!
+
 ** Exercise
 
 - Write a function ~swap~ that takes a tuple, and swaps the elements around.
 - write a function ~condTup~ that takes a bool ~t~, two tuples, ~(a,b)~, ~(c,d)~, and gives back a tuple of tuples ~(a,c)~ if ~t~ is true, and ~(b,d)~ otherwise (tip: think carefully about the type signature!).
+- Write functions ~fst5~ and ~snd5~ that apply to 5-tuples. Is it possible to write an /unsafe/ index function for tuples?
 
 ** Solution
 
@@ -176,6 +370,167 @@ We can write functions ~fst~ and ~snd~ using pattern matching to extract the ele
   condTup :: Bool -> (a,a) -> (b,b) -> (a,b)
   condTup True (a,b) (c,d) = (a,c)
   condTup False (a,b) (c,d) = (b,d)
+
+  fst5 :: (a,b,c,d,e) -> a
+  fst5 (a,_,_,_,_) = a
+
+  snd5 :: (_,b,_,_,_) -> b
+  snd5 (_,b,_,_,_) = b
+#+end_src
+
+** Tuples and currying
+
+- Functions in Haskell strictly take *one argument* and return *one result*; sometimes that result is itself a function.
+- When a function appears to take multiple arguments, in fact those arguments are /curried/, i.e., addition has the following type signature:
+
+#+begin_src haskell
+  (+) :: Num a => a -> a -> a
+#+end_src
+
+Currying means that we can pass around the result of /partially applying/ a function that takes multiple arguments.
+
+#+begin_src haskell
+  ghci> myPartial = (+) 4
+  ghci> myPartial 6
+  10
+#+end_src
+
+** Exercise: uncurrying
+
+*Exercise:* write a function ~myAddition~ that takes a /tuple/ as its sole argument.
+
+** Uncurrying: solution
+
+#+begin_src haskell
+  myAddition :: (Num a) => (a,a) -> a
+  myAddition (a,b) = a + b
+#+end_src
+
+** Exercise: generalized (un)currying
+
+This exercise is a bit harder:
+
+- *Part 1:* write a function ~myUncurry~ of type ~(a -> b -> c) -> (a,b) -> c~.
+- *Part 2:* write a function ~myCurry~ of type ~((a,b) -> c) -> a -> b -> c~.
+- *Part 3:* now do the same thing, but for functions which take 3 arguments.
+  * Is it possible to write a generalized function ~myCurryN~ that curries a function that takes ~n~ arguments?
+  
+** Solution: generalized (un)currying
+
+#+begin_src haskell
+  myUncurry f (a,b) = f a b
+  myCurry f a b = f (a,b)
+  myUncurry3 f (a,b,c) = f a b c
+  myUncurry3 f a b c = f (a,b,c)
+#+end_src
+
+* Polymorphism
+
+** Parameteric polymorphism
+
+Type signatures in haskell can be (parametrically) polymorphic. Recall that typeclasses constrain what we can do with arguments to a polymorphic function.
+
+- Try to write a function of type ~a -> a~ that does soemthing other than return the input value.
+- There are two possible implementations of the function with type signature ~a -> a -> a~. Write them both.
+- How many implementations can can ~a -> b -> b~ have?
+  
+** Function composition  
+
+/Combinators/ (remember those from the lambda calculus?) in haskell are polymorphic functions.
+
+/Function composition/ is an infix operator ~f . g~.
+
+Here's one way of writing its definition:
+
+#+begin_src haskell
+  f . g = \x -> f $ g x
+#+end_src
+
+This will be useful in the following exercises.
+
+** Type-kwon-do
+
+- In all of the following cases, the goal is to make the program pass the type checker by modifying the ~???~ declaration, and it alone.
+  
+** Type-kwon-do 1
+
+#+begin_src haskell
+  f :: Int -> String
+  f = undefined
+
+  g :: String -> Char
+  g = undefined
+
+  h :: Int -> Char
+  h = ???
+#+end_src
+
+** Solution
+
+#+begin_src haskell
+  h = g . f
+#+end_src
+
+** Type-kwon-do 2
+
+#+begin_src haskell
+  data A
+  data B
+  data C
+
+  q :: A -> B
+  q = undefined
+
+  w :: B -> C
+  w = undefined
+  
+  e :: A -> C
+  e = ???
+#+end_src
+
+** Solution
+
+#+begin_src haskell
+  e = w . q
+#+end_src
+
+** Type-kwon-do 3
+
+#+begin_src haskell
+  data X
+  data Y
+  data Z
+
+  xz :: X -> Z
+  xz = undefined
+
+  yz :: Y -> Z
+  yz = undefined
+
+  xform :: (X, Y) -> (Z, Z)
+  xform = ???
+#+end_src
+
+** Solution
+
+#+begin_src haskell
+xform (x,y) = (xz x, yz y)
+#+end_src
+
+** Type-kwon-do 4
+
+#+begin_src haskell
+  munge :: (x -> y)
+    -> (y -> (w, z))
+    -> x
+    -> w
+  munge = ???
+#+end_src
+
+** Solution
+
+#+begin_src haskell
+  munge f g = fst . g . f
 #+end_src
 
 ** 
