@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-20 Thu 14:59 -->
+<!-- 2023-04-24 Mon 12:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Types and strings</title>
+<title>From types to typeclasses</title>
 <meta name="author" content="Patrick D. Elliott" />
 <meta name="generator" content="Org Mode" />
 <style>
@@ -229,11 +229,135 @@
 </head>
 <body>
 <div id="content" class="content">
-<h1 class="title">Types and strings</h1>
+<h1 class="title">From types to typeclasses</h1>
 
-<div id="outline-container-org3b0d379" class="outline-2">
-<h2 id="org3b0d379"><span class="section-number-2">1.</span> Basic typeclasses</h2>
+<div id="outline-container-org87cc9c3" class="outline-3">
+<h3 id="org87cc9c3"><span class="section-number-3">0.1.</span> Homework</h3>
+<div class="outline-text-3" id="text-0-1">
+<p>
+Next week we'll start implementing <i>linguistic</i> data structures using Haskell.
+</p>
+
+<p>
+In preparation, you can read Chapter 4 of <i>Computational Semantics with Functional Programming</i> "Formal syntax for fragments".
+</p>
+</div>
+</div>
+
+<div id="outline-container-org42985ba" class="outline-2">
+<h2 id="org42985ba"><span class="section-number-2">1.</span> Interlude: the indirect approach to semantics</h2>
 <div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org46f5669" class="outline-3">
+<h3 id="org46f5669"><span class="section-number-3">1.1.</span> Rolling your own datatypes</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+In haskell, <i>sum types</i> can be used to model primitive types with fixed domains of entities:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">John</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Mary</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Bill</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Sue</span>
+</pre>
+</div>
+
+<p>
+In a sense, we're modelling a small fragment of English proper names "John", "Mary", "Bill", "Sue", interpreted as individual denoting constants.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org93d2b16" class="outline-3">
+<h3 id="org93d2b16"><span class="section-number-3">1.2.</span> Interlude: Montagovian fragments</h3>
+<div class="outline-text-3" id="text-1-2">
+
+<div id="org20c07e2" class="figure">
+<p><img src="./img/montague.jpg" alt="montague.jpg" />
+</p>
+</div>
+
+<blockquote>
+<p>
+"There is in my opinion no important theoretical difference between natural languages and the artificial languages of logicians; indeed I consider it possible to comprehend the syntax and semantics of both kinds of languages with a single natural and mathematically precise theory." (Montague, Richard, 1970)
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org9b62925" class="outline-3">
+<h3 id="org9b62925"><span class="section-number-3">1.3.</span> Compositional semantics: the indirect approach</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>Montague developed an influential technique for giving a denotational semantics for a <i>fragment</i> of a natural language, like English.
+<ul class="org-ul">
+<li>Montague's idea (inspired by the philosoher Gottlob Frege) was to first <i>translate</i> sentences of English into sentences of a logical language.</li>
+<li>A denotational semantics could then be provided for the logical language quite straightforwardly.</li>
+<li>This is called the <i>indirect approach</i> to compositional semantics.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb7960bd" class="outline-3">
+<h3 id="orgb7960bd"><span class="section-number-3">1.4.</span> The indirect approach cont.</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Montague used <i>Intensional Logic</i> as the logical language, but more contemporary work in semantics typically uses the <i>Simply-Typed Lambda Calculus</i>, either implicitly or explicitly (Carpenter, Bob, 1998).
+</p>
+
+<ul class="org-ul">
+<li>every \(\rightsquigarrow \lambda R . \lambda P . \mathbf{every}(R)(P) : (E \to T) \to T\)</li>
+<li>and \(\rightsquigarrow \lambda t . \lambda u . \mathbf{and}(t)(u) : T \to T \to T\)</li>
+<li>Josie \(\rightsquigarrow \mathbf{josie} : E\)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1d90e73" class="outline-3">
+<h3 id="org1d90e73"><span class="section-number-3">1.5.</span> The indirect approach cont.</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>The truth-conditions of the sentence are provided by the denotational semantics of the logical language.</li>
+</ul>
+
+<p>
+\[[\mathbf{ling}] = \set{(x,\mathbf{True})|x\text{ is a linguist} } \cup \set{(x,\mathbf{False})|x\text{ isn't a linguist} }\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc323560" class="outline-3">
+<h3 id="orgc323560"><span class="section-number-3">1.6.</span> The Haskell connection</h3>
+<div class="outline-text-3" id="text-1-6">
+<blockquote>
+<p>
+There is no important theoretical difference between natural languages and <b>the artificial languages of programmers</b>. 
+</p>
+</blockquote>
+
+<ul class="org-ul">
+<li>A modern (re-)rendering of Montague's conjecture:
+<ul class="org-ul">
+<li>English sentences can be systematically translated into <i>haskell expressions</i>.</li>
+<li>Determining whether or not the sentence is true amounts to <i>normalization</i>.</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-haskell">and(even(4))(odd(2))
+<span style="color: #585b70;">-- </span><span style="color: #585b70;">False </span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org74ca54f" class="outline-2">
+<h2 id="org74ca54f"><span class="section-number-2">2.</span> Typeclasses</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org4444700" class="outline-3">
+<h3 id="org4444700"><span class="section-number-3">2.1.</span> Doing things with datatypes</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 Recall our basic type for individuals.
 </p>
@@ -263,59 +387,126 @@ What about the following:
 </div>
 </div>
 
-<div id="outline-container-orgb616e61" class="outline-2">
-<h2 id="orgb616e61"><span class="section-number-2">2.</span> Basic typeclasses cont.</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgf9bb1d4" class="outline-3">
+<h3 id="orgf9bb1d4"><span class="section-number-3">2.2.</span> Basic typeclasses</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 The reason for the contrast here is that <code>Bool</code> by default is an instance of the type class <code>Eq</code>, which is the class of types that contain things that can be compared and determined to be equal in value.
 </p>
 
-<p>
-Since we didn't explicitly say that <code>E</code> is an instance of <code>Eq</code>, ghc doesn't assume that it is.
-</p>
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">type</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">::</span> <span style="color: #89dceb;">*</span>
+<span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">False</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">True</span>
+        <span style="color: #585b70;">-- </span><span style="color: #585b70;">Defined in &#8216;GHC.Types&#8217;</span>
+<span style="color: #cba6f7;">instance</span> <span style="color: #b4befe;">Eq</span> <span style="color: #b4befe;">Bool</span> <span style="color: #585b70;">-- </span><span style="color: #585b70;">Defined in &#8216;GHC.Classes&#8217;</span>
+</pre>
+</div>
 
 <p>
-Likewise, try evaluating the following in ghci:
+Since we didn't explicitly say that <code>E</code> is an instance of <code>Eq</code>, ghc doesn't assume that it is (you can try typing in <code>:i E</code> into ghci to verify this).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9a9f173" class="outline-3">
+<h3 id="org9a9f173"><span class="section-number-3">2.3.</span> Basic typeclasses cont.</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Likewise, try evaluating the following in ghci. What do you think is responsible for the different results?
 </p>
 
 <div class="org-src-container">
 <pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">John</span>
 </pre>
 </div>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">True</span> 
+</pre>
+</div>
 </div>
 </div>
 
-<div id="outline-container-org86cb1ad" class="outline-2">
-<h2 id="org86cb1ad"><span class="section-number-2">3.</span> Deriving typeclasses</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org704b800" class="outline-3">
+<h3 id="org704b800"><span class="section-number-3">2.4.</span> Deriving typeclasses</h3>
+<div class="outline-text-3" id="text-2-4">
 <p>
-We'll learn later how to declare typeclass instances, but in the mean time ghc has convenient mechanisms for automatically generating sensible typeclass instances for simple types.
+We'll learn later on how to declare our own typeclass instances, but in the meantime ghc has convenient mechanisms for automatically generating sensible typeclass instances for simple types.
 </p>
 
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">John</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Mary</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Bill</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Sue</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
 </pre>
 </div>
+
+<ul class="org-ul">
+<li>By default, an <code>Eq</code> instance for a sum type considers data constructors to be identical only to themselves.</li>
+<li>The default <code>Show</code> instance for a sum type simply converts the name of the data constructor into a printable string.</li>
+</ul>
 </div>
 </div>
 
-<div id="outline-container-org4a7e0b0" class="outline-2">
-<h2 id="org4a7e0b0"><span class="section-number-2">4.</span> Constrained polymorphism</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgd73a48b" class="outline-3">
+<h3 id="orgd73a48b"><span class="section-number-3">2.5.</span> Constrained polymorphism</h3>
+<div class="outline-text-3" id="text-2-5">
 <ul class="org-ul">
 <li>Inspect the type of <code>id</code>.</li>
 <li>Now inspect the type of <code>(==)</code>, which is a function that tests for equality.
 <ul class="org-ul">
 <li>Polymorphism is used to constrain typeclasses.</li>
-<li>The fewer typeclass constraints on a polymorphic type signature, the fewer assumptions the polymorphic function can make about its arguments.</li>
+<li>The more typeclass constraints we add to a polymorphic type signature, the more assumptions the polymorphic function can make about its arguments.</li>
 </ul></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org76655c8" class="outline-2">
-<h2 id="org76655c8"><span class="section-number-2">5.</span> Using typeclasses</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org149bf97" class="outline-3">
+<h3 id="org149bf97"><span class="section-number-3">2.6.</span> Typeclass syntax</h3>
+<div class="outline-text-3" id="text-2-6">
+<ul class="org-ul">
+<li>Typeclass constraints are applied to types using the <code>=&gt;</code> syntax at the beginning of the type signature.</li>
+<li>Multiple typeclass constraints are separated by commas in parentheses.</li>
+<li>Typeclass constraints are interpreted <i>conjunctively</i>, e.g.,</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">f</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">Class1</span> a, <span style="color: #b4befe;">Class2</span> a) <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a
+</pre>
+</div>
+
+<p>
+This is interpeted as a <i>universal quantification</i> over types, where the <i>restriction</i> of the universal is provided by the typeclasses:
+</p>
+
+<p>
+\[\forall t \in \mathbf{Typ}[(t \in \mathbf{Class1} \wedge t \in \mathbf{Class2}) \rightarrow f : (t \to t)]\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc50e2f7" class="outline-3">
+<h3 id="orgc50e2f7"><span class="section-number-3">2.7.</span> Typeclass syntax cont.</h3>
+<div class="outline-text-3" id="text-2-7">
+<ul class="org-ul">
+<li><code>=&gt;</code> is a binding operator; it comes with a variable, and binds all matching variables in its scope.</li>
+<li>Typeclass constraints with different variables restrict different universal quantifiers.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">f2</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">Class1</span> a, <span style="color: #b4befe;">Class2</span> b) <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> b
+</pre>
+</div>
+
+<p>
+\[\forall t, t' \in \mathbf{Type}[(t \in \mathbf{Class1} \wedge t' \in \mathbf{Class2}) \rightarrow f_2 : (t \to t')]\]
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orga746b2d" class="outline-3">
+<h3 id="orga746b2d"><span class="section-number-3">2.8.</span> Using typeclasses</h3>
+<div class="outline-text-3" id="text-2-8">
 <p>
 What do you think will happen if you declare the in a source file?
 </p>
@@ -325,12 +516,22 @@ What do you think will happen if you declare the in a source file?
 <span style="color: #89b4fa;">same</span> a b <span style="color: #89dceb;">=</span> a <span style="color: #89dceb;">==</span> b
 </pre>
 </div>
+
+<p>
+What about the following?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">same2</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">Eq</span> a, <span style="color: #b4befe;">Eq</span> b) <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> b <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>
+<span style="color: #89b4fa;">same</span> a b <span style="color: #89dceb;">=</span> a <span style="color: #89dceb;">==</span> b
+</pre>
+</div>
 </div>
 </div>
 
-<div id="outline-container-org389bb91" class="outline-2">
-<h2 id="org389bb91"><span class="section-number-2">6.</span> Using typeclasses cont.</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org1393c9b" class="outline-3">
+<h3 id="org1393c9b"><span class="section-number-3">2.9.</span> Using typeclasses cont.</h3>
+<div class="outline-text-3" id="text-2-9">
 <p>
 Remember that free type variables are <i>implicitly universally quantified</i>.
 </p>
@@ -359,9 +560,9 @@ This means that the type of <code>(==)</code> is <code>a -&gt; a -&gt; Bool</cod
 </div>
 </div>
 
-<div id="outline-container-orgdee97d3" class="outline-2">
-<h2 id="orgdee97d3"><span class="section-number-2">7.</span> Combining typeclass restrictions</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org2109ee5" class="outline-3">
+<h3 id="org2109ee5"><span class="section-number-3">2.10.</span> Combining typeclass restrictions</h3>
+<div class="outline-text-3" id="text-2-10">
 <p>
 Typeclass restrictions can be combined. We've alluded to this before, but the typeclass <code>Show</code> is used to classify types whose inhabitants can be converted into strings (via the <code>show</code>) function.
 </p>
@@ -378,14 +579,23 @@ What does the following function do?
   <span style="color: #cba6f7;">else</span> <span style="color: #a6e3a1;">"try again!"</span>
 </pre>
 </div>
+
+<p>
+Why do we need both typeclass constraints here?
+</p>
+</div>
 </div>
 </div>
 
-<div id="outline-container-orge9cfe86" class="outline-2">
-<h2 id="orge9cfe86"><span class="section-number-2">8.</span> Sidenote: conditionals</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org5f497ec" class="outline-2">
+<h2 id="org5f497ec"><span class="section-number-2">3.</span> Interlude: conditionals and tuples</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgd3cd689" class="outline-3">
+<h3 id="orgd3cd689"><span class="section-number-3">3.1.</span> Conditionals</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
-Haskell has syntactic sugar for conditional states like <i>if A then B</i>, which are conventionally written as follows:
+Haskell has syntactic sugar for conditional statements like <i>if A then B</i>, which are conventionally written as follows:
 </p>
 
 <div class="org-src-container">
@@ -408,31 +618,69 @@ What does the following function do?
 </div>
 </div>
 
-<div id="outline-container-org5b9a12b" class="outline-2">
-<h2 id="org5b9a12b"><span class="section-number-2">9.</span> Conditionals and syntactic sugar</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-org426498b" class="outline-3">
+<h3 id="org426498b"><span class="section-number-3">3.2.</span> Conditionals and syntactic sugar</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 It's important to remember that anything that isn't function-argument application in haskell is <i>syntactic sugar</i>.
 </p>
 
 <p>
-To illustrate, we could implement conditionals as a standard function:
+As an exercise, implement conditional statements as a standard function:
 </p>
 
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">cond</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a
-<span style="color: #89b4fa;">cond</span> <span style="color: #cba6f7;">True</span> a b <span style="color: #89dceb;">=</span> a
-<span style="color: #89b4fa;">cond</span> <span style="color: #cba6f7;">False</span> a b <span style="color: #89dceb;">=</span> b
+</pre>
+</div>
 
-<span style="color: #89b4fa;">toyFunc2</span> n <span style="color: #89dceb;">=</span> cond (even n) (n <span style="color: #89dceb;">+</span> 1) (n <span style="color: #89dceb;">-</span> 1)
+<p>
+Test your answer by rewriting <code>toyFunc</code> using <code>cond</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2a45d0f" class="outline-3">
+<h3 id="org2a45d0f"><span class="section-number-3">3.3.</span> Conditionals and syntactic sugar: solution</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">cond</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a
+<span style="color: #89b4fa;">cond</span> <span style="color: #cba6f7;">True</span> a <span style="color: #cba6f7;">_</span> <span style="color: #89dceb;">=</span> a
+<span style="color: #89b4fa;">cond</span> <span style="color: #cba6f7;">False</span> <span style="color: #cba6f7;">_</span> b <span style="color: #89dceb;">=</span> b
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org1b4ded9" class="outline-2">
-<h2 id="org1b4ded9"><span class="section-number-2">10.</span> Tuples</h2>
-<div class="outline-text-2" id="text-10">
+<div id="outline-container-org8c2e6e3" class="outline-3">
+<h3 id="org8c2e6e3"><span class="section-number-3">3.4.</span> Lists and tuples</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+We learned earlier about <i>lists</i> in haskell, of type <code>[a]</code>, for any type <code>a</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">myList1</span> <span style="color: #89dceb;">::</span> [<span style="color: #b4befe;">Int</span>] 
+<span style="color: #89b4fa;">myList1</span> <span style="color: #89dceb;">=</span> [2,4,6,8]
+
+<span style="color: #89b4fa;">myList2</span> <span style="color: #89dceb;">::</span> [<span style="color: #b4befe;">Char</span>]
+<span style="color: #89b4fa;">myList2</span> <span style="color: #89dceb;">=</span> <span style="color: #a6e3a1;">"I'm a string"</span>
+</pre>
+</div>
+
+<p>
+The primary limitation of lists is that they can only contain <i>elements of the same type</i>.
+</p>
+
+<p>
+A ubiquitous data structure in haskell used for elements of (potentially) distinct types is the <i>tuple</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc1559fb" class="outline-3">
+<h3 id="orgc1559fb"><span class="section-number-3">3.5.</span> Tuples</h3>
+<div class="outline-text-3" id="text-3-5">
 <p>
 Tuples are a ubiquitous syntactic construct, defined in haskell as a special kind of type known as a <i>product type</i>.
 </p>
@@ -458,9 +706,9 @@ Let's look at the data declaration for tuples:
 </div>
 </div>
 
-<div id="outline-container-org41243c8" class="outline-2">
-<h2 id="org41243c8"><span class="section-number-2">11.</span> Working with tuples</h2>
-<div class="outline-text-2" id="text-11">
+<div id="outline-container-org76d4642" class="outline-3">
+<h3 id="org76d4642"><span class="section-number-3">3.6.</span> Working with tuples</h3>
+<div class="outline-text-3" id="text-3-6">
 <p>
 Consider some tuples:
 </p>
@@ -485,19 +733,72 @@ We can write functions <code>fst</code> and <code>snd</code> using pattern match
 </div>
 </div>
 
-<div id="outline-container-org5b7ff46" class="outline-2">
-<h2 id="org5b7ff46"><span class="section-number-2">12.</span> Exercise</h2>
-<div class="outline-text-2" id="text-12">
+<div id="outline-container-org47dd071" class="outline-3">
+<h3 id="org47dd071"><span class="section-number-3">3.7.</span> N-tuples</h3>
+<div class="outline-text-3" id="text-3-7">
+<p>
+Unlike lists, tuples have a <i>fixed number</i> of elements.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">(<span style="color: #a6e3a1;">"Haskell"</span>, 1, <span style="color: #a6e3a1;">"Rocks"</span>) <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">String</span>, <span style="color: #b4befe;">Int</span>, <span style="color: #b4befe;">String</span>)
+(<span style="color: #a6e3a1;">'a'</span>, <span style="color: #a6e3a1;">'b'</span>, <span style="color: #a6e3a1;">"Hello"</span>, 73) <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">Char</span>, <span style="color: #b4befe;">Char</span>, <span style="color: #b4befe;">String</span>, <span style="color: #b4befe;">Int</span>)
+</pre>
+</div>
+
+<p>
+The <code>fst</code> and <code>snd</code> functions won't work for <i>n-tuples</i>, where \(n > 2\); why not?
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1fbb759" class="outline-3">
+<h3 id="org1fbb759"><span class="section-number-3">3.8.</span> <span class="todo TODO">TODO</span> Tuples under the hood</h3>
+<div class="outline-text-3" id="text-3-8">
+<p>
+Unlike lists, tuples in haskell aren't singly-linked. To see this, try evaluating the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> (1,2,3) <span style="color: #89dceb;">==</span> ((1,2),3)
+ghci<span style="color: #89b4fa;">&gt;</span> (1,2,3) <span style="color: #89dceb;">==</span> (1,(2,3))
+</pre>
+</div>
+
+<p>
+In fact, a 2-tuple involves a distinct constructor to a 3-tuple.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">(,,)</span> 1 2 3
+(1,2,3)
+ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">(,,,)</span> 1 2 3 4
+(1,2,3,4)
+ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">(,,)</span> 1 2 3 4
+<span style="color: #585b70;">-- </span><span style="color: #585b70;">type mismatch error</span>
+</pre>
+</div>
+
+<p>
+This explains why <code>fst</code> and <code>snd</code> don't work!
+</p>
+</div>
+</div>
+
+<div id="outline-container-org181e944" class="outline-3">
+<h3 id="org181e944"><span class="section-number-3">3.9.</span> Exercise</h3>
+<div class="outline-text-3" id="text-3-9">
 <ul class="org-ul">
 <li>Write a function <code>swap</code> that takes a tuple, and swaps the elements around.</li>
 <li>write a function <code>condTup</code> that takes a bool <code>t</code>, two tuples, <code>(a,b)</code>, <code>(c,d)</code>, and gives back a tuple of tuples <code>(a,c)</code> if <code>t</code> is true, and <code>(b,d)</code> otherwise (tip: think carefully about the type signature!).</li>
+<li>Write functions <code>fst5</code> and <code>snd5</code> that apply to 5-tuples. Is it possible to write an <i>unsafe</i> index function for tuples?</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org73522ee" class="outline-2">
-<h2 id="org73522ee"><span class="section-number-2">13.</span> Solution</h2>
-<div class="outline-text-2" id="text-13">
+<div id="outline-container-orgd41ccb2" class="outline-3">
+<h3 id="orgd41ccb2"><span class="section-number-3">3.10.</span> Solution</h3>
+<div class="outline-text-3" id="text-3-10">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">swap</span> <span style="color: #89dceb;">::</span> (a,b) <span style="color: #89dceb;">-&gt;</span> (b,a)
 <span style="color: #89b4fa;">swap</span> (a,b) <span style="color: #89dceb;">=</span> (b,a)
@@ -505,30 +806,286 @@ We can write functions <code>fst</code> and <code>snd</code> using pattern match
 <span style="color: #89b4fa;">condTup</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">-&gt;</span> (a,a) <span style="color: #89dceb;">-&gt;</span> (b,b) <span style="color: #89dceb;">-&gt;</span> (a,b)
 <span style="color: #89b4fa;">condTup</span> <span style="color: #cba6f7;">True</span> (a,b) (c,d) <span style="color: #89dceb;">=</span> (a,c)
 <span style="color: #89b4fa;">condTup</span> <span style="color: #cba6f7;">False</span> (a,b) (c,d) <span style="color: #89dceb;">=</span> (b,d)
+
+<span style="color: #89b4fa;">fst5</span> <span style="color: #89dceb;">::</span> (a,b,c,d,e) <span style="color: #89dceb;">-&gt;</span> a
+<span style="color: #89b4fa;">fst5</span> (a,<span style="color: #cba6f7;">_</span>,<span style="color: #cba6f7;">_</span>,<span style="color: #cba6f7;">_</span>,<span style="color: #cba6f7;">_</span>) <span style="color: #89dceb;">=</span> a
+
+<span style="color: #89b4fa;">snd5</span> <span style="color: #89dceb;">::</span> (<span style="color: #cba6f7;">_</span>,b,<span style="color: #cba6f7;">_</span>,<span style="color: #cba6f7;">_</span>,<span style="color: #cba6f7;">_</span>) <span style="color: #89dceb;">-&gt;</span> b
+<span style="color: #89b4fa;">snd5</span> (<span style="color: #cba6f7;">_</span>,b,<span style="color: #cba6f7;">_</span>,<span style="color: #cba6f7;">_</span>,<span style="color: #cba6f7;">_</span>) <span style="color: #89dceb;">=</span> b
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb644130" class="outline-2">
-<h2 id="orgb644130"><span class="section-number-2">14.</span> </h2>
-<div class="outline-text-2" id="text-14">
+<div id="outline-container-orgb95efa7" class="outline-3">
+<h3 id="orgb95efa7"><span class="section-number-3">3.11.</span> Tuples and currying</h3>
+<div class="outline-text-3" id="text-3-11">
+<ul class="org-ul">
+<li>Functions in Haskell strictly take <b>one argument</b> and return <b>one result</b>; sometimes that result is itself a function.</li>
+<li>When a function appears to take multiple arguments, in fact those arguments are <i>curried</i>, i.e., addition has the following type signature:</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-haskell">(<span style="color: #89b4fa;">+</span>) <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Num</span> a <span style="color: #89dceb;">=&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a
+</pre>
+</div>
+
+<p>
+Currying means that we can pass around the result of <i>partially applying</i> a function that takes multiple arguments.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">ghci<span style="color: #89b4fa;">&gt;</span> myPartial <span style="color: #89dceb;">=</span> (<span style="color: #89dceb;">+</span>) 4
+ghci<span style="color: #89b4fa;">&gt;</span> myPartial 6
+10
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7ed4d8c" class="outline-3">
+<h3 id="org7ed4d8c"><span class="section-number-3">3.12.</span> Exercise: uncurrying</h3>
+<div class="outline-text-3" id="text-3-12">
+<p>
+<b>Exercise:</b> write a function <code>myAddition</code> that takes a <i>tuple</i> as its sole argument.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0526f64" class="outline-3">
+<h3 id="org0526f64"><span class="section-number-3">3.13.</span> Uncurrying: solution</h3>
+<div class="outline-text-3" id="text-3-13">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">myAddition</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">Num</span> a) <span style="color: #89dceb;">=&gt;</span> (a,a) <span style="color: #89dceb;">-&gt;</span> a
+<span style="color: #89b4fa;">myAddition</span> (a,b) <span style="color: #89dceb;">=</span> a <span style="color: #89dceb;">+</span> b
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge944adb" class="outline-3">
+<h3 id="orge944adb"><span class="section-number-3">3.14.</span> Exercise: generalized (un)currying</h3>
+<div class="outline-text-3" id="text-3-14">
+<p>
+This exercise is a bit harder:
+</p>
+
+<ul class="org-ul">
+<li><b>Part 1:</b> write a function <code>myUncurry</code> of type <code>(a -&gt; b -&gt; c) -&gt; (a,b) -&gt; c</code>.</li>
+<li><b>Part 2:</b> write a function <code>myCurry</code> of type <code>((a,b) -&gt; c) -&gt; a -&gt; b -&gt; c</code>.</li>
+<li><b>Part 3:</b> now do the same thing, but for functions which take 3 arguments.
+<ul class="org-ul">
+<li>Is it possible to write a generalized function <code>myCurryN</code> that curries a function that takes <code>n</code> arguments?</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org420d2af" class="outline-3">
+<h3 id="org420d2af"><span class="section-number-3">3.15.</span> Solution: generalized (un)currying</h3>
+<div class="outline-text-3" id="text-3-15">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">myUncurry</span> f (a,b) <span style="color: #89dceb;">=</span> f a b
+<span style="color: #89b4fa;">myCurry</span> f a b <span style="color: #89dceb;">=</span> f (a,b)
+<span style="color: #89b4fa;">myUncurry3</span> f (a,b,c) <span style="color: #89dceb;">=</span> f a b c
+<span style="color: #89b4fa;">myUncurry3</span> f a b c <span style="color: #89dceb;">=</span> f (a,b,c)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4daf023" class="outline-2">
+<h2 id="org4daf023"><span class="section-number-2">4.</span> Polymorphism</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org9b2d75f" class="outline-3">
+<h3 id="org9b2d75f"><span class="section-number-3">4.1.</span> Parameteric polymorphism</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Type signatures in haskell can be (parametrically) polymorphic. Recall that typeclasses constrain what we can do with arguments to a polymorphic function.
+</p>
+
+<ul class="org-ul">
+<li>Try to write a function of type <code>a -&gt; a</code> that does soemthing other than return the input value.</li>
+<li>There are two possible implementations of the function with type signature <code>a -&gt; a -&gt; a</code>. Write them both.</li>
+<li>How many implementations can can <code>a -&gt; b -&gt; b</code> have?</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf1eba5f" class="outline-3">
+<h3 id="orgf1eba5f"><span class="section-number-3">4.2.</span> Function composition</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+<i>Combinators</i> (remember those from the lambda calculus?) in haskell are polymorphic functions.
+</p>
+
+<p>
+<i>Function composition</i> is an infix operator <code>f . g</code>.
+</p>
+
+<p>
+Here's one way of writing its definition:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-haskell">f <span style="color: #89b4fa;">.</span> g <span style="color: #89dceb;">=</span> <span style="color: #89dceb;">\</span>x <span style="color: #89dceb;">-&gt;</span> f <span style="color: #89dceb;">$</span> g x
+</pre>
+</div>
+
+<p>
+This will be useful in the following exercises.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1e84a4f" class="outline-3">
+<h3 id="org1e84a4f"><span class="section-number-3">4.3.</span> Type-kwon-do</h3>
+<div class="outline-text-3" id="text-4-3">
+<ul class="org-ul">
+<li>In all of the following cases, the goal is to make the program pass the type checker by modifying the <code>???</code> declaration, and it alone.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org92272ed" class="outline-3">
+<h3 id="org92272ed"><span class="section-number-3">4.4.</span> Type-kwon-do 1</h3>
+<div class="outline-text-3" id="text-4-4">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">f</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Int</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">String</span>
+<span style="color: #89b4fa;">f</span> <span style="color: #89dceb;">=</span> undefined
+
+<span style="color: #89b4fa;">g</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">String</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Char</span>
+<span style="color: #89b4fa;">g</span> <span style="color: #89dceb;">=</span> undefined
+
+<span style="color: #89b4fa;">h</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Int</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Char</span>
+<span style="color: #89b4fa;">h</span> <span style="color: #89dceb;">=</span> <span style="color: #89dceb;">???</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc62cda5" class="outline-3">
+<h3 id="orgc62cda5"><span class="section-number-3">4.5.</span> Solution</h3>
+<div class="outline-text-3" id="text-4-5">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">h</span> <span style="color: #89dceb;">=</span> g <span style="color: #89dceb;">.</span> f
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4ce8478" class="outline-3">
+<h3 id="org4ce8478"><span class="section-number-3">4.6.</span> Type-kwon-do 2</h3>
+<div class="outline-text-3" id="text-4-6">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">A</span>
+<span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">B</span>
+<span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">C</span>
+
+<span style="color: #89b4fa;">q</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">A</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">B</span>
+<span style="color: #89b4fa;">q</span> <span style="color: #89dceb;">=</span> undefined
+
+<span style="color: #89b4fa;">w</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">B</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">C</span>
+<span style="color: #89b4fa;">w</span> <span style="color: #89dceb;">=</span> undefined
+
+<span style="color: #89b4fa;">e</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">A</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">C</span>
+<span style="color: #89b4fa;">e</span> <span style="color: #89dceb;">=</span> <span style="color: #89dceb;">???</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc8a5314" class="outline-3">
+<h3 id="orgc8a5314"><span class="section-number-3">4.7.</span> Solution</h3>
+<div class="outline-text-3" id="text-4-7">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">e</span> <span style="color: #89dceb;">=</span> w <span style="color: #89dceb;">.</span> q
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9cef0ff" class="outline-3">
+<h3 id="org9cef0ff"><span class="section-number-3">4.8.</span> Type-kwon-do 3</h3>
+<div class="outline-text-3" id="text-4-8">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">X</span>
+<span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">Y</span>
+<span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">Z</span>
+
+<span style="color: #89b4fa;">xz</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">X</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Z</span>
+<span style="color: #89b4fa;">xz</span> <span style="color: #89dceb;">=</span> undefined
+
+<span style="color: #89b4fa;">yz</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Y</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Z</span>
+<span style="color: #89b4fa;">yz</span> <span style="color: #89dceb;">=</span> undefined
+
+<span style="color: #89b4fa;">xform</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">X</span>, <span style="color: #b4befe;">Y</span>) <span style="color: #89dceb;">-&gt;</span> (<span style="color: #b4befe;">Z</span>, <span style="color: #b4befe;">Z</span>)
+<span style="color: #89b4fa;">xform</span> <span style="color: #89dceb;">=</span> <span style="color: #89dceb;">???</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1aac99b" class="outline-3">
+<h3 id="org1aac99b"><span class="section-number-3">4.9.</span> Solution</h3>
+<div class="outline-text-3" id="text-4-9">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">xform</span> (x,y) <span style="color: #89dceb;">=</span> (xz x, yz y)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd9a94b3" class="outline-3">
+<h3 id="orgd9a94b3"><span class="section-number-3">4.10.</span> Type-kwon-do 4</h3>
+<div class="outline-text-3" id="text-4-10">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">munge</span> <span style="color: #89dceb;">::</span> (x <span style="color: #89dceb;">-&gt;</span> y)
+  <span style="color: #89dceb;">-&gt;</span> (y <span style="color: #89dceb;">-&gt;</span> (w, z))
+  <span style="color: #89dceb;">-&gt;</span> x
+  <span style="color: #89dceb;">-&gt;</span> w
+<span style="color: #89b4fa;">munge</span> <span style="color: #89dceb;">=</span> <span style="color: #89dceb;">???</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge48352f" class="outline-3">
+<h3 id="orge48352f"><span class="section-number-3">4.11.</span> Solution</h3>
+<div class="outline-text-3" id="text-4-11">
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #89b4fa;">munge</span> f g <span style="color: #89dceb;">=</span> fst <span style="color: #89dceb;">.</span> g <span style="color: #89dceb;">.</span> f
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org83eb6ce" class="outline-3">
+<h3 id="org83eb6ce"><span class="section-number-3">4.12.</span> </h3>
+<div class="outline-text-3" id="text-4-12">
 <p>
 \(\mathscr{Fin}\)
 </p>
 </div>
 </div>
 
-<div id="outline-container-org3b31cb5" class="outline-2">
-<h2 id="org3b31cb5"><span class="section-number-2">15.</span> References</h2>
-<div class="outline-text-2" id="text-15">
+<div id="outline-container-orge011b9a" class="outline-3">
+<h3 id="orge011b9a"><span class="section-number-3">4.13.</span> References</h3>
+<div class="outline-text-3" id="text-4-13">
+<p>
+Carpenter, Bob (1998). <i>Type-Logical Semantics</i>, {MIT Press}.</p>
 
+<p>
+Montague, Richard (1970). <i>Universal Grammar</i>.</p>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2023-04-20 Thu 14:59</p>
+<p class="date">Created: 2023-04-24 Mon 12:25</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
