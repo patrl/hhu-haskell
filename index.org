@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-20 14:41]" 
+Last updated: "[2023-04-24 12:27]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -74,7 +74,13 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
   * Do the building functions exercises at the end of chapter 3 (p83-85)
   * Do chapter exercises 1-10 at the end of chapter 4.
     
-** TODO Types and typeclasses
+** Types and typeclasses
+
+- The preliminary slides can be downloaded [[./typeclasses.pdf][here]].
+  * You can also browse the content [[./typeclasses.html][here]].
+- *Homework*:
+  * Finish the any in-class exercises.
+  * Read chapter 4 of /Computational Semantics with Functional Programming/, "Formal syntax for fragments".
 
 ** TODO Formal syntax for fragments
 
