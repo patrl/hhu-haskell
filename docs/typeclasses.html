@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-24 Mon 12:25 -->
+<!-- 2023-04-25 Tue 10:13 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>From types to typeclasses</title>
@@ -231,8 +231,8 @@
 <div id="content" class="content">
 <h1 class="title">From types to typeclasses</h1>
 
-<div id="outline-container-org87cc9c3" class="outline-3">
-<h3 id="org87cc9c3"><span class="section-number-3">0.1.</span> Homework</h3>
+<div id="outline-container-orgeb3bc84" class="outline-3">
+<h3 id="orgeb3bc84"><span class="section-number-3">0.1.</span> Homework</h3>
 <div class="outline-text-3" id="text-0-1">
 <p>
 Next week we'll start implementing <i>linguistic</i> data structures using Haskell.
@@ -244,12 +244,12 @@ In preparation, you can read Chapter 4 of <i>Computational Semantics with Functi
 </div>
 </div>
 
-<div id="outline-container-org42985ba" class="outline-2">
-<h2 id="org42985ba"><span class="section-number-2">1.</span> Interlude: the indirect approach to semantics</h2>
+<div id="outline-container-org292f1e3" class="outline-2">
+<h2 id="org292f1e3"><span class="section-number-2">1.</span> Interlude: the indirect approach to semantics</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org46f5669" class="outline-3">
-<h3 id="org46f5669"><span class="section-number-3">1.1.</span> Rolling your own datatypes</h3>
+<div id="outline-container-org63888e0" class="outline-3">
+<h3 id="org63888e0"><span class="section-number-3">1.1.</span> Rolling your own datatypes</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 In haskell, <i>sum types</i> can be used to model primitive types with fixed domains of entities:
@@ -266,11 +266,11 @@ In a sense, we're modelling a small fragment of English proper names "John", "Ma
 </div>
 </div>
 
-<div id="outline-container-org93d2b16" class="outline-3">
-<h3 id="org93d2b16"><span class="section-number-3">1.2.</span> Interlude: Montagovian fragments</h3>
+<div id="outline-container-org3634824" class="outline-3">
+<h3 id="org3634824"><span class="section-number-3">1.2.</span> Interlude: Montagovian fragments</h3>
 <div class="outline-text-3" id="text-1-2">
 
-<div id="org20c07e2" class="figure">
+<div id="org9590820" class="figure">
 <p><img src="./img/montague.jpg" alt="montague.jpg" />
 </p>
 </div>
@@ -283,8 +283,8 @@ In a sense, we're modelling a small fragment of English proper names "John", "Ma
 </div>
 </div>
 
-<div id="outline-container-org9b62925" class="outline-3">
-<h3 id="org9b62925"><span class="section-number-3">1.3.</span> Compositional semantics: the indirect approach</h3>
+<div id="outline-container-orge55a785" class="outline-3">
+<h3 id="orge55a785"><span class="section-number-3">1.3.</span> Compositional semantics: the indirect approach</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>Montague developed an influential technique for giving a denotational semantics for a <i>fragment</i> of a natural language, like English.
@@ -297,8 +297,8 @@ In a sense, we're modelling a small fragment of English proper names "John", "Ma
 </div>
 </div>
 
-<div id="outline-container-orgb7960bd" class="outline-3">
-<h3 id="orgb7960bd"><span class="section-number-3">1.4.</span> The indirect approach cont.</h3>
+<div id="outline-container-org24b19cf" class="outline-3">
+<h3 id="org24b19cf"><span class="section-number-3">1.4.</span> The indirect approach cont.</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 Montague used <i>Intensional Logic</i> as the logical language, but more contemporary work in semantics typically uses the <i>Simply-Typed Lambda Calculus</i>, either implicitly or explicitly (Carpenter, Bob, 1998).
@@ -312,8 +312,8 @@ Montague used <i>Intensional Logic</i> as the logical language, but more contemp
 </div>
 </div>
 
-<div id="outline-container-org1d90e73" class="outline-3">
-<h3 id="org1d90e73"><span class="section-number-3">1.5.</span> The indirect approach cont.</h3>
+<div id="outline-container-orgd9bc9dc" class="outline-3">
+<h3 id="orgd9bc9dc"><span class="section-number-3">1.5.</span> The indirect approach cont.</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>The truth-conditions of the sentence are provided by the denotational semantics of the logical language.</li>
@@ -325,8 +325,8 @@ Montague used <i>Intensional Logic</i> as the logical language, but more contemp
 </div>
 </div>
 
-<div id="outline-container-orgc323560" class="outline-3">
-<h3 id="orgc323560"><span class="section-number-3">1.6.</span> The Haskell connection</h3>
+<div id="outline-container-org0e730ff" class="outline-3">
+<h3 id="org0e730ff"><span class="section-number-3">1.6.</span> The Haskell connection</h3>
 <div class="outline-text-3" id="text-1-6">
 <blockquote>
 <p>
@@ -351,12 +351,12 @@ There is no important theoretical difference between natural languages and <b>th
 </div>
 </div>
 
-<div id="outline-container-org74ca54f" class="outline-2">
-<h2 id="org74ca54f"><span class="section-number-2">2.</span> Typeclasses</h2>
+<div id="outline-container-orgb8edeed" class="outline-2">
+<h2 id="orgb8edeed"><span class="section-number-2">2.</span> Typeclasses</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org4444700" class="outline-3">
-<h3 id="org4444700"><span class="section-number-3">2.1.</span> Doing things with datatypes</h3>
+<div id="outline-container-org8e65972" class="outline-3">
+<h3 id="org8e65972"><span class="section-number-3">2.1.</span> Doing things with datatypes</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Recall our basic type for individuals.
@@ -387,8 +387,8 @@ What about the following:
 </div>
 </div>
 
-<div id="outline-container-orgf9bb1d4" class="outline-3">
-<h3 id="orgf9bb1d4"><span class="section-number-3">2.2.</span> Basic typeclasses</h3>
+<div id="outline-container-orgc9afad9" class="outline-3">
+<h3 id="orgc9afad9"><span class="section-number-3">2.2.</span> Basic typeclasses</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 The reason for the contrast here is that <code>Bool</code> by default is an instance of the type class <code>Eq</code>, which is the class of types that contain things that can be compared and determined to be equal in value.
@@ -408,8 +408,8 @@ Since we didn't explicitly say that <code>E</code> is an instance of <code>Eq</c
 </div>
 </div>
 
-<div id="outline-container-org9a9f173" class="outline-3">
-<h3 id="org9a9f173"><span class="section-number-3">2.3.</span> Basic typeclasses cont.</h3>
+<div id="outline-container-org3f68b36" class="outline-3">
+<h3 id="org3f68b36"><span class="section-number-3">2.3.</span> Basic typeclasses cont.</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Likewise, try evaluating the following in ghci. What do you think is responsible for the different results?
@@ -427,8 +427,8 @@ Likewise, try evaluating the following in ghci. What do you think is responsible
 </div>
 </div>
 
-<div id="outline-container-org704b800" class="outline-3">
-<h3 id="org704b800"><span class="section-number-3">2.4.</span> Deriving typeclasses</h3>
+<div id="outline-container-org7a4090e" class="outline-3">
+<h3 id="org7a4090e"><span class="section-number-3">2.4.</span> Deriving typeclasses</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 We'll learn later on how to declare our own typeclass instances, but in the meantime ghc has convenient mechanisms for automatically generating sensible typeclass instances for simple types.
@@ -446,8 +446,8 @@ We'll learn later on how to declare our own typeclass instances, but in the mean
 </div>
 </div>
 
-<div id="outline-container-orgd73a48b" class="outline-3">
-<h3 id="orgd73a48b"><span class="section-number-3">2.5.</span> Constrained polymorphism</h3>
+<div id="outline-container-orgdb511f4" class="outline-3">
+<h3 id="orgdb511f4"><span class="section-number-3">2.5.</span> Constrained polymorphism</h3>
 <div class="outline-text-3" id="text-2-5">
 <ul class="org-ul">
 <li>Inspect the type of <code>id</code>.</li>
@@ -460,8 +460,8 @@ We'll learn later on how to declare our own typeclass instances, but in the mean
 </div>
 </div>
 
-<div id="outline-container-org149bf97" class="outline-3">
-<h3 id="org149bf97"><span class="section-number-3">2.6.</span> Typeclass syntax</h3>
+<div id="outline-container-org69611c5" class="outline-3">
+<h3 id="org69611c5"><span class="section-number-3">2.6.</span> Typeclass syntax</h3>
 <div class="outline-text-3" id="text-2-6">
 <ul class="org-ul">
 <li>Typeclass constraints are applied to types using the <code>=&gt;</code> syntax at the beginning of the type signature.</li>
@@ -484,8 +484,8 @@ This is interpeted as a <i>universal quantification</i> over types, where the <i
 </div>
 </div>
 
-<div id="outline-container-orgc50e2f7" class="outline-3">
-<h3 id="orgc50e2f7"><span class="section-number-3">2.7.</span> Typeclass syntax cont.</h3>
+<div id="outline-container-org9fe36c1" class="outline-3">
+<h3 id="org9fe36c1"><span class="section-number-3">2.7.</span> Typeclass syntax cont.</h3>
 <div class="outline-text-3" id="text-2-7">
 <ul class="org-ul">
 <li><code>=&gt;</code> is a binding operator; it comes with a variable, and binds all matching variables in its scope.</li>
@@ -504,8 +504,8 @@ This is interpeted as a <i>universal quantification</i> over types, where the <i
 </div>
 
 
-<div id="outline-container-orga746b2d" class="outline-3">
-<h3 id="orga746b2d"><span class="section-number-3">2.8.</span> Using typeclasses</h3>
+<div id="outline-container-org0b8edb0" class="outline-3">
+<h3 id="org0b8edb0"><span class="section-number-3">2.8.</span> Using typeclasses</h3>
 <div class="outline-text-3" id="text-2-8">
 <p>
 What do you think will happen if you declare the in a source file?
@@ -529,8 +529,8 @@ What about the following?
 </div>
 </div>
 
-<div id="outline-container-org1393c9b" class="outline-3">
-<h3 id="org1393c9b"><span class="section-number-3">2.9.</span> Using typeclasses cont.</h3>
+<div id="outline-container-orgb91f88b" class="outline-3">
+<h3 id="orgb91f88b"><span class="section-number-3">2.9.</span> Using typeclasses cont.</h3>
 <div class="outline-text-3" id="text-2-9">
 <p>
 Remember that free type variables are <i>implicitly universally quantified</i>.
@@ -560,8 +560,8 @@ This means that the type of <code>(==)</code> is <code>a -&gt; a -&gt; Bool</cod
 </div>
 </div>
 
-<div id="outline-container-org2109ee5" class="outline-3">
-<h3 id="org2109ee5"><span class="section-number-3">2.10.</span> Combining typeclass restrictions</h3>
+<div id="outline-container-org694f612" class="outline-3">
+<h3 id="org694f612"><span class="section-number-3">2.10.</span> Combining typeclass restrictions</h3>
 <div class="outline-text-3" id="text-2-10">
 <p>
 Typeclass restrictions can be combined. We've alluded to this before, but the typeclass <code>Show</code> is used to classify types whose inhabitants can be converted into strings (via the <code>show</code>) function.
@@ -587,12 +587,12 @@ Why do we need both typeclass constraints here?
 </div>
 </div>
 
-<div id="outline-container-org5f497ec" class="outline-2">
-<h2 id="org5f497ec"><span class="section-number-2">3.</span> Interlude: conditionals and tuples</h2>
+<div id="outline-container-org47b1b7e" class="outline-2">
+<h2 id="org47b1b7e"><span class="section-number-2">3.</span> Interlude: conditionals and tuples</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgd3cd689" class="outline-3">
-<h3 id="orgd3cd689"><span class="section-number-3">3.1.</span> Conditionals</h3>
+<div id="outline-container-orge71d914" class="outline-3">
+<h3 id="orge71d914"><span class="section-number-3">3.1.</span> Conditionals</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Haskell has syntactic sugar for conditional statements like <i>if A then B</i>, which are conventionally written as follows:
@@ -618,8 +618,8 @@ What does the following function do?
 </div>
 </div>
 
-<div id="outline-container-org426498b" class="outline-3">
-<h3 id="org426498b"><span class="section-number-3">3.2.</span> Conditionals and syntactic sugar</h3>
+<div id="outline-container-orgef2124b" class="outline-3">
+<h3 id="orgef2124b"><span class="section-number-3">3.2.</span> Conditionals and syntactic sugar</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 It's important to remember that anything that isn't function-argument application in haskell is <i>syntactic sugar</i>.
@@ -640,8 +640,8 @@ Test your answer by rewriting <code>toyFunc</code> using <code>cond</code>.
 </div>
 </div>
 
-<div id="outline-container-org2a45d0f" class="outline-3">
-<h3 id="org2a45d0f"><span class="section-number-3">3.3.</span> Conditionals and syntactic sugar: solution</h3>
+<div id="outline-container-org6a21605" class="outline-3">
+<h3 id="org6a21605"><span class="section-number-3">3.3.</span> Conditionals and syntactic sugar: solution</h3>
 <div class="outline-text-3" id="text-3-3">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">cond</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Bool</span> <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a <span style="color: #89dceb;">-&gt;</span> a
@@ -652,8 +652,8 @@ Test your answer by rewriting <code>toyFunc</code> using <code>cond</code>.
 </div>
 </div>
 
-<div id="outline-container-org8c2e6e3" class="outline-3">
-<h3 id="org8c2e6e3"><span class="section-number-3">3.4.</span> Lists and tuples</h3>
+<div id="outline-container-org450d458" class="outline-3">
+<h3 id="org450d458"><span class="section-number-3">3.4.</span> Lists and tuples</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 We learned earlier about <i>lists</i> in haskell, of type <code>[a]</code>, for any type <code>a</code>.
@@ -678,8 +678,8 @@ A ubiquitous data structure in haskell used for elements of (potentially) distin
 </div>
 </div>
 
-<div id="outline-container-orgc1559fb" class="outline-3">
-<h3 id="orgc1559fb"><span class="section-number-3">3.5.</span> Tuples</h3>
+<div id="outline-container-orge2d4c48" class="outline-3">
+<h3 id="orge2d4c48"><span class="section-number-3">3.5.</span> Tuples</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 Tuples are a ubiquitous syntactic construct, defined in haskell as a special kind of type known as a <i>product type</i>.
@@ -706,8 +706,8 @@ Let's look at the data declaration for tuples:
 </div>
 </div>
 
-<div id="outline-container-org76d4642" class="outline-3">
-<h3 id="org76d4642"><span class="section-number-3">3.6.</span> Working with tuples</h3>
+<div id="outline-container-org0f53fd6" class="outline-3">
+<h3 id="org0f53fd6"><span class="section-number-3">3.6.</span> Working with tuples</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 Consider some tuples:
@@ -733,8 +733,8 @@ We can write functions <code>fst</code> and <code>snd</code> using pattern match
 </div>
 </div>
 
-<div id="outline-container-org47dd071" class="outline-3">
-<h3 id="org47dd071"><span class="section-number-3">3.7.</span> N-tuples</h3>
+<div id="outline-container-org0232982" class="outline-3">
+<h3 id="org0232982"><span class="section-number-3">3.7.</span> N-tuples</h3>
 <div class="outline-text-3" id="text-3-7">
 <p>
 Unlike lists, tuples have a <i>fixed number</i> of elements.
@@ -752,8 +752,8 @@ The <code>fst</code> and <code>snd</code> functions won't work for <i>n-tuples</
 </div>
 </div>
 
-<div id="outline-container-org1fbb759" class="outline-3">
-<h3 id="org1fbb759"><span class="section-number-3">3.8.</span> <span class="todo TODO">TODO</span> Tuples under the hood</h3>
+<div id="outline-container-org16e3180" class="outline-3">
+<h3 id="org16e3180"><span class="section-number-3">3.8.</span> Tuples under the hood</h3>
 <div class="outline-text-3" id="text-3-8">
 <p>
 Unlike lists, tuples in haskell aren't singly-linked. To see this, try evaluating the following:
@@ -785,8 +785,8 @@ This explains why <code>fst</code> and <code>snd</code> don't work!
 </div>
 </div>
 
-<div id="outline-container-org181e944" class="outline-3">
-<h3 id="org181e944"><span class="section-number-3">3.9.</span> Exercise</h3>
+<div id="outline-container-orgb457641" class="outline-3">
+<h3 id="orgb457641"><span class="section-number-3">3.9.</span> Exercise</h3>
 <div class="outline-text-3" id="text-3-9">
 <ul class="org-ul">
 <li>Write a function <code>swap</code> that takes a tuple, and swaps the elements around.</li>
@@ -796,8 +796,8 @@ This explains why <code>fst</code> and <code>snd</code> don't work!
 </div>
 </div>
 
-<div id="outline-container-orgd41ccb2" class="outline-3">
-<h3 id="orgd41ccb2"><span class="section-number-3">3.10.</span> Solution</h3>
+<div id="outline-container-org57458fe" class="outline-3">
+<h3 id="org57458fe"><span class="section-number-3">3.10.</span> Solution</h3>
 <div class="outline-text-3" id="text-3-10">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">swap</span> <span style="color: #89dceb;">::</span> (a,b) <span style="color: #89dceb;">-&gt;</span> (b,a)
@@ -817,8 +817,8 @@ This explains why <code>fst</code> and <code>snd</code> don't work!
 </div>
 </div>
 
-<div id="outline-container-orgb95efa7" class="outline-3">
-<h3 id="orgb95efa7"><span class="section-number-3">3.11.</span> Tuples and currying</h3>
+<div id="outline-container-org45d3622" class="outline-3">
+<h3 id="org45d3622"><span class="section-number-3">3.11.</span> Tuples and currying</h3>
 <div class="outline-text-3" id="text-3-11">
 <ul class="org-ul">
 <li>Functions in Haskell strictly take <b>one argument</b> and return <b>one result</b>; sometimes that result is itself a function.</li>
@@ -843,8 +843,8 @@ ghci<span style="color: #89b4fa;">&gt;</span> myPartial 6
 </div>
 </div>
 
-<div id="outline-container-org7ed4d8c" class="outline-3">
-<h3 id="org7ed4d8c"><span class="section-number-3">3.12.</span> Exercise: uncurrying</h3>
+<div id="outline-container-org4aeaa78" class="outline-3">
+<h3 id="org4aeaa78"><span class="section-number-3">3.12.</span> Exercise: uncurrying</h3>
 <div class="outline-text-3" id="text-3-12">
 <p>
 <b>Exercise:</b> write a function <code>myAddition</code> that takes a <i>tuple</i> as its sole argument.
@@ -852,8 +852,8 @@ ghci<span style="color: #89b4fa;">&gt;</span> myPartial 6
 </div>
 </div>
 
-<div id="outline-container-org0526f64" class="outline-3">
-<h3 id="org0526f64"><span class="section-number-3">3.13.</span> Uncurrying: solution</h3>
+<div id="outline-container-org85e2d08" class="outline-3">
+<h3 id="org85e2d08"><span class="section-number-3">3.13.</span> Uncurrying: solution</h3>
 <div class="outline-text-3" id="text-3-13">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">myAddition</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">Num</span> a) <span style="color: #89dceb;">=&gt;</span> (a,a) <span style="color: #89dceb;">-&gt;</span> a
@@ -863,8 +863,8 @@ ghci<span style="color: #89b4fa;">&gt;</span> myPartial 6
 </div>
 </div>
 
-<div id="outline-container-orge944adb" class="outline-3">
-<h3 id="orge944adb"><span class="section-number-3">3.14.</span> Exercise: generalized (un)currying</h3>
+<div id="outline-container-org27923ad" class="outline-3">
+<h3 id="org27923ad"><span class="section-number-3">3.14.</span> Exercise: generalized (un)currying</h3>
 <div class="outline-text-3" id="text-3-14">
 <p>
 This exercise is a bit harder:
@@ -881,8 +881,8 @@ This exercise is a bit harder:
 </div>
 </div>
 
-<div id="outline-container-org420d2af" class="outline-3">
-<h3 id="org420d2af"><span class="section-number-3">3.15.</span> Solution: generalized (un)currying</h3>
+<div id="outline-container-org7964bc9" class="outline-3">
+<h3 id="org7964bc9"><span class="section-number-3">3.15.</span> Solution: generalized (un)currying</h3>
 <div class="outline-text-3" id="text-3-15">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">myUncurry</span> f (a,b) <span style="color: #89dceb;">=</span> f a b
@@ -895,12 +895,12 @@ This exercise is a bit harder:
 </div>
 </div>
 
-<div id="outline-container-org4daf023" class="outline-2">
-<h2 id="org4daf023"><span class="section-number-2">4.</span> Polymorphism</h2>
+<div id="outline-container-org5c335ca" class="outline-2">
+<h2 id="org5c335ca"><span class="section-number-2">4.</span> Polymorphism</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org9b2d75f" class="outline-3">
-<h3 id="org9b2d75f"><span class="section-number-3">4.1.</span> Parameteric polymorphism</h3>
+<div id="outline-container-org2bd5b4d" class="outline-3">
+<h3 id="org2bd5b4d"><span class="section-number-3">4.1.</span> Parameteric polymorphism</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 Type signatures in haskell can be (parametrically) polymorphic. Recall that typeclasses constrain what we can do with arguments to a polymorphic function.
@@ -914,8 +914,8 @@ Type signatures in haskell can be (parametrically) polymorphic. Recall that type
 </div>
 </div>
 
-<div id="outline-container-orgf1eba5f" class="outline-3">
-<h3 id="orgf1eba5f"><span class="section-number-3">4.2.</span> Function composition</h3>
+<div id="outline-container-orgaaeda64" class="outline-3">
+<h3 id="orgaaeda64"><span class="section-number-3">4.2.</span> Function composition</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 <i>Combinators</i> (remember those from the lambda calculus?) in haskell are polymorphic functions.
@@ -940,8 +940,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-org1e84a4f" class="outline-3">
-<h3 id="org1e84a4f"><span class="section-number-3">4.3.</span> Type-kwon-do</h3>
+<div id="outline-container-orge8d403c" class="outline-3">
+<h3 id="orge8d403c"><span class="section-number-3">4.3.</span> Type-kwon-do</h3>
 <div class="outline-text-3" id="text-4-3">
 <ul class="org-ul">
 <li>In all of the following cases, the goal is to make the program pass the type checker by modifying the <code>???</code> declaration, and it alone.</li>
@@ -949,8 +949,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-org92272ed" class="outline-3">
-<h3 id="org92272ed"><span class="section-number-3">4.4.</span> Type-kwon-do 1</h3>
+<div id="outline-container-orgb18f100" class="outline-3">
+<h3 id="orgb18f100"><span class="section-number-3">4.4.</span> Type-kwon-do 1</h3>
 <div class="outline-text-3" id="text-4-4">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">f</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">Int</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">String</span>
@@ -966,8 +966,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-orgc62cda5" class="outline-3">
-<h3 id="orgc62cda5"><span class="section-number-3">4.5.</span> Solution</h3>
+<div id="outline-container-org339932f" class="outline-3">
+<h3 id="org339932f"><span class="section-number-3">4.5.</span> Solution</h3>
 <div class="outline-text-3" id="text-4-5">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">h</span> <span style="color: #89dceb;">=</span> g <span style="color: #89dceb;">.</span> f
@@ -976,8 +976,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-org4ce8478" class="outline-3">
-<h3 id="org4ce8478"><span class="section-number-3">4.6.</span> Type-kwon-do 2</h3>
+<div id="outline-container-org7ddd98f" class="outline-3">
+<h3 id="org7ddd98f"><span class="section-number-3">4.6.</span> Type-kwon-do 2</h3>
 <div class="outline-text-3" id="text-4-6">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">A</span>
@@ -997,8 +997,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-orgc8a5314" class="outline-3">
-<h3 id="orgc8a5314"><span class="section-number-3">4.7.</span> Solution</h3>
+<div id="outline-container-org755364d" class="outline-3">
+<h3 id="org755364d"><span class="section-number-3">4.7.</span> Solution</h3>
 <div class="outline-text-3" id="text-4-7">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">e</span> <span style="color: #89dceb;">=</span> w <span style="color: #89dceb;">.</span> q
@@ -1007,8 +1007,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-org9cef0ff" class="outline-3">
-<h3 id="org9cef0ff"><span class="section-number-3">4.8.</span> Type-kwon-do 3</h3>
+<div id="outline-container-orgf501661" class="outline-3">
+<h3 id="orgf501661"><span class="section-number-3">4.8.</span> Type-kwon-do 3</h3>
 <div class="outline-text-3" id="text-4-8">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">X</span>
@@ -1028,8 +1028,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-org1aac99b" class="outline-3">
-<h3 id="org1aac99b"><span class="section-number-3">4.9.</span> Solution</h3>
+<div id="outline-container-orgdbe7703" class="outline-3">
+<h3 id="orgdbe7703"><span class="section-number-3">4.9.</span> Solution</h3>
 <div class="outline-text-3" id="text-4-9">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">xform</span> (x,y) <span style="color: #89dceb;">=</span> (xz x, yz y)
@@ -1038,8 +1038,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-orgd9a94b3" class="outline-3">
-<h3 id="orgd9a94b3"><span class="section-number-3">4.10.</span> Type-kwon-do 4</h3>
+<div id="outline-container-org9fef1c4" class="outline-3">
+<h3 id="org9fef1c4"><span class="section-number-3">4.10.</span> Type-kwon-do 4</h3>
 <div class="outline-text-3" id="text-4-10">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">munge</span> <span style="color: #89dceb;">::</span> (x <span style="color: #89dceb;">-&gt;</span> y)
@@ -1052,8 +1052,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-orge48352f" class="outline-3">
-<h3 id="orge48352f"><span class="section-number-3">4.11.</span> Solution</h3>
+<div id="outline-container-org37c802f" class="outline-3">
+<h3 id="org37c802f"><span class="section-number-3">4.11.</span> Solution</h3>
 <div class="outline-text-3" id="text-4-11">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">munge</span> f g <span style="color: #89dceb;">=</span> fst <span style="color: #89dceb;">.</span> g <span style="color: #89dceb;">.</span> f
@@ -1062,8 +1062,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-org83eb6ce" class="outline-3">
-<h3 id="org83eb6ce"><span class="section-number-3">4.12.</span> </h3>
+<div id="outline-container-org9cf28a7" class="outline-3">
+<h3 id="org9cf28a7"><span class="section-number-3">4.12.</span> </h3>
 <div class="outline-text-3" id="text-4-12">
 <p>
 \(\mathscr{Fin}\)
@@ -1071,8 +1071,8 @@ This will be useful in the following exercises.
 </div>
 </div>
 
-<div id="outline-container-orge011b9a" class="outline-3">
-<h3 id="orge011b9a"><span class="section-number-3">4.13.</span> References</h3>
+<div id="outline-container-org6279491" class="outline-3">
+<h3 id="org6279491"><span class="section-number-3">4.13.</span> References</h3>
 <div class="outline-text-3" id="text-4-13">
 <p>
 Carpenter, Bob (1998). <i>Type-Logical Semantics</i>, {MIT Press}.</p>
@@ -1085,7 +1085,7 @@ Montague, Richard (1970). <i>Universal Grammar</i>.</p>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2023-04-24 Mon 12:25</p>
+<p class="date">Created: 2023-04-25 Tue 10:13</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
