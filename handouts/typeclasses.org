@@ -333,7 +333,7 @@ Unlike lists, tuples have a /fixed number/ of elements.
 
 The ~fst~ and ~snd~ functions won't work for /n-tuples/, where \(n > 2\); why not?
 
-** TODO Tuples under the hood
+** Tuples under the hood
 
 Unlike lists, tuples in haskell aren't singly-linked. To see this, try evaluating the following:
 
