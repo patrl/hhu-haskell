@@ -89,7 +89,7 @@ Note that we /reuse/ ~PropL~ in the constructor for negative sentences; this mea
 
 Note that this already gives us infinite inhabitants of type ~PropL~.
 
-** TODO Adding connectives
+** Adding connectives
 
 #+begin_src haskell
   data PropL = PVar String | PNot PropL | PAnd PropL PropL | POr PropL PropL deriving (Eq,Show)

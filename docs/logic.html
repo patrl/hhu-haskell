@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-05-02 Tue 11:32 -->
+<!-- 2023-05-02 Tue 11:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Propositional logic and recursive datatypes</title>
@@ -231,8 +231,8 @@
 <div id="content" class="content">
 <h1 class="title">Propositional logic and recursive datatypes</h1>
 
-<div id="outline-container-org181ec18" class="outline-3">
-<h3 id="org181ec18"><span class="section-number-3">0.1.</span> Formal grammars in Haskell</h3>
+<div id="outline-container-org618954f" class="outline-3">
+<h3 id="org618954f"><span class="section-number-3">0.1.</span> Formal grammars in Haskell</h3>
 <div class="outline-text-3" id="text-0-1">
 <ul class="org-ul">
 <li>Haskell's type system can be used to represent grammars as datatypes.</li>
@@ -254,8 +254,8 @@ VP -&gt; V S
 </div>
 </div>
 
-<div id="outline-container-org5d30e7a" class="outline-3">
-<h3 id="org5d30e7a"><span class="section-number-3">0.2.</span> Formal grammars in Haskell cont.</h3>
+<div id="outline-container-orgd1e328a" class="outline-3">
+<h3 id="orgd1e328a"><span class="section-number-3">0.2.</span> Formal grammars in Haskell cont.</h3>
 <div class="outline-text-3" id="text-0-2">
 <ul class="org-ul">
 <li>In order to implement recursive grammars in Haskell, we use <i>recursive datatypes</i>.
@@ -267,8 +267,8 @@ VP -&gt; V S
 </div>
 </div>
 
-<div id="outline-container-orgd0f618b" class="outline-3">
-<h3 id="orgd0f618b"><span class="section-number-3">0.3.</span> Homework</h3>
+<div id="outline-container-org534abe7" class="outline-3">
+<h3 id="org534abe7"><span class="section-number-3">0.3.</span> Homework</h3>
 <div class="outline-text-3" id="text-0-3">
 <ul class="org-ul">
 <li>Next week we'll talk about semantics, again using propositional logic as an example.</li>
@@ -277,12 +277,12 @@ VP -&gt; V S
 </div>
 </div>
 
-<div id="outline-container-org997e41f" class="outline-2">
-<h2 id="org997e41f"><span class="section-number-2">1.</span> Propositional logic</h2>
+<div id="outline-container-org401452a" class="outline-2">
+<h2 id="org401452a"><span class="section-number-2">1.</span> Propositional logic</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org6334f06" class="outline-3">
-<h3 id="org6334f06"><span class="section-number-3">1.1.</span> Sentences of propositional logic</h3>
+<div id="outline-container-org24cdbc9" class="outline-3">
+<h3 id="org24cdbc9"><span class="section-number-3">1.1.</span> Sentences of propositional logic</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Sentences of propositional logic:
@@ -297,8 +297,8 @@ Sentences of propositional logic:
 </div>
 </div>
 
-<div id="outline-container-orgaed89bb" class="outline-3">
-<h3 id="orgaed89bb"><span class="section-number-3">1.2.</span> Grammar of propositional logic</h3>
+<div id="outline-container-orgc51cdc4" class="outline-3">
+<h3 id="orgc51cdc4"><span class="section-number-3">1.2.</span> Grammar of propositional logic</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 To state a grammar for propositional logic, we first need a set of variables \(\mathbf{Var} := \set{p, q, r, \ldots}\), and a set of constants \(\set{\top,\bot}\).
@@ -314,8 +314,8 @@ To state a grammar for propositional logic, we first need a set of variables \(\
 </div>
 </div>
 
-<div id="outline-container-orga5d2bb8" class="outline-3">
-<h3 id="orga5d2bb8"><span class="section-number-3">1.3.</span> The grammar as a datatype</h3>
+<div id="outline-container-orgd78f61f" class="outline-3">
+<h3 id="orgd78f61f"><span class="section-number-3">1.3.</span> The grammar as a datatype</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 We'll use a <i>sum type</i> to implement the grammar of propositional logic. We can start with just the following:
@@ -336,8 +336,8 @@ ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</s
 </div>
 </div>
 
-<div id="outline-container-orgc8c7004" class="outline-3">
-<h3 id="orgc8c7004"><span class="section-number-3">1.4.</span> Adding negation: recursive datatypes!</h3>
+<div id="outline-container-org6f86a1a" class="outline-3">
+<h3 id="org6f86a1a"><span class="section-number-3">1.4.</span> Adding negation: recursive datatypes!</h3>
 <div class="outline-text-3" id="text-1-4">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
@@ -362,8 +362,8 @@ Note that this already gives us infinite inhabitants of type <code>PropL</code>.
 </div>
 </div>
 
-<div id="outline-container-org688edc7" class="outline-3">
-<h3 id="org688edc7"><span class="section-number-3">1.5.</span> <span class="todo TODO">TODO</span> Adding connectives</h3>
+<div id="outline-container-org4cdde9b" class="outline-3">
+<h3 id="org4cdde9b"><span class="section-number-3">1.5.</span> Adding connectives</h3>
 <div class="outline-text-3" id="text-1-5">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PAnd</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">POr</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
@@ -380,8 +380,8 @@ error
 </div>
 </div>
 
-<div id="outline-container-orgde3dc54" class="outline-3">
-<h3 id="orgde3dc54"><span class="section-number-3">1.6.</span> Bonus: infix constructors!</h3>
+<div id="outline-container-org1ae8a0b" class="outline-3">
+<h3 id="org1ae8a0b"><span class="section-number-3">1.6.</span> Bonus: infix constructors!</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 Functions that take two arguments can be used as <i>infix operators</i> by enclosing them in backticks. This also goes for constructors:
@@ -406,8 +406,8 @@ You can even use infix constructors in the data declaration:
 </div>
 </div>
 
-<div id="outline-container-org24e23c1" class="outline-3">
-<h3 id="org24e23c1"><span class="section-number-3">1.7.</span> Implementing a custom <code>Show</code> instance</h3>
+<div id="outline-container-org0073e03" class="outline-3">
+<h3 id="org0073e03"><span class="section-number-3">1.7.</span> Implementing a custom <code>Show</code> instance</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 Implementing a custom <code>Show</code> instance for <code>PropL</code> simply amounts to defining a function <code>show</code> of type <code>PropL -&gt; String</code>.
@@ -426,8 +426,8 @@ Implementing a custom <code>Show</code> instance for <code>PropL</code> simply a
 </div>
 </div>
 
-<div id="outline-container-org0833b57" class="outline-3">
-<h3 id="org0833b57"><span class="section-number-3">1.8.</span> Custom <code>Show</code> cont.</h3>
+<div id="outline-container-org6b93cd7" class="outline-3">
+<h3 id="org6b93cd7"><span class="section-number-3">1.8.</span> Custom <code>Show</code> cont.</h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
 The <code>Show</code> instance we just declared will automatically be used by ghci. 
@@ -445,8 +445,8 @@ We can also use it explicitly by calling <code>show</code> on something of type 
 </div>
 </div>
 
-<div id="outline-container-org11bc867" class="outline-3">
-<h3 id="org11bc867"><span class="section-number-3">1.9.</span> ASTs</h3>
+<div id="outline-container-org9f07020" class="outline-3">
+<h3 id="org9f07020"><span class="section-number-3">1.9.</span> ASTs</h3>
 <div class="outline-text-3" id="text-1-9">
 <p>
 Recursive datatypes are used to create an Abstract Syntax Tree (AST) for sentences of propositional logic.
@@ -454,8 +454,8 @@ Recursive datatypes are used to create an Abstract Syntax Tree (AST) for sentenc
 </div>
 </div>
 
-<div id="outline-container-org16bc1ac" class="outline-3">
-<h3 id="org16bc1ac"><span class="section-number-3">1.10.</span> Recursive functions</h3>
+<div id="outline-container-orgba6624e" class="outline-3">
+<h3 id="orgba6624e"><span class="section-number-3">1.10.</span> Recursive functions</h3>
 <div class="outline-text-3" id="text-1-10">
 <p>
 Let's say that we want to compute the number of operators in a formula. In order to do so we'll need a recursive function <code>opsNr</code>.
@@ -474,8 +474,8 @@ First, we define the base of the recursion (where the recursion halts):
 </div>
 </div>
 
-<div id="outline-container-orge84afad" class="outline-3">
-<h3 id="orge84afad"><span class="section-number-3">1.11.</span> Recursive functions cont.</h3>
+<div id="outline-container-orgc5d82ef" class="outline-3">
+<h3 id="orgc5d82ef"><span class="section-number-3">1.11.</span> Recursive functions cont.</h3>
 <div class="outline-text-3" id="text-1-11">
 <p>
 For all other cases we need recursion:
@@ -492,8 +492,8 @@ For all other cases we need recursion:
 </div>
 </div>
 
-<div id="outline-container-org1f51f02" class="outline-3">
-<h3 id="org1f51f02"><span class="section-number-3">1.12.</span> Another recursive function: depth</h3>
+<div id="outline-container-org3e879dc" class="outline-3">
+<h3 id="org3e879dc"><span class="section-number-3">1.12.</span> Another recursive function: depth</h3>
 <div class="outline-text-3" id="text-1-12">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">depth</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Int</span>
@@ -506,8 +506,8 @@ For all other cases we need recursion:
 </div>
 </div>
 
-<div id="outline-container-org18dfe5c" class="outline-3">
-<h3 id="org18dfe5c"><span class="section-number-3">1.13.</span> Depth cont.</h3>
+<div id="outline-container-org35217a6" class="outline-3">
+<h3 id="org35217a6"><span class="section-number-3">1.13.</span> Depth cont.</h3>
 <div class="outline-text-3" id="text-1-13">
 <div class="org-src-container">
 <pre class="src src-haskell"><span style="color: #89b4fa;">depth</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Int</span>
@@ -520,8 +520,8 @@ For all other cases we need recursion:
 </div>
 </div>
 
-<div id="outline-container-org4d0553e" class="outline-3">
-<h3 id="org4d0553e"><span class="section-number-3">1.14.</span> Exercise: gather names</h3>
+<div id="outline-container-orgc3f70db" class="outline-3">
+<h3 id="orgc3f70db"><span class="section-number-3">1.14.</span> Exercise: gather names</h3>
 <div class="outline-text-3" id="text-1-14">
 <ul class="org-ul">
 <li><b>Exercise:</b>  write a recursive function that returns a list of all of the variables that occur in a formula.</li>
@@ -530,8 +530,8 @@ For all other cases we need recursion:
 </div>
 </div>
 
-<div id="outline-container-org6372b14" class="outline-3">
-<h3 id="org6372b14"><span class="section-number-3">1.15.</span> </h3>
+<div id="outline-container-org9b5c97a" class="outline-3">
+<h3 id="org9b5c97a"><span class="section-number-3">1.15.</span> </h3>
 <div class="outline-text-3" id="text-1-15">
 <p>
 \(\mathscr{Fin}\)
@@ -539,8 +539,8 @@ For all other cases we need recursion:
 </div>
 </div>
 
-<div id="outline-container-orgf9f788c" class="outline-3">
-<h3 id="orgf9f788c"><span class="section-number-3">1.16.</span> References</h3>
+<div id="outline-container-org04c45cc" class="outline-3">
+<h3 id="org04c45cc"><span class="section-number-3">1.16.</span> References</h3>
 <div class="outline-text-3" id="text-1-16">
 <p>
 van Eijck, Jan and Unger, Christina (2010). <i>Computational {{Semantics}} with {{Functional Programming}}</i>, {Cambridge University Press}.</p>
@@ -550,7 +550,7 @@ van Eijck, Jan and Unger, Christina (2010). <i>Computational {{Semantics}} with 
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2023-05-02 Tue 11:32</p>
+<p class="date">Created: 2023-05-02 Tue 11:36</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-05-02 11:34]" 
+Last updated: "[2023-05-02 11:36]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -85,6 +85,7 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 ** Formal syntax for fragments
 
 - The slides can be downloaded [[./logic.pdf][here]].
+- *Homework:*
   * You can also browse the content [[./logic.html][here]].
   * Read chapter 5 of /Computational Semantics with Functional Programming/, "Formal semantics for fragments"
 
