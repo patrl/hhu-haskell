@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-04-24 12:27]" 
+Last updated: "[2023-05-02 11:34]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -76,15 +76,22 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
     
 ** Types and typeclasses
 
-- The preliminary slides can be downloaded [[./typeclasses.pdf][here]].
+- The slides can be downloaded [[./typeclasses.pdf][here]].
   * You can also browse the content [[./typeclasses.html][here]].
 - *Homework*:
   * Finish the any in-class exercises.
   * Read chapter 4 of /Computational Semantics with Functional Programming/, "Formal syntax for fragments".
 
-** TODO Formal syntax for fragments
+** Formal syntax for fragments
 
-** TODO Formal semantics for fragments
+- The slides can be downloaded [[./logic.pdf][here]].
+  * You can also browse the content [[./logic.html][here]].
+  * Read chapter 5 of /Computational Semantics with Functional Programming/, "Formal semantics for fragments"
+
+** Formal semantics for fragments
+
+- *Important:* This week's class will be /remote/.
+  * Stay tuned for the webex link.
 
 ** TODO Model checking
 
