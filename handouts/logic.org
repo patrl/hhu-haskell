@@ -1,0 +1,230 @@
+#+title: Propositional logic and recursive datatypes
+#+author: Patrick D. Elliott
+#+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
+#+EXPORT_FILE_NAME: ../docs/logic
+#+BEAMER_THEME: metropolis
+#+BEAMER_COLOR_THEME: owl [snowy]
+#+BEAMER_HEADER: \input{beamerplate.tex}
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+BEAMER_FONT_THEME: professionalfonts
+#+LATEX_COMPILER: xelatex
+#+OPTIONS: toc:nil H:2
+
+** Formal grammars in Haskell
+
+- Haskell's type system can be used to represent grammars as datatypes.
+- Grammars of non-trivial formal languages/natural languages typically involve /recursive/ rules for well-formed formulas/sentences
+- An example from a CFG for natural language:
+
+#+begin_src 
+ S -> NP VP
+ VP -> V S
+#+end_src
+
+- "She is upset."
+- "Zach said she is upset."
+- "Jenna believes Zach said she is upset." 
+  
+** Formal grammars in Haskell cont.
+
+- In order to implement recursive grammars in Haskell, we use /recursive datatypes/.
+  * Operations that apply to inhabitants of recursive datatypes are (typically) recursive functions.
+  * Today we'll learn about recursive datatypes/functions in Haskell, using the simple example of propositional logic.
+    
+** Homework
+
+- Next week we'll talk about semantics, again using propositional logic as an example.
+- For homework, read chapter 5 of [cite:@vanEijckUnger2010] "Formal semantics for fragments".
+
+* Propositional logic
+
+** Sentences of propositional logic 
+
+Sentences of propositional logic:
+
+- \(p \wedge q\)
+- \(p \wedge (q \rightarrow r)\)
+- \(p \vee \neg (q \wedge p)\)
+- \(\bot \rightarrow (\top \vee (q \wedge r))\)
+  
+** Grammar of propositional logic
+
+To state a grammar for propositional logic, we first need a set of variables \(\mathbf{Var} := \set{p, q, r, \ldots}\), and a set of constants \(\set{\top,\bot}\).
+
+- If \(p \in \mathbf{Var} \cup \set{\top,\bot}\), then \(p\) is a sentence of propositional logic.
+- If \(\phi,\psi\) are sentences of propositional logic, then \((\phi \wedge \psi)\) is a sentence of propositional logic.
+- If \(\phi,\psi\) are sentences of propositional logic, then \((\phi \vee \psi)\) is a sentence of propositional logic.
+- If \(\phi,\psi\) are sentences of propositional logic, then \((\phi \rightarrow \psi)\) is a sentence of propositional logic.
+- If \(\phi \) is a sentence of propositional logic, then so is \(\neg \phi \)
+
+** The grammar as a datatype
+
+We'll use a /sum type/ to implement the grammar of propositional logic. We can start with just the following:
+
+#+begin_src haskell
+  data PropL = PVar String deriving (Eq,Show)
+#+end_src
+
+#+begin_src haskell
+  ghci> :t (PVar "p1")
+  PropL
+  ghci> :t (PVar "p3")
+  PropL
+#+end_src
+
+** Adding negation: recursive datatypes!
+
+#+begin_src haskell
+  data PropL = PVar String | PNot PropL deriving (Eq,Show)
+#+end_src
+
+Note that we /reuse/ ~PropL~ in the constructor for negative sentences; this means that if an expression ~p~ is of type ~PropL~, then ~PNot p~ is of type ~PropL~.
+
+#+begin_src haskell
+  ghci> :t (PNot (PVar "p1"))
+  PropL
+  ghci> :t (PNot (PNot (PNot (PVar "p1")))
+  PropL
+#+end_src
+
+Note that this already gives us infinite inhabitants of type ~PropL~.
+
+** TODO Adding connectives
+
+#+begin_src haskell
+  data PropL = PVar String | PNot PropL | PAnd PropL PropL | POr PropL PropL deriving (Eq,Show)
+#+end_src
+
+#+begin_src haskell
+  ghci> :t (PAnd (PVar "p1") (POr (PVar "p2") (PVar "p3")))
+  PropL
+  ghci> :t (PAnd (PVar "p1"))
+  error
+#+end_src
+
+** Bonus: infix constructors!
+
+Functions that take two arguments can be used as /infix operators/ by enclosing them in backticks. This also goes for constructors:
+
+#+begin_src haskell
+  ghci> :t PAnd
+    PropL -> PropL -> PropL
+  ghci> :t ((PVar "p1") `PAnd` (PVar "p2"))
+  PropL
+#+end_src
+
+You can even use infix constructors in the data declaration:
+
+#+begin_src haskell
+  data PropL = PVar String | PNot PropL | PropL `PAnd` PropL | PropL `POr` PropL deriving (Eq,Show)
+#+end_src
+
+** Implementing a custom ~Show~ instance
+
+Implementing a custom ~Show~ instance for ~PropL~ simply amounts to defining a function ~show~ of type ~PropL -> String~.
+
+#+begin_src haskell
+  data PropL = PVar String | PNot PropL | PropL `PAnd` PropL | PropL `POr` PropL deriving Eq
+
+  instance Show PropL where
+    show (PVar s) = s
+    show (PNot p) = "~" ++ show p
+    show (p `PAnd` q) = "(" ++ show p ++ " & " ++ show q ++ ")"
+    show (p `POr` q) = "(" ++ show p ++ " | " ++ show q ++ ")"
+#+end_src
+
+** Custom ~Show~ cont.
+
+The ~Show~ instance we just declared will automatically be used by ghci. 
+
+#+begin_src haskell
+  ghci> ((PVar "p1") `PAnd` (PNot ((PVar "p1") `POr` (PVar "p3")))
+  (p1 & ~(p2 | p3)) 
+#+end_src
+
+We can also use it explicitly by calling ~show~ on something of type ~PropL~.
+
+** ASTs
+
+Recursive datatypes are used to create an Abstract Syntax Tree (AST) for sentences of propositional logic.
+
+#+begin_export latex
+\begin{forest}
+ [{\texttt{PropL}}
+   [{\texttt{p1}}]
+   [{\texttt{PAnd}}]
+   [{\texttt{PropL}}
+     [{\texttt{PNot}}]
+     [{\texttt{PropL}}
+       [{\texttt{p2}}]
+       [{\texttt{POr}}]
+       [{\texttt{p3}}]
+]
+]
+] 
+\end{forest}
+#+end_export
+
+** Recursive functions
+
+Let's say that we want to compute the number of operators in a formula. In order to do so we'll need a recursive function ~opsNr~.
+
+First, we define the base of the recursion (where the recursion halts):
+
+
+#+begin_src haskell
+  opsNr :: PropL -> Int
+  opsNr (PVar _) = 0
+#+end_src
+
+** Recursive functions cont.
+
+For all other cases we need recursion:
+
+#+begin_src haskell
+  opsNr :: PropL -> Int
+  opsNr (PVar _) = 0
+  opsNr (PNot p) = 1 + opsNr p
+  opsNr (PAnd p q) = 1 + opsNr p + opsNr q
+  opsNr (POr p q) = 1 + opsNr p + opsNr q
+#+end_src
+
+** Another recursive function: depth
+
+#+begin_src haskell
+  depth :: PropL -> Int
+  depth (PVar _) = 0
+  depth (PNot p) = 1 + depth p
+  opsNr (PAnd p q) = undefined
+  opsNr (POr p q) = undefined
+#+end_src
+
+** Depth cont.
+
+#+begin_src haskell
+  depth :: PropL -> Int
+  depth (PVar _) = 0
+  depth (PNot p) = 1 + depth p
+  depth (PAnd p q) = 1 + max (depth p) (depth q)
+  depth (POr p q) = 1 + max (depth p) (depth q)
+#+end_src
+
+** Exercise: gather names
+
+- *Exercise:*  write a recursive function that returns a list of all of the variables that occur in a formula. 
+- As a bonus, remove duplicates and sort the output alphabetically. 
+
+** 
+   :PROPERTIES:
+   :BEAMER_opt: label=findings,standout
+   :END:
+ 
+   \(\mathscr{Fin}\)
+   
+** References
+
+#+print_bibliography:
+
+# Local Variables:
+# org-latex-src-block-backend: engraved
+# End:
