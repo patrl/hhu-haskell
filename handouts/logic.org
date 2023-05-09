@@ -213,6 +213,176 @@ For all other cases we need recursion:
 
 - *Exercise:*  write a recursive function that returns a list of all of the variables that occur in a formula. 
 - As a bonus, remove duplicates and sort the output alphabetically. 
+   
+** Normalization
+
+- A formula of propositional logic is in /conjunctive normal form/ (CNF) iff it is a conjunction of one of more *clauses*.
+  * A clause is a disjunction of one or more literals; a literal is either a propositional variable, or the negation of a propositional variable.
+  * Some formulas in conjunctive normal form:
+
+- \((p \vee \neg q \vee r) \wedge s\)
+- \((p \vee q) \wedge r\)
+- \(p\)
+
+** Conversion to CNF and rules of inference
+
+- Any formula can be converted into CNF by successively applying the following rules of inference:
+  * \(\neg \neg \phi \Rightarrow \phi \) (*Double Negation Elimination*; DNE)
+  * \(\neg (\phi \vee \psi) \Rightarrow \neg \phi  \wedge \neg \psi\) (*De Morgan's law 1*; dM1)
+  * \(\neg (\phi \wedge \psi) \Rightarrow \neg \phi  \vee \neg \psi\) (*De Morgan's law 2*; dM1)
+  * \(\phi \vee (\psi \wedge \rho) \Rightarrow (\phi \vee \psi) \wedge (\phi \vee \rho)\) (*Distributive Law*; DL)
+- Conversion to CNF can be accomplished by:
+  * Pushing negations in, by repeatedly applying dM.
+  * Getting rid of any double negations via DNE.
+  * Repeatedly applying DL, to get rid of disjunctions applying over conjunctions.
+    
+** An example
+
+\[\neg (\neg (p \vee q) \wedge r) \wedge \neg (p \wedge r)\]
+
+\[\begin{aligned}[t]
+&\Rightarrow (\neg \neg (p \vee q) \vee r) \wedge \neg (p \wedge r)\\
+&\Rightarrow (\neg \neg (p \vee q) \vee r) \wedge (\neg p \vee \neg r)\\
+&\Rightarrow (p \vee q \vee r) \wedge (\neg p \vee \neg r)
+\end{aligned}\]
+ 
+** Implementation in Haskell
+
+- Let's try to write a function to implement this procedure in Haskell.
+- We know what the type of this function should be:
+
+#+begin_src haskell
+  toCNF :: PropL -> PropL
+  toCNF = undefined
+#+end_src
+
+** Pushing negation in
+
+We'll break this function down into three steps.
+
+- First, let's push negations inward by repeatedly applying dM.
+- Second, let's get rid of any resulting double negations.
+- Third, let's distribute conjunctions over disjunctions.
+  
+#+begin_src haskell
+  toCNF :: PropL -> PropL
+  toCNF = distributeConj . elimDN . pushNegsIn
+
+  dM :: PropL -> PropL
+  dM :: PropL -> PropL   
+
+  dne :: PropL -> PropL
+  dne = undefined
+
+  distLaw :: PropL -> PropL
+  distLaw = undefined
+#+end_src
+
+** First step: de Morgan's
+
+We can apply de Morgan's via heavy use of /pattern matching/.
+
+#+begin_src haskell
+  dM :: PropL -> PropL
+  dM (PNot (p `POr` q)) = (PNot p) `PAnd` (PNot q)
+  dM p = p
+#+end_src
+
+Pattern matching applies wherever possible, making the second line an elsewhere case.
+
+** de Morgan's continued
+
+#+begin_src haskell
+  dM :: PropL -> PropL
+  dM (PNot (p `PAnd` q)) = (PNot p) `POr` (PNot q)
+  dM (PNot (p `POr` q)) = (PNot p) `PAnd` (PNot q)
+  dM p = p
+#+end_src
+
+** Non-recursive
+
+- Note that the function we just defined is /not recursive/.
+  * It only applies de Morgan's if the /top level formula/ matches the structural description imposed by pattern matching.
+    
+#+begin_src haskell
+  ghci> dM (PVar "p1" `PAnd` PNot (PVar "p2" `POr` PVar "p3"))
+  (p1 & ~(p2 | p3))
+#+end_src
+
+- In order to eventually convert to CNF we need to apply ~dM~ /recursively/.
+- *Exercise:* write a recursive variant of ~dM~.
+  
+** Recursive application of de Morgan's
+
+#+begin_src haskell
+  dM :: PropL -> PropL
+  dM (PNot (p `PAnd` q)) = (PNot (dM p)) `POr` (PNot (dM q))
+  dM (PNot (p `POr` q)) = (PNot (dM p)) `PAnd` (PNot (dM q))
+  dM (PNot p) = PNot (dM p)
+  dM (p `PAnd` q) = dM p `PAnd` dM q
+  dM (p `POr` q) = dM p `POr` dM q
+  dM (PVar p) = PVar p
+#+end_src
+
+** Double Negation Elimination
+
+- Double negation elimination is a bit simpler.
+- First, the non-recursive variant:
+
+#+begin_src haskell
+  dne :: PropL -> PropL
+  dne (PNot (PNot p)) = p
+  dne p = p
+#+end_src
+
+- *Exercise:* make this apply recursively
+
+** Recursive DNE
+
+#+begin_src haskell
+  dne :: PropL -> PropL
+  dne (PNot (PNot p)) = dne p
+  dne (PNot p) = PNot (dne p)
+  dne (p `PAnd` q) = dne p `PAnd` dne q 
+  dne (p `POr` q) = dne p `POr` dne q 
+  dne (PVar p) = PVar p
+#+end_src
+
+** Distributive Law
+
+First, the non-recursive variant (we're really stretching the limits of pattern matching):
+
+Our statement of the distributive law actually subsumes three different cases:
+
+#+begin_src haskell 
+  distLaw :: PropL -> PropL 
+  distLaw ((p `PAnd` q) `POr` (r `PAnd` s)) = (p `POr` r) `PAnd` (p `POr` s) `PAnd` (q `POr` r) `PAnd` (q `POr` s) -- double distributivity
+  distLaw (p `POr` (q `PAnd` r)) = (p `POr` q) `PAnd` (p `POr` r) --left dist
+  distLaw ((q `PAnd` r) `POr` p) = (q `POr` p) `PAnd` (r `POr` p) --right dist
+  distLaw p = p
+#+end_src
+
+- *Exercise:* write the recursive variant!
+
+** Recursive distributive law
+
+
+#+begin_src haskell 
+  distLaw :: PropL -> PropL 
+  distLaw ((p `PAnd` q) `POr` (r `PAnd` s)) = (distLaw p `POr` distLaw r) `PAnd` (distLaw p `POr` distLaw s) `PAnd` (distLaw q `POr` distLaw r) `PAnd` (distLaw q `POr` distLaw s) -- double distributivity
+  distLaw (p `POr` (q `PAnd` r)) = (distLaw p `POr` distLaw q) `PAnd` (distLaw p `POr` r) --left dist
+  distLaw ((q `PAnd` r) `POr` p) = (distLaw q `POr` distLaw p) `PAnd` (distLaw r `POr` distLaw p) --right dist
+  distLaw (PNot p) = PNot (distLaw p)
+  distLaw (p `PAnd` q) = distLaw p `PAnd` distLaw q
+  distLaw (p `POr` q) = distLaw p `POr` distLaw q
+  distLaw (PVar p) = PVar p
+#+end_src
+
+** Mini assignment
+
+- A function that maps formulas of propositional logic to a truth table.
+- You can treat a truth table as a list of /pairs/ of variable assignments and truth values.
+- A variable assignment is a list of pairs of variables and truth values.
 
 ** 
    :PROPERTIES:
@@ -220,7 +390,10 @@ For all other cases we need recursion:
    :END:
  
    \(\mathscr{Fin}\)
-   
+
+
+
+
 ** References
 
 #+print_bibliography:

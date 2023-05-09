@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-05-02 11:36]" 
+Last updated: "[2023-05-09 13:59]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -40,7 +40,7 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 | April 18 | [[Types and strings][Types and strings]] |
 | April 25 | [[Types and typeclasses][Types and typeclasses]] |
 | May 2    | [[Formal syntax for fragments][Formal syntax for fragments]] |
-| May 9    | [[Formal semantics for fragments][Formal semantics for fragments]] (remote) |
+| May 9    | [[Formal syntax for fragments cont][Formal syntax for fragments cont.]] (remote) |
 | May 16   | NO CLASS                       |
 | May 23   | [[Model checking][Model checking]] |
 | May 30   | [[Meaning composition][Meaning composition]] |
@@ -89,10 +89,13 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
   * You can also browse the content [[./logic.html][here]].
   * Read chapter 5 of /Computational Semantics with Functional Programming/, "Formal semantics for fragments"
 
-** Formal semantics for fragments
+** Formal syntax for fragments cont
 
-- *Important:* This week's class will be /remote/.
-  * Stay tuned for the webex link.
+- The slides (updated from the previous week) can be downloaded [[./logic.pdf][here]].
+- *Homework:* 
+  * You can also browse the content [[./logic.html][here]].
+  * Mini-assignment: write a function that maps formulas of propositional logic (type ~PropL~) to /truth-tables/ (type ~[([(String,Bool)],Bool)]~), where ~[(String,Bool)]~ is the type of a /variable assignment/.
+    
 
 ** TODO Model checking
 
