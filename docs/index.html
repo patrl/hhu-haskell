@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-05-09 Tue 13:59 -->
+<!-- 2023-05-22 Mon 17:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Implementing Semantic Fragments in Haskell</title>
@@ -202,22 +202,22 @@
 <span class="subtitle">HHU spring/summer semester 2023</span>
 </h1>
 
-<div id="org8a79a39" class="figure">
+<div id="orgbd4c47c" class="figure">
 <p><img src="./fernsehturm.jpg" alt="fernsehturm.jpg" width="250" style="border:2px solid black;" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Fernsehturm, Berlin 1968 (Horst Sturm)</p>
 </div>
 
 <p>
-Last updated: "<span class="timestamp-wrapper"><span class="timestamp">[2023-05-09 Tue 13:59]</span></span>" 
+Last updated: "<span class="timestamp-wrapper"><span class="timestamp">[2023-05-22 Mon 17:48]</span></span>" 
 </p>
 
 <p>
 <a href="./syllabus.pdf">Syllabus</a>
 </p>
 
-<div id="outline-container-orgb68277d" class="outline-2">
-<h2 id="orgb68277d"><span class="section-number-2">1.</span> Course description</h2>
+<div id="outline-container-org57dc308" class="outline-2">
+<h2 id="org57dc308"><span class="section-number-2">1.</span> Course description</h2>
 <div class="outline-text-2" id="text-1">
 <blockquote>
 <p>
@@ -231,8 +231,8 @@ This will be an extremely hands-on course, and students should ideally expect jt
 </div>
 </div>
 
-<div id="outline-container-orgcaedd01" class="outline-2">
-<h2 id="orgcaedd01"><span class="section-number-2">2.</span> Haskell resources</h2>
+<div id="outline-container-org74c4478" class="outline-2">
+<h2 id="org74c4478"><span class="section-number-2">2.</span> Haskell resources</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>Run haskell programs in your browser using the <a href="https://play.haskell.org/">haskell playground</a>.</li>
@@ -242,8 +242,8 @@ This will be an extremely hands-on course, and students should ideally expect jt
 </div>
 </div>
 
-<div id="outline-container-orga29067c" class="outline-2">
-<h2 id="orga29067c"><span class="section-number-2">3.</span> Schedule</h2>
+<div id="outline-container-orge38c0c5" class="outline-2">
+<h2 id="orge38c0c5"><span class="section-number-2">3.</span> Schedule</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
@@ -266,32 +266,32 @@ Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
 <tbody>
 <tr>
 <td class="org-left">April 4</td>
-<td class="org-left"><a href="#orgebe85ec">The lambda calculus</a></td>
+<td class="org-left"><a href="#org1390902">The lambda calculus</a></td>
 </tr>
 
 <tr>
 <td class="org-left">April 11</td>
-<td class="org-left"><a href="#orgd306e0f">Hello Haskell!</a></td>
+<td class="org-left"><a href="#org6f35832">Hello Haskell!</a></td>
 </tr>
 
 <tr>
 <td class="org-left">April 18</td>
-<td class="org-left"><a href="#org222a78a">Types and strings</a></td>
+<td class="org-left"><a href="#orgf233b78">Types and strings</a></td>
 </tr>
 
 <tr>
 <td class="org-left">April 25</td>
-<td class="org-left"><a href="#org41dcade">Types and typeclasses</a></td>
+<td class="org-left"><a href="#org9b53a49">Types and typeclasses</a></td>
 </tr>
 
 <tr>
 <td class="org-left">May 2</td>
-<td class="org-left"><a href="#orgbdcea3d">Formal syntax for fragments</a></td>
+<td class="org-left"><a href="#orgdf00703">Formal syntax for fragments</a></td>
 </tr>
 
 <tr>
 <td class="org-left">May 9</td>
-<td class="org-left"><a href="#org35bc20c">Formal syntax for fragments cont.</a> (remote)</td>
+<td class="org-left"><a href="#orgbcc4200">Formal syntax for fragments cont.</a> (remote)</td>
 </tr>
 
 <tr>
@@ -301,32 +301,32 @@ Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
 
 <tr>
 <td class="org-left">May 23</td>
-<td class="org-left"><a href="#orgda71ebe">Model checking</a></td>
+<td class="org-left"><a href="#orgb8545df">Formal semantics for fragments</a></td>
 </tr>
 
 <tr>
 <td class="org-left">May 30</td>
-<td class="org-left"><a href="#orgd3314b0">Meaning composition</a></td>
+<td class="org-left"><a href="#org4c2159f">Meaning composition</a></td>
 </tr>
 
 <tr>
 <td class="org-left">June 6</td>
-<td class="org-left"><a href="#org2be60ed">Functors</a></td>
+<td class="org-left"><a href="#org8978820">Functors</a></td>
 </tr>
 
 <tr>
 <td class="org-left">June 13</td>
-<td class="org-left"><a href="#org44198bd">Applicative functors</a></td>
+<td class="org-left"><a href="#org7a10bd4">Applicative functors</a></td>
 </tr>
 
 <tr>
 <td class="org-left">June 20</td>
-<td class="org-left"><a href="#org2a036e0">Monads</a></td>
+<td class="org-left"><a href="#org3e9c0d1">Monads</a></td>
 </tr>
 
 <tr>
 <td class="org-left">June 27</td>
-<td class="org-left"><a href="#orgd727692">Continuation-passing style</a></td>
+<td class="org-left"><a href="#orge8337dd">Continuation-passing style</a></td>
 </tr>
 
 <tr>
@@ -343,12 +343,12 @@ Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
 </div>
 </div>
 
-<div id="outline-container-org14c12c6" class="outline-2">
-<h2 id="org14c12c6"><span class="section-number-2">4.</span> Topics</h2>
+<div id="outline-container-org1d9641a" class="outline-2">
+<h2 id="org1d9641a"><span class="section-number-2">4.</span> Topics</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orgebe85ec" class="outline-3">
-<h3 id="orgebe85ec"><span class="section-number-3">4.1.</span> The lambda calculus</h3>
+<div id="outline-container-org1390902" class="outline-3">
+<h3 id="org1390902"><span class="section-number-3">4.1.</span> The lambda calculus</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>The slides can be downloaded <a href="./lambda.pdf">here</a>.
@@ -360,8 +360,8 @@ Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
 </div>
 </div>
 
-<div id="outline-container-orgd306e0f" class="outline-3">
-<h3 id="orgd306e0f"><span class="section-number-3">4.2.</span> Hello Haskell!</h3>
+<div id="outline-container-org6f35832" class="outline-3">
+<h3 id="org6f35832"><span class="section-number-3">4.2.</span> Hello Haskell!</h3>
 <div class="outline-text-3" id="text-4-2">
 <ul class="org-ul">
 <li>The (updated) slides can be downloaded <a href="./hello-haskell.pdf">here</a>.
@@ -373,8 +373,8 @@ Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
 </div>
 </div>
 
-<div id="outline-container-org222a78a" class="outline-3">
-<h3 id="org222a78a"><span class="section-number-3">4.3.</span> Types and strings</h3>
+<div id="outline-container-orgf233b78" class="outline-3">
+<h3 id="orgf233b78"><span class="section-number-3">4.3.</span> Types and strings</h3>
 <div class="outline-text-3" id="text-4-3">
 <ul class="org-ul">
 <li>The slides (updated) can be downloaded <a href="./types-and-strings.pdf">here</a>.
@@ -391,8 +391,8 @@ Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
 </div>
 </div>
 
-<div id="outline-container-org41dcade" class="outline-3">
-<h3 id="org41dcade"><span class="section-number-3">4.4.</span> Types and typeclasses</h3>
+<div id="outline-container-org9b53a49" class="outline-3">
+<h3 id="org9b53a49"><span class="section-number-3">4.4.</span> Types and typeclasses</h3>
 <div class="outline-text-3" id="text-4-4">
 <ul class="org-ul">
 <li>The slides can be downloaded <a href="./typeclasses.pdf">here</a>.
@@ -408,8 +408,8 @@ Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
 </div>
 </div>
 
-<div id="outline-container-orgbdcea3d" class="outline-3">
-<h3 id="orgbdcea3d"><span class="section-number-3">4.5.</span> Formal syntax for fragments</h3>
+<div id="outline-container-orgdf00703" class="outline-3">
+<h3 id="orgdf00703"><span class="section-number-3">4.5.</span> Formal syntax for fragments</h3>
 <div class="outline-text-3" id="text-4-5">
 <ul class="org-ul">
 <li>The slides can be downloaded <a href="./logic.pdf">here</a>.</li>
@@ -422,48 +422,57 @@ Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
 </div>
 </div>
 
-<div id="outline-container-org35bc20c" class="outline-3">
-<h3 id="org35bc20c"><span class="section-number-3">4.6.</span> Formal syntax for fragments cont</h3>
+<div id="outline-container-orgbcc4200" class="outline-3">
+<h3 id="orgbcc4200"><span class="section-number-3">4.6.</span> Formal syntax for fragments cont</h3>
 <div class="outline-text-3" id="text-4-6">
 <ul class="org-ul">
-<li>The slides (updated from the previous week) can be downloaded <a href="./logic.pdf">here</a>.</li>
-<li><b>Homework:</b> 
+<li>The slides (updated from the previous week) can be downloaded <a href="./logic.pdf">here</a>.
 <ul class="org-ul">
 <li>You can also browse the content <a href="./logic.html">here</a>.</li>
+</ul></li>
+<li><b>Homework:</b> 
+<ul class="org-ul">
 <li>Mini-assignment: write a function that maps formulas of propositional logic (type <code>PropL</code>) to <i>truth-tables</i> (type <code>[([(String,Bool)],Bool)]</code>), where <code>[(String,Bool)]</code> is the type of a <i>variable assignment</i>.</li>
 </ul></li>
 </ul>
 </div>
 </div>
 
-
-<div id="outline-container-orgda71ebe" class="outline-3">
-<h3 id="orgda71ebe"><span class="section-number-3">4.7.</span> <span class="todo TODO">TODO</span> Model checking</h3>
-</div>
-
-<div id="outline-container-orgd3314b0" class="outline-3">
-<h3 id="orgd3314b0"><span class="section-number-3">4.8.</span> <span class="todo TODO">TODO</span> Meaning composition</h3>
-</div>
-
-<div id="outline-container-org2be60ed" class="outline-3">
-<h3 id="org2be60ed"><span class="section-number-3">4.9.</span> <span class="todo TODO">TODO</span> Functors</h3>
-</div>
-
-<div id="outline-container-org44198bd" class="outline-3">
-<h3 id="org44198bd"><span class="section-number-3">4.10.</span> <span class="todo TODO">TODO</span> Applicative functors</h3>
-</div>
-
-<div id="outline-container-org2a036e0" class="outline-3">
-<h3 id="org2a036e0"><span class="section-number-3">4.11.</span> <span class="todo TODO">TODO</span> Monads</h3>
-</div>
-
-<div id="outline-container-orgd727692" class="outline-3">
-<h3 id="orgd727692"><span class="section-number-3">4.12.</span> <span class="todo TODO">TODO</span> Continuation-passing style</h3>
+<div id="outline-container-orgb8545df" class="outline-3">
+<h3 id="orgb8545df"><span class="section-number-3">4.7.</span> Formal semantics for fragments</h3>
+<div class="outline-text-3" id="text-4-7">
+<ul class="org-ul">
+<li>The slides can be downloaded <a href="./semantics.pdf">here</a>.
+<ul class="org-ul">
+<li>You can also browse the content <a href="./semantics.html">here</a>.</li>
+</ul></li>
+</ul>
 </div>
 </div>
 
-<div id="outline-container-orgba0b7ad" class="outline-2">
-<h2 id="orgba0b7ad"><span class="section-number-2">5.</span> References</h2>
+<div id="outline-container-org4c2159f" class="outline-3">
+<h3 id="org4c2159f"><span class="section-number-3">4.8.</span> <span class="todo TODO">TODO</span> Meaning composition</h3>
+</div>
+
+<div id="outline-container-org8978820" class="outline-3">
+<h3 id="org8978820"><span class="section-number-3">4.9.</span> <span class="todo TODO">TODO</span> Functors</h3>
+</div>
+
+<div id="outline-container-org7a10bd4" class="outline-3">
+<h3 id="org7a10bd4"><span class="section-number-3">4.10.</span> <span class="todo TODO">TODO</span> Applicative functors</h3>
+</div>
+
+<div id="outline-container-org3e9c0d1" class="outline-3">
+<h3 id="org3e9c0d1"><span class="section-number-3">4.11.</span> <span class="todo TODO">TODO</span> Monads</h3>
+</div>
+
+<div id="outline-container-orge8337dd" class="outline-3">
+<h3 id="orge8337dd"><span class="section-number-3">4.12.</span> <span class="todo TODO">TODO</span> Continuation-passing style</h3>
+</div>
+</div>
+
+<div id="outline-container-org0d671c8" class="outline-2">
+<h2 id="org0d671c8"><span class="section-number-2">5.</span> References</h2>
 <div class="outline-text-2" id="text-5">
 <style>.csl-entry{text-indent: -1.5em; margin-left: 1.5em;}</style><div class="csl-bib-body">
   <div class="csl-entry"><a id="citeproc_bib_item_1"></a>Allen, Christopher, and Julie Moronuki. 2016. <i>Haskell Programming from First Principles</i>. Edited by Christopher Allen, Julie Moronuki, and Steven Syrek. Lorepub LLC. <a href="https://lorepub.com/product/haskellbook">https://lorepub.com/product/haskellbook</a>.</div>
@@ -473,7 +482,7 @@ Class takes place <b>Tuesday 12:30-14:00</b> in <b>2321.U1.93 (Z 18)</b>.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2023-05-09 Tue 13:59</p>
+<p class="date">Created: 2023-05-22 Mon 17:48</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

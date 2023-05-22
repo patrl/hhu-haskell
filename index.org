@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-05-09 13:59]" 
+Last updated: "[2023-05-22 17:48]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -42,7 +42,7 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 | May 2    | [[Formal syntax for fragments][Formal syntax for fragments]] |
 | May 9    | [[Formal syntax for fragments cont][Formal syntax for fragments cont.]] (remote) |
 | May 16   | NO CLASS                       |
-| May 23   | [[Model checking][Model checking]] |
+| May 23   | [[Formal semantics for fragments][Formal semantics for fragments]] |
 | May 30   | [[Meaning composition][Meaning composition]] |
 | June 6   | [[Functors][Functors]]    |
 | June 13  | [[Applicative functors][Applicative functors]]  |
@@ -92,12 +92,14 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 ** Formal syntax for fragments cont
 
 - The slides (updated from the previous week) can be downloaded [[./logic.pdf][here]].
-- *Homework:* 
   * You can also browse the content [[./logic.html][here]].
+- *Homework:* 
   * Mini-assignment: write a function that maps formulas of propositional logic (type ~PropL~) to /truth-tables/ (type ~[([(String,Bool)],Bool)]~), where ~[(String,Bool)]~ is the type of a /variable assignment/.
     
+** Formal semantics for fragments
 
-** TODO Model checking
+- The slides can be downloaded [[./semantics.pdf][here]].
+  * You can also browse the content [[./semantics.html][here]]. 
 
 ** TODO Meaning composition
 
