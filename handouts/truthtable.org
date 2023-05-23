@@ -266,9 +266,19 @@ In order to generate a truth-table, we simply pair each assignment in the output
   mkTruthTable p = [(a,interpretAtA a p) | a <- pAssignments p]
 #+end_src
 
-** TODO Some additional useful tools
+** Example output
 
-*** TODO hoogle
+#+begin_src haskell
+  ghci> mkTruthTable (PNot (PVar "p" `PAnd` PVar "q") `POr` PVar "r")
+  [([("p",True),("q",True),("r",True)],True),
+   ([("p",True),("q",True),("r",False)],False),
+   ([("p",True),("q",False),("r",True)],True),
+   ([("p",True),("q",False),("r",False)],True),
+   ([("p",False),("q",True),("r",True)],True),
+   ([("p",False),("q",True),("r",False)],True),
+   ([("p",False),("q",False),("r",True)],True),
+   ([("p",False),("q",False),("r",False)],True)]
+#+end_src
 
 ** 
    :PROPERTIES:
