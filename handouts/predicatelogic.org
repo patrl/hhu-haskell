@@ -1,0 +1,211 @@
+#+title: Predicate logic
+#+subtitle: Syntax and semantics
+#+author: Patrick D. Elliott
+#+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
+#+EXPORT_FILE_NAME: ../docs/predicatelogic
+#+BEAMER_THEME: metropolis
+#+BEAMER_COLOR_THEME: owl [snowy]
+#+BEAMER_HEADER: \input{beamerplate.tex}
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+BEAMER_FONT_THEME: professionalfonts
+#+LATEX_COMPILER: xelatex
+#+OPTIONS: toc:nil H:2
+
+* Introduction
+
+** Homework
+
+- Reading: /Haskell from first principles/, chapter 8, on recursion.
+  * For additional coding practice, try the chapter exercises.
+
+** From propositional to predicate logic
+
+- Last week we learned how to implement propositional logic in Haskell as a structured datatype ~PropL~.
+- We gave a semantics for ~PropL~ by defining a recursive function that, given a /variable assignment/, mapped a propositional logic formula to a truth-value.
+  * We used this function to write a more sophisticated program, mapping ~PropL~ expressions to /truth-tables/.
+- This week we'll move on to a more expressive language - first order logic - but first, we'll dive deeper into defining recursive functions in haskell.
+  
+* Recursion
+
+** Factorial
+
+\[\begin{aligned}[t]
+4! &= \alert{4 * 3} * 2 * 1\\
+&= \alert{12 * 2} * 1\\
+&= \alert{24 * 1}\\
+&= \alert{24}
+\end{aligned}
+\]
+
+- How do we define a function \(n!\) in haskell?
+  
+** Evaluation without a base case
+
+#+begin_src haskell
+  brokenFact1 :: Integer -> Integer
+  brokenFact1 n = n * brokenFact1 (n - 1)
+#+end_src
+
+** Eval without a base cont.
+
+#+begin_src haskell
+  brokenFact1 4 =
+    4 * brokenFact1 3
+    4 * (3 * brokenFact1 2)
+    4 * (3 * (2 * brokenFact1 1))
+    4 * (3 * (2 * (1 * brokenFact1 0)))
+    4 * (3 * (2 * (1 * (0 * (brokenFact1 -1)))))
+    -- this never reaches normal form
+#+end_src
+
+*Warning:* if you run this code yourself, you won't get an error, but you /will/ have to manually terminate the running haskell process.
+
+** Adding a base
+
+The base case provides a point at which evaluation halts.
+
+#+begin_src haskell
+  factorial :: Integer -> Integer
+  factorial 0 = 1
+  factorial n = n * factorial (n - 1)
+#+end_src
+
+** Eval with base
+
+#+begin_src haskell
+  factorial 4 =
+    4 * factorial 3
+    4 * (3 * factorial 2)
+    4 * (3 * (2 * factorial 1))
+    4 * (3 * (2 * (1 * factorial 0))) -- end of recursion
+    4 * (3 * (2 * (1 * 1)))
+    4 * (3 * (2 * (1 * 1)))
+    24
+#+end_src
+
+** Defining the base
+
+- *Question:* why does the function return ~1~ for the base case? 
+  * What would happen if we used ~0~ as the return value for the base?
+    
+* First-order logic
+
+** From propositional to first-order logic
+
+First-order logic goes significantly beyond the expressive power of propositional logic.
+
+It allows us, e.g., to model syllogistic reasoning like the following:
+
+- Patrick admires every philosopher.
+- Stalnaker is a philosopher.
+- \(\Rightarrow \) /Patrick admires Stalnaker./
+
+** Atomic sentences of first order logic
+
+A grammar of first-order logic consists of:
+  - A stock of variables \(Var\).
+  - A stock of /predicate symbols/, each assigned an arity \(n\).
+    
+An /atomic formula/ of first order logic consists of a predicate symbol of arity \(n\) followed by a sequence of \(n\) variables.
+
+If \(P\) is a predicate symbol of arity \(n\), and \(x_1 \ldots x_n \in Var\), then \(P(x_{1},\ldots,x_{n})\) is a wff of predicate logic.
+
+** Logical connectives
+
+First-order logic includes all of the same logical operators as propositional logic:
+
+- If \(\phi,\psi\) are sentences of first-order logic, then \((\phi \wedge \psi)\) is a sentence of first-order logic.
+- If \(\phi,\psi\) are sentences of first-order logic, then \((\phi \vee \psi)\) is a sentence of first-order logic.
+- If \(\phi,\psi\) are sentences of first-order logic, then \((\phi \rightarrow \psi)\) is a sentence of first-order logic.
+- If \(\phi \) is a sentence of first-order logic, then so is \(\neg \phi \)
+  
+** Quantifiers
+
+Much of first-order logic's interesting properties stems from its addition of /quantifiers/:
+
+- If \(\phi \) is a sentence of first-order logic, and \(x \in Var\), then \(\exists x(\phi)\) is a sentence of first-order logic.
+- If \(\phi \) is a sentence of first-order logic, and \(x \in Var\), then \(\forall  x(\phi)\) is a sentence of first-order logic.
+  
+The existential/universal quantifier is also standardly defined as the dual of the other, i.e.:
+
+\[\exists x(\phi) := \neg \forall \neg (\phi)\]
+
+** Implementation in haskell
+
+#+begin_src haskell
+  type Name = String
+  newtype Var = Var Name deriving (Eq,Show)  
+#+end_src
+
+** Atomic formulas
+
+#+begin_src haskell
+  data Formula = Atomic String [Var]
+    | Neg Formula
+    | Formula `Impl` Formula
+    | Formula `Conj` Formula
+    | Formula `Disj` Formula
+    | Forall Var Formula
+    | Exists Var Formula
+    deriving Eq
+#+end_src
+
+** Semantics of predicate logic
+
+- A semantics for predicate logic is stated relative to a /model/ and an /assignment/.
+  * A model consists of a /domain of individuals/ \(D\), and an interpretation function \(I\) mapping predicate symbols to boolean-valued functions.
+  * \(I\) maps a predicate symbol of arity \(0\) to a boolean value.
+  * \(I\) maps a predicate symbol of arity \(1\) to a function \(f : D \to \set{\mathbf{True},\mathbf{False}}\).
+  * \(I\) maps a predicate symbol of arity \(2\) to a function \(f : D \times D \to \set{\mathbf{True},\mathbf{False}}\)
+  * ...and so on.
+- You're probably more familiar with a presentation where \(I\) maps predicate symbols to /sets/ rather than functions, but this is equivalent.
+
+** Assignments  
+
+An /assignment function/ \(g\) is a total function from the set of variables \(Var\) the domain of individuals \(D\).
+
+\[g_1 := \left[\begin{aligned}[c]
+&x \to &\mathbf{Bart}\\
+&y \to &\mathbf{Milhouse}\\
+&z \to &\mathbf{Bart}\\
+\ldots
+\end{aligned}\right]\]
+
+** Semantics of atomic sentences 
+
+We can now define \(\eval[M,g]{.}\) for atomic sentences, where \(\eval[M,g]{.}\) is a total function from wffs of predicate logic to boolean values.
+
+- \(\eval*[M,g]{P(x_{1},\ldots,x_{n})} = I(P)(g(x_1),\ldots,g(x_n)))\)
+
+** Semantics of complex sentences  
+
+The semantics of the logical connectives is the same as in propositional logic.
+
+- \(\eval*[M,g]{\phi \wedge \psi} = \mathbf{True}\text{ iff }\eval*[M,g]{\phi} = \mathbf{True}\text{ and }\eval*[M,g]{\psi} = \mathbf{True}\)
+- \(\eval*[M,g]{\phi \vee \psi} = \mathbf{True}\text{ iff }\eval*[M,g]{\phi} = \mathbf{True}\text{ or }\eval*[M,g]{\psi} = \mathbf{True}\)
+- \(\eval*[M,g]{\phi \rightarrow \psi} = \mathbf{True}\text{ iff }\eval*[M,g]{\phi} = \mathbf{False}\text{ or }\eval*[M,g]{\psi} = \mathbf{True}\)
+- \(\eval*[M,g]{\neg \phi } = \mathbf{True} \text{ iff }\eval*[M,g]{\phi } = \mathbf{False}\)
+  
+** Semantics for quantifiers
+
+- The semantics for quantifiers is a little more involved.:
+  * \(\eval*[M,g]{\exists x \phi } = \mathbf{True}\text{ iff there is some assignment }g'\text{ s.t. }g[x]g'\text{ and }\eval*[M,g']{\phi} = \mathbf{True}\)
+  * \(\eval*[M,g]{\forall x \phi } = \mathbf{True}\text{ iff there is no assignment }g'\text{ s.t. }g[x]g'\text{ and }\eval*[M,g']{\phi} = \mathbf{False}\)
+
+
+
+** 
+   :PROPERTIES:
+   :BEAMER_opt: label=findings,standout
+   :END:
+ 
+   \(\mathscr{Fin}\)
+
+** References
+
+#+print_bibliography:
+
+# Local Variables:
+# org-latex-src-block-backend: engraved
+# End:
+
