@@ -2,7 +2,7 @@
 #+subtitle: Syntax and semantics
 #+author: Patrick D. Elliott
 #+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
-#+EXPORT_FILE_NAME: ../docs/cfg
+#+EXPORT_FILE_NAME: ../docs/pred-cont
 #+BEAMER_THEME: metropolis
 #+BEAMER_COLOR_THEME: owl [snowy]
 #+BEAMER_HEADER: \input{beamerplate.tex}
@@ -33,7 +33,7 @@ data Formula = Atomic String [Var]
     deriving Eq
 #+end_src
 
-** Helper functions
+** Writing helper functions
 
 #+begin_src haskell
 at :: String -> String -> Formula

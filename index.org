@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-06-06 11:07]" 
+Last updated: "[2023-06-06 12:08]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -44,7 +44,7 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 | May 16   | NO CLASS                       |
 | May 23   | [[Formal semantics for fragments][Formal semantics for fragments]] |
 | May 30   | [[Predicate logic][Predicate logic]] |
-| June 6   | [[Functors][Functors]]    |
+| June 6   | [[Predicate logic cont.][Predicate logic cont.]]    |
 | June 13  | [[Applicative functors][Applicative functors]]  |
 | June 20  | [[Monads][Monads]]                         |
 | June 27  | [[Continuation-passing style][Continuation-passing style]] |
@@ -105,7 +105,9 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 
 - The slides can be downloaded [[./predicatelogic.pdf][here]].
 
-** TODO Functors
+** Predicate logic cont.
+
+- The slides can be downloaded [[./pred-cont.pdf][here]].
 
 ** TODO Applicative functors
 
