@@ -191,6 +191,7 @@ domE = S.fromList $ E <$> [1..10]
 #+end_src
 
 - Note: functions are simply left undefined if the wrong number of arguments are supplied.
+  * We'll address this later with ~Maybe~.
   
 ** Interpretation function
 
@@ -205,7 +206,7 @@ lexicon "isEqual" = isEqualR
 lexicon _ = const True
 #+end_src
   
-** Gathering variables
+** Gathering variables using ~Data.Set~
 
 #+begin_src haskell
 allVars :: Formula -> S.Set Var
@@ -222,26 +223,37 @@ allVars s = case s of
 ** Making assignments
 
 #+begin_src haskell
-import Control.Monad (replicateM)
+  import Control.Monad (replicateM)
+  import qualified Data.Map as M
 
-mkAssignments :: [Var] -> [Entity] -> S.Set Assignment
-mkAssignments vs d = S.fromList [M.fromList $ zip vs es | es <- replicateM (length vs) d]
+  type Assignment = M.Map Var Int
+
+  mkAssignments :: [Var] -> [Entity] -> S.Set Assignment
+  mkAssignments vs d = S.fromList [M.fromList $ zip vs es | es <- replicateM (length vs) d]
 #+end_src
 
 ** Eval
 
 #+begin_src haskell
-import qualified Data.Map as M
+  import qualified Data.Map as M
 
-type Dom = S.Set Entity
+  type Dom = S.Set Entity
 
-eval :: I -> Dom -> Assignment -> Formula -> Bool
-eval i d g (Atomic p vs) = i p [ g M.! v | v <- vs]
-eval i d g (Neg p) = not $ eval i d g p
-eval i d g (p `Conj` q) = eval i d g p && eval i d g q
-eval i d g (p `Disj` q) = eval i d g p || eval i d g q
-eval i d g (p `Impl` q) = not (eval i d g p) || eval i d g q
-eval i d g (Exists v p) = undefined
+  eval :: I -> Dom -> Assignment -> Formula -> Bool
+  eval i d g (Atomic p vs) = i p [ g M.! v | v <- vs]
+  eval i d g (Neg p) = not $ eval i d g p
+  eval i d g (p `Conj` q) = eval i d g p && eval i d g q
+  eval i d g (p `Disj` q) = eval i d g p || eval i d g q
+  eval i d g (p `Impl` q) = not (eval i d g p) || eval i d g q
+  eval i d g (Exists v p) = undefined
+  eval i d g (Forall v p) = undefined
+#+end_src
+
+** Assignment modification
+
+#+begin_src haskell
+modify :: Assignment -> Var -> Entity -> Assignment
+modify g v x = M.insert v x g
 #+end_src
 
 ** Quantification via generalized conjunction/disjunction
