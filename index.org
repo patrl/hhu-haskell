@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-06-06 09:05]" 
+Last updated: "[2023-06-06 11:07]" 
 
 [[./syllabus.pdf][Syllabus]]
 

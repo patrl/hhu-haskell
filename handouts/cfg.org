@@ -1,4 +1,4 @@
-#+title: CFG
+#+title: Predicate logic cont.
 #+subtitle: Syntax and semantics
 #+author: Patrick D. Elliott
 #+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
@@ -10,6 +10,10 @@
 #+BEAMER_FONT_THEME: professionalfonts
 #+LATEX_COMPILER: xelatex
 #+OPTIONS: toc:nil H:2
+
+** Homework
+
+- Chapter 12, /Signaling Adversity/ of "Haskell from first principles".
 
 * Predicate logic
 
@@ -247,17 +251,151 @@ eval i d g (Exists v p) = disjoin [ eval i d (modify g v x) p | x <- S.toList d]
 eval i d g (Forall v p) = conjoin [eval i d (modify g v x) p | x <- S.toList d]
 #+end_src
 
-* Implementing a fragment of English
+* ~Maybe~
 
-** Sentences of the fragment
+** The ~Maybe~ datatype
 
-#+name: 
-#+begin_exe
-\ex The girl laughed.
-\ex No dwarf admired some princess that shuddered.
-\ex Every girl that some boy loved cheered.
-\ex The wizard that helped Snow White defeated the giant.
-#+end_exe
+#+begin_src haskell
+  data Maybe a = Nothing | Just a
+#+end_src
+
+~Maybe~ is used to explictly reason about undefinedness.
+
+** Writing a function with ~Maybe~
+
+- We use ~Maybe~ to write partial functions.
+- For example, here is a safe version of ~head~ using ~Maybe~:
+
+#+begin_src haskell
+  safeHead :: [a] -> Maybe a
+  safeHead [] = Nothing
+  safeHead (x:xs) = Just x
+#+end_src
+
+** Kinds
+
+- Kinds are types /one level up/, used to describe the types of /type constructors/ such as ~Maybe~.
+  
+#+begin_src haskell
+  ghci> :kind Int
+  Int :: *
+  ghci> :k Bool
+  Bool :: *
+  ghci> :k Char
+  Char :: *
+#+end_src
+
+** Higher-kinded types
+
+Here is a datatype isomorphic to ~Maybe~:
+
+#+begin_src haskell
+  data Example a = Blah | Woot a
+#+end_src
+
+- *Question:* what is the /kind/ of ~Example~
+  
+** More higher-kinded types
+
+- *Question:* What is the kind of ~Maybe~?
+- *Question:* What is kind of the tuple type constructor ~(,)~?
+- *Question:* What is kind of the list type constructor ~[]~?
+- *Question:* What is kind of the function type constructor ~(->)~?
+  
+** Applying type constructors
+
+Which of the following are concrete types?
+
+#+begin_src haskell
+  ghci> :k Maybe Maybe
+  ghci> :k Maybe Bool 
+  ghci> :k Example (Maybe (Maybe Bool))
+  ghci> :k Maybe Example 
+  ghci> :l Maybe (Example Int)
+#+end_src
+
+** Functors
+
+- A functor is a way to apply a function over or around some immutable structure.
+- Functors are a notion from category theory (a mapping from categories to categories), implemented in Haskell as a /type-class/.
+- Remember, type-classes categorize types based on certain well-defined behaviours.
+  
+** The functor type-class
+
+#+begin_src haskell
+  class Functor f where
+    fmap :: (a -> b) -> f a -> f b
+#+end_src
+
+Notice that \(f\) is a /higher-kinded type/.
+
+** Examples of ~fmap~
+
+#+begin_src haskell
+  ghci> fmap (\x -> x > 3) [1..6]
+  [False,False,False,True,True,True]
+  ghci> fmap not (Just True)
+  Just False
+  ghci> fmap not Nothing
+  Nothing
+#+end_src
+
+This means that ~[]~ and ~Maybe~ are both higher-kinded types which implement the typeclass ~Functor~.
+
+** ~fmap~ as function application
+
+#+begin_src haskell
+  (<$>) :: Functor f => 
+    (a -> b) -> f a -> f b
+  ($) :: 
+    (a -> b) ->   a ->   b
+#+end_src
+
+#+begin_src haskell
+  ghci> (\n -> n+1) <$> Just 3
+  Just 4
+#+end_src
+
+** Functor laws
+
+- Instances of the ~Functor~ type class should abide by two basic laws.
+  * *Alert:* ghci won't always warn you if you write a functor instance that doesn't obey these laws!
+- The laws are:
+  * Identity.
+  * Composition.
+    
+** The identity law
+
+#+begin_src haskell
+  fmap id == id
+#+end_src
+
+- *Question:* what are the types of ~fmap~ and ~id~ in this expression?
+- *Question:* what does this law guarantee?
+  
+** Composition
+
+#+begin_src haskell
+  fmap (f . g) == fmap f . fmap g
+#+end_src
+
+- If we compose two functions and ~fmap~ over some structure, we should get the same result as if we mapped and then composed them.
+  
+#+begin_src haskell
+  fmap ((+1) . (*2)) [1..5]
+  fmap (+1) . fmap (*2) $ [1..5]
+#+end_src
+
+** Mapping into structures
+
+By composing ~fmap~ with itself we can tunnel into complex expressions.
+
+#+begin_src haskell
+  (fmap . fmap) (++ "lol") (Just ["Hi,","Hello"])
+#+end_src
+
+- *Exercise:* normalize this expression by hand.
+
 
 ** 
    :PROPERTIES:
