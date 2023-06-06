@@ -1,5 +1,5 @@
 {
-  description = "Notebooks for HHU computational semantics";
+  description = "Your jupyenv project";
 
   nixConfig.extra-substituters = [
     "https://tweag-jupyter.cachix.org"
@@ -20,7 +20,8 @@
     flake-utils,
     nixpkgs,
     jupyenv,
-  }:
+    ...
+  } @ inputs:
     flake-utils.lib.eachSystem
     [
       flake-utils.lib.system.x86_64-linux
@@ -28,7 +29,16 @@
     (
       system: let
         inherit (jupyenv.lib.${system}) mkJupyterlabNew;
-        jupyterlab = mkJupyterlabNew (import ./kernels.nix);
+        jupyterlab = mkJupyterlabNew ({...}: {
+          nixpkgs = nixpkgs;
+          imports = [
+            ({pkgs, ...}: {
+              kernel.haskell.minimal = {
+                nixpkgs = nixpkgs;
+                enable = true;
+                extraHaskellPackages = ps: with ps; [containers_0_6_7];
+              };})];
+        });
       in rec {
         packages = {inherit jupyterlab;};
         packages.default = jupyterlab;

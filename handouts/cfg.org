@@ -1,0 +1,276 @@
+#+title: CFG
+#+subtitle: Syntax and semantics
+#+author: Patrick D. Elliott
+#+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
+#+EXPORT_FILE_NAME: ../docs/cfg
+#+BEAMER_THEME: metropolis
+#+BEAMER_COLOR_THEME: owl [snowy]
+#+BEAMER_HEADER: \input{beamerplate.tex}
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+BEAMER_FONT_THEME: professionalfonts
+#+LATEX_COMPILER: xelatex
+#+OPTIONS: toc:nil H:2
+
+* Predicate logic
+
+** Recap: Implementation in haskell
+
+#+begin_src haskell
+type Name = String
+newtype Var = Var Name deriving Eq
+  
+data Formula = Atomic String [Var]
+    | Neg Formula
+    | Formula `Impl` Formula
+    | Formula `Conj` Formula
+    | Formula `Disj` Formula
+    | Forall Var Formula
+    | Exists Var Formula
+    deriving Eq
+#+end_src
+
+** Helper functions
+
+#+begin_src haskell
+at :: String -> String -> Formula
+at p v = Atomic p [Var "v"]
+  
+forall :: String -> Formula -> Formula
+forall v = Forall (Var "v")
+#+end_src
+
+** Example formula
+
+#+begin_src haskell
+_allDogsBark = forall "x" $ at "dog" "x" `Impl` at "bark" "x"
+#+end_src
+
+\[\forall x[dog(x) \rightarrow bark(x)]\]
+
+
+
+** Semantics of predicate logic
+
+- A semantics for predicate logic is stated relative to a /model/ and an /assignment/.
+  * A model consists of a /domain of individuals/ \(D\), and an interpretation function \(I\) mapping predicate symbols to boolean-valued functions.
+    * \(I\) maps a predicate symbol of arity \(0\) to a boolean value.
+    * \(I\) maps a predicate symbol of arity \(1\) to a function \(f : D \to \set{\mathbf{True},\mathbf{False}}\).
+    * \(I\) maps a predicate symbol of arity \(2\) to a function \(f : D \times D \to \set{\mathbf{True},\mathbf{False}}\)
+    * ...and so on.
+- You're probably more familiar with a presentation where \(I\) maps predicate symbols to /sets/ rather than functions, but this is equivalent.
+
+** Assignments  
+
+An /assignment function/ \(g\) is a total function from the set of variables \(Var\) the domain of individuals \(D\).
+
+\[g_1 := \left[\begin{aligned}[c]
+&x \to &\mathbf{Bart}\\
+&y \to &\mathbf{Milhouse}\\
+&z \to &\mathbf{Bart}\\
+\ldots
+\end{aligned}\right]\]
+
+** Semantics of atomic sentences 
+
+We can now define \(\eval[M,g]{.}\) for atomic sentences, where \(\eval[M,g]{.}\) is a total function from wffs of predicate logic to boolean values.
+
+- \(\eval*[M,g]{P(x_{1},\ldots,x_{n})} = I(P)(g(x_1),\ldots,g(x_n)))\)
+
+** Semantics of complex sentences  
+
+The semantics of the logical connectives is the same as in propositional logic.
+
+- \(\eval*[M,g]{\phi \wedge \psi} = \mathbf{True}\text{ iff }\eval*[M,g]{\phi} = \mathbf{True}\text{ and }\eval*[M,g]{\psi} = \mathbf{True}\)
+- \(\eval*[M,g]{\phi \vee \psi} = \mathbf{True}\text{ iff }\eval*[M,g]{\phi} = \mathbf{True}\text{ or }\eval*[M,g]{\psi} = \mathbf{True}\)
+- \(\eval*[M,g]{\phi \rightarrow \psi} = \mathbf{True}\text{ iff }\eval*[M,g]{\phi} = \mathbf{False}\text{ or }\eval*[M,g]{\psi} = \mathbf{True}\)
+- \(\eval*[M,g]{\neg \phi } = \mathbf{True} \text{ iff }\eval*[M,g]{\phi } = \mathbf{False}\)
+  
+** Semantics for quantifiers
+
+- The semantics for quantifiers is a little more involved.:
+  * \(\eval*[M,g]{\exists x \phi } = \mathbf{True}\text{ iff there is some assignment }g'\text{ s.t. }g[x]g'\text{ and }\eval*[M,g']{\phi} = \mathbf{True}\)
+  * \(\eval*[M,g]{\forall x \phi } = \mathbf{True}\text{ iff there is no assignment }g'\text{ s.t. }g[x]g'\text{ and }\eval*[M,g']{\phi} = \mathbf{False}\)
+
+** Semantics for quantifiers cont.
+
+- \(g[x]g'\) means that assignments \(g\) and \(g'\) differ /only/ in the value they assign to \(x\).
+  
+* Interlude: hackage
+
+** Hackage
+
+- *Hackage* is the haskell package repository.
+  * Chances are, if we can't find the datatype/function we need in the the haskell prelude, we can find it in a package on hackage. 
+  * Today I'll make use of one of the most ubiquitous haskell packages - /containers/ - which provides an implementation of sets in the module ~Data.Set~.
+    
+#+ATTR_LATEX: :width 1\textwidth
+[[./img/containers.png]]
+
+** Package managers
+
+- To add packages from hackage to your haskell project there are basically two options.
+  * *Cabal*, the official haskell project/package manager.
+    * If you've installed ghc, you probably already have this installed.
+  * *Stack*, an unofficial, but simple and widely-used project/package manager. 
+  
+
+** Qualified import
+
+- It's good practice to use a /qualified/ import for ~Data.Set~, since some of the exported functions overlap with prelude (e.g., ~delete~).
+- We can use the /overloaded lists/ language extension to simply express sets using list syntax.
+  * Alternatively, you can build a set explicitly using ~S.fromList~.
+
+#+begin_src haskell
+{-# LANGUAGE OverloadedLists #-}
+
+import qualified Data.Set as S
+
+aSet :: S.Set Int
+aSet = [1,2,1,3]
+#+end_src
+
+#+begin_src haskell
+  ghci> aSet
+  fromList [1,2,3]
+#+end_src
+
+** Union, intersection, and deleting
+
+- ~Data.Set~ means that we no longer have to worry about accidentally duplicating elements of a list.
+- The order of elements in a set doesn't matter.
+  
+#+begin_src haskell
+  ghci> [1,2,3] `S.union` [1,2,4]
+  fromList [1,2,3,4]
+  ghci> [1,2,3] `S.intersection` [1,2,4]
+  fromList [1,2]
+  ghci> S.delete 1 [1,2,1,3]
+  fromList [2,3]
+  ghci> fromList [1,2] == fromList [2,1]
+  True
+#+end_src
+
+* Model theoretic semantics
+  
+** Implementing a model
+
+- In order to implement a semantics for predicate logic in Haskell, we first need to implement a /model/.
+- The most convenient choice for an entity type is ~Int~, since we can define some predicates in terms of built in functions in Haskell.
+
+#+begin_src haskell
+newtype Entity = E Int deriving (Eq,Show,Ord)
+
+domE :: S.Set Entity
+domE = S.fromList $ E <$> [1..10]
+#+end_src
+
+- Note: since we want computation for quantificational statements such as "everyone left" to /terminate/, it's particularly important that we define a finite domain as a subset of the set of integers (i.e., ~domE~).
+  
+** Adding predicates
+
+#+begin_src haskell
+  oddP :: [Entity] -> Bool
+  oddP [E n] = odd n
+  oddP _ = undefined
+
+  evenP :: [Entity] -> Bool
+  evenP [E n] = even n
+  evenP _ = undefined
+
+  isEqualR :: [Entity] -> Bool
+  isEqualR [E n, E n'] = n == n'
+  isEqualR _ = undefined
+
+  evenlyDivisibleR :: [Entity] -> Bool
+  evenlyDivisibleR [E n,E n'] = (n `rem` n') == 0
+  evenlyDivisibleR _ = undefined
+#+end_src
+
+- Note: functions are simply left undefined if the wrong number of arguments are supplied.
+  
+** Interpretation function
+
+#+begin_src haskell
+type I = String -> [Entity] -> Bool
+
+lexicon :: String -> [Entity] -> Bool
+lexicon "odd" = oddP
+lexicon "even" = evenP
+lexicon "evenlyDivisible" = evenlyDivisibleR
+lexicon "isEqual" = isEqualR
+lexicon _ = const True
+#+end_src
+  
+** Gathering variables
+
+#+begin_src haskell
+allVars :: Formula -> S.Set Var
+allVars s = case s of
+  (Atomic p vs) -> S.fromList vs
+  (Neg p) -> allVars p
+  (p `Impl` q) -> allVars p `S.union` allVars q
+  (p `Conj` q) -> allVars p `S.union` allVars q
+  (p `Disj` q) -> allVars p `S.union` allVars q
+  (Forall v p) -> v `S.insert` allVars p
+  (Exists v p) -> v `S.insert` allVars p
+#+end_src
+
+** Making assignments
+
+#+begin_src haskell
+import Control.Monad (replicateM)
+
+mkAssignments :: [Var] -> [Entity] -> S.Set Assignment
+mkAssignments vs d = S.fromList [M.fromList $ zip vs es | es <- replicateM (length vs) d]
+#+end_src
+
+** Eval
+
+#+begin_src haskell
+import qualified Data.Map as M
+
+type Dom = S.Set Entity
+
+eval :: I -> Dom -> Assignment -> Formula -> Bool
+eval i d g (Atomic p vs) = i p [ g M.! v | v <- vs]
+eval i d g (Neg p) = not $ eval i d g p
+eval i d g (p `Conj` q) = eval i d g p && eval i d g q
+eval i d g (p `Disj` q) = eval i d g p || eval i d g q
+eval i d g (p `Impl` q) = not (eval i d g p) || eval i d g q
+eval i d g (Exists v p) = undefined
+#+end_src
+
+** Quantification via generalized conjunction/disjunction
+
+#+begin_src haskell
+eval i d g (Exists v p) = disjoin [ eval i d (modify g v x) p | x <- S.toList d]
+eval i d g (Forall v p) = conjoin [eval i d (modify g v x) p | x <- S.toList d]
+#+end_src
+
+* Implementing a fragment of English
+
+** Sentences of the fragment
+
+#+name: 
+#+begin_exe
+\ex The girl laughed.
+\ex No dwarf admired some princess that shuddered.
+\ex Every girl that some boy loved cheered.
+\ex The wizard that helped Snow White defeated the giant.
+#+end_exe
+
+** 
+   :PROPERTIES:
+   :BEAMER_opt: label=findings,standout
+   :END:
+ 
+   \(\mathscr{Fin}\)
+
+** References
+
+#+print_bibliography:
+
+# Local Variables:
+# org-latex-src-block-backend: engraved
+# End:
+
