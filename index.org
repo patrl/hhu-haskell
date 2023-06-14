@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-06-06 12:17]" 
+Last updated: "[2023-06-14 11:22]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -119,6 +119,7 @@ Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
 
 - You can find code implementing propositional logic [[./propl-code.html][here]].
 - You can find the code implementing first order logic [[./firstorder.html][here]].
+- You can find the starter code for DPL [[./dpl.html][here]].
 
 * References
   
