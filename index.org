@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2024-04-04 13:22]" 
+Last updated: "[2024-04-04 13:36]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -29,7 +29,7 @@ This will be an extremely hands-on course, and students should ideally expect jt
 
 - Run haskell programs in your browser using the [[https://play.haskell.org/][haskell playground]]. 
 - Setting up a haskell environment: [[https://www.haskell.org/get-started/][Get Started]] 
-- The [[https://haskellbook.com/][Haskell from first principles]] textbook [cite:@AllenMoronuki2016].
+- The [[https://haskellbook.com/][Haskell from first principles]] textbook [cite:@AllenMoronuki2020].
 
 * Tentative Schedule
 
