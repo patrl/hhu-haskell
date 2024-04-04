@@ -1,5 +1,5 @@
-#+title: Implementing Semantic Fragments in Haskell
-#+subtitle: HHU spring/summer semester 2023
+#+title: Semantics and Functional Programming
+#+subtitle: HHU spring/summer semester 2024 edition
 #+bibliography: ../bibliography/master.bib
 #+cite_export: csl
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
@@ -11,14 +11,16 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2023-06-14 11:22]" 
+Last updated: "[2024-04-04 13:22]" 
 
 [[./syllabus.pdf][Syllabus]]
 
 * Course description
 
 #+begin_quote
-This course is intended primarily as a first introduction to functional programming, aimed at students with an existing background in logic and/or linguistics. The programming language we'll be using in this course is Haskell - a statically-typed, purely functional language, with a focus on referential transparency (don't worry, you'll find out what all of this means if you take the course!). Although not as common as languages such as python, Haskell is a general-purpose programming language with industrial applications (used, e.g., for spam-filtering at Meta). For our purposes, Haskell is especially compelling since its design is inspired by mathematical tools commonly deployed in linguistic theory, such as the lambda calculus, type theory, and category theory. The main topic of this course is "computational semantics", but from a symbolic/algorithmic, rather than a data-driven perspective. Over the course of the semester, we'll gradually build up a working knowledge of Haskell by implementing logical constructs used in linguistics, such as Context Free Grammars and Montagovian fragments as *programs*.
+This course is intended primarily as a first introduction to functional programming, aimed at students with an existing background in logic and/or linguistics. The programming language we'll be using in this course is Haskell - a statically-typed, purely functional language. Although not as common as languages such as python, Haskell is a general-purpose programming language with industrial applications.
+
+For our purposes, Haskell is especially compelling since its design is inspired by mathematical tools commonly deployed in linguistic theory, such as the lambda calculus, type theory, and category theory. The main topic of this course is "computational semantics", but from a symbolic/algorithmic, rather than a data-driven perspective. Over the course of the semester, we'll gradually build up a working knowledge of Haskell by implementing logical constructs used in linguistics, such as Context Free Grammars and Montagovian fragments as *programs*.
 
 This will be an extremely hands-on course, and students should ideally expect jto bring a laptop to class. We'll set up a Haskell development environment together, and homework exercises will involve concrete programming tasks. 
 #+end_quote
@@ -29,97 +31,28 @@ This will be an extremely hands-on course, and students should ideally expect jt
 - Setting up a haskell environment: [[https://www.haskell.org/get-started/][Get Started]] 
 - The [[https://haskellbook.com/][Haskell from first principles]] textbook [cite:@AllenMoronuki2016].
 
-* Schedule
+* Tentative Schedule
 
-Class takes place *Tuesday 12:30-14:00* in *2321.U1.93 (Z 18)*.
+Class takes place *Tuesday 16:30-18:00* in *2321.U1.72 (Z 34)*.
 
-| date     | class                          |
-|----------+--------------------------------|
-| April 4  | [[*The lambda calculus][The lambda calculus]]    |
-| April 11 | [[Hello Haskell!][Hello Haskell!]] |
-| April 18 | [[Types and strings][Types and strings]] |
-| April 25 | [[Types and typeclasses][Types and typeclasses]] |
-| May 2    | [[Formal syntax for fragments][Formal syntax for fragments]] |
-| May 9    | [[Formal syntax for fragments cont][Formal syntax for fragments cont.]] (remote) |
-| May 16   | NO CLASS                       |
-| May 23   | [[Formal semantics for fragments][Formal semantics for fragments]] |
-| May 30   | [[Predicate logic][Predicate logic]] |
-| June 6   | [[Predicate logic cont.][Predicate logic cont.]]    |
-| June 13  | [[Applicative functors][Applicative functors]]  |
-| June 20  | [[Monads][Monads]]                         |
-| June 27  | [[Continuation-passing style][Continuation-passing style]] |
-| July 4   | project presentations          |
-| July 11  | project presentations          |
-
-* Topics
-
-** The lambda calculus
-
-- The slides can be downloaded [[./lambda.pdf][here]].
-  * You can also browse the content [[./lambda.html][here]].
-- *Homework*: Read chapter 1 of /Haskell from first principles/ and do the chapter exercises.
-
-** Hello Haskell!
-
-- The (updated) slides can be downloaded [[./hello-haskell.pdf][here]].
-  * You can also browse the content [[./hello-haskell.html][here]].
-- *Homework*: Read chapters 2 of /Haskell from first principles/ and do the exercises at the end of chapter 2.
- 
-** Types and strings
-
-- The slides (updated) can be downloaded [[./types-and-strings.pdf][here]].
-  * You can also browse the content [[./types-and-strings.html][here]].
-- *Homework:* 
-  * Optionally read chapter 3 and 4 of Haskell from first principles (skip 4.4, on numeric types).
-  * Do the building functions exercises at the end of chapter 3 (p83-85)
-  * Do chapter exercises 1-10 at the end of chapter 4.
-    
-** Types and typeclasses
-
-- The slides can be downloaded [[./typeclasses.pdf][here]].
-  * You can also browse the content [[./typeclasses.html][here]].
-- *Homework*:
-  * Finish the any in-class exercises.
-  * Read chapter 4 of /Computational Semantics with Functional Programming/, "Formal syntax for fragments".
-
-** Formal syntax for fragments
-
-- The slides can be downloaded [[./logic.pdf][here]].
-- *Homework:*
-  * You can also browse the content [[./logic.html][here]].
-  * Read chapter 5 of /Computational Semantics with Functional Programming/, "Formal semantics for fragments"
-
-** Formal syntax for fragments cont
-
-- The slides (updated from the previous week) can be downloaded [[./logic.pdf][here]].
-  * You can also browse the content [[./logic.html][here]].
-- *Homework:* 
-  * Mini-assignment: write a function that maps formulas of propositional logic (type ~PropL~) to /truth-tables/ (type ~[([(String,Bool)],Bool)]~), where ~[(String,Bool)]~ is the type of a /variable assignment/.
-    
-** Formal semantics for fragments
-
-- The slides can be downloaded [[./semantics.pdf][here]].
-  * You can also browse the content [[./semantics.html][here]]. 
-
-** Predicate logic
-
-- The slides can be downloaded [[./predicatelogic.pdf][here]].
-
-** Predicate logic cont.
-
-- The slides can be downloaded [[./pred-cont.pdf][here]].
-
-** TODO Applicative functors
-
-** TODO Monads
-
-** TODO Continuation-passing style
-
-* Other resources
-
-- You can find code implementing propositional logic [[./propl-code.html][here]].
-- You can find the code implementing first order logic [[./firstorder.html][here]].
-- You can find the starter code for DPL [[./dpl.html][here]].
+| date              | class                   |
+|-------------------+-------------------------|
+| April 9           | Lambda calculus         |
+| April 16          | Intro to Haskell        |
+| April 23          | Strings                 |
+| April 25          | Basic datatypes         |
+| April 30 (remote) | Types and typeclasses   |
+| May 7             | Fragments i: syntax     |
+| May 14            | Fragments ii: semantics |
+| May 21            | Model checking          |
+| May 28            | Meaning composition     |
+| June 4            | Functors                |
+| June 11           | Applicatives            |
+| June 18           | NO CLASS                |
+| June 25           | Monads                  |
+| July 2            | Monads cont.            |
+| July 9            | Student presentations   |
+| July 16           | Student presentations   |
 
 * References
   
