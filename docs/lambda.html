@@ -3,13 +3,13 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-13 Thu 11:50 -->
+<!-- 2024-04-09 Tue 12:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The lambda calculus</title>
 <meta name="author" content="Patrick D. Elliott" />
 <meta name="generator" content="Org Mode" />
-<style>
+<style type="text/css">
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -233,9 +233,8 @@
 <br />
 <span class="subtitle">Prolegomenon to functional programming</span>
 </h1>
-
-<div id="outline-container-org1591325" class="outline-2">
-<h2 id="org1591325"><span class="section-number-2">1.</span> The plan</h2>
+<div id="outline-container-org2fd5e39" class="outline-2">
+<h2 id="org2fd5e39"><span class="section-number-2">1.</span> The plan</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li><b>Today:</b> theoretical preliminaries to programming in haskell - functions and the (simple, untyped) lambda calculus.</li>
@@ -246,13 +245,12 @@
 </ul></li>
 <li><b>Week 3:</b> strings and lists.</li>
 <li><b>Week 4:</b> datatypes, typeclasses, etc.</li>
-<li>In subsequent weeks, once we have a grasp of functional programming basics, we'll start to tackle linguistics-specific topics, using (van Eijck, Jan and Unger, Christina, 2010).</li>
+<li>In subsequent weeks, once we have a grasp of functional programming basics, we'll start to tackle linguistics-specific topics, using <i>Computation semantics with functional programming</i> by van Eijck and Unger (2010).</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org3575781" class="outline-2">
-<h2 id="org3575781"><span class="section-number-2">2.</span> Why study the lambda calculus</h2>
+<div id="outline-container-org289ace7" class="outline-2">
+<h2 id="org289ace7"><span class="section-number-2">2.</span> Why study the lambda calculus</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>The lambda calculus is a formal logic for reasoning about computation; the simple untyped lambda calculus is Turing complete, and can therefore be used to reason about <i>any</i> computation.</li>
@@ -262,40 +260,37 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org1479fb1" class="outline-2">
-<h2 id="org1479fb1"><span class="section-number-2">3.</span> Semantic computation as a program</h2>
+<div id="outline-container-orgf424bf3" class="outline-2">
+<h2 id="orgf424bf3"><span class="section-number-2">3.</span> Semantic computation as a program</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>If you've taken a formal semantics class before, the following might look familiar:</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org508b8f2" class="outline-2">
-<h2 id="org508b8f2"><span class="section-number-2">4.</span> Embedding a semantic fragment in haskell</h2>
+<div id="outline-container-org12909fc" class="outline-2">
+<h2 id="org12909fc"><span class="section-number-2">4.</span> Embedding a semantic fragment in haskell</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">Chomsky</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Reinhart</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Borer</span> <span style="color: #89dceb;">|</span> <span style="color: #89dceb;">...</span>
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #f9e2af;">E</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">Chomsky</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Reinhart</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">Borer</span> <span style="color: #89dceb;">|</span> <span style="color: #89dceb;">...</span>
 
-<span style="color: #89b4fa;">_people</span> <span style="color: #89dceb;">::</span> [<span style="color: #b4befe;">E</span>]
+<span style="color: #89b4fa;">_people</span> <span style="color: #89dceb;">::</span> [<span style="color: #f9e2af;">E</span>]
 <span style="color: #89b4fa;">_people</span> <span style="color: #89dceb;">=</span> [<span style="color: #cba6f7;">Chomsky</span>,<span style="color: #cba6f7;">Reinhart</span>,<span style="color: #cba6f7;">Borer</span>,<span style="color: #89dceb;">...</span>]
 
-<span style="color: #89b4fa;">_reads</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">E</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>
+<span style="color: #89b4fa;">_reads</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">E</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">E</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">Bool</span>
 
-<span style="color: #89b4fa;">_everyone</span> <span style="color: #89dceb;">::</span> (<span style="color: #b4befe;">E</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>) <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Bool</span>
+<span style="color: #89b4fa;">_everyone</span> <span style="color: #89dceb;">::</span> (<span style="color: #f9e2af;">E</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">Bool</span>) <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">Bool</span>
 <span style="color: #89b4fa;">_everyone</span> f <span style="color: #89dceb;">=</span> all f _people
 
-<span style="color: #585b70;">-- </span><span style="color: #585b70;">&gt;&gt;&gt; (_everyone (_reads Chomsky)) :: Bool</span>
-<span style="color: #585b70;">-- </span><span style="color: #585b70;">&gt;&gt;&gt; ((_reads Chomsky) _Borer) :: Bool</span>
-<span style="color: #585b70;">-- </span><span style="color: #585b70;">&gt;&gt;&gt; (everyone (\x -&gt; (_reads x Borer))) :: Bool</span>
+<span style="color: #6c7086;">-- </span><span style="color: #6c7086;">&gt;&gt;&gt; (_everyone (_reads Chomsky)) :: Bool</span>
+<span style="color: #6c7086;">-- </span><span style="color: #6c7086;">&gt;&gt;&gt; ((_reads Chomsky) _Borer) :: Bool</span>
+<span style="color: #6c7086;">-- </span><span style="color: #6c7086;">&gt;&gt;&gt; (everyone (\x -&gt; (_reads x Borer))) :: Bool</span>
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgcf997df" class="outline-2">
-<h2 id="orgcf997df"><span class="section-number-2">5.</span> Functions</h2>
+<div id="outline-container-org6cbf8b6" class="outline-2">
+<h2 id="org6cbf8b6"><span class="section-number-2">5.</span> Functions</h2>
 <div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li>A function is a special kind of relation between <i>inputs</i> and <i>outputs</i>.</li>
@@ -310,9 +305,8 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgc231160" class="outline-2">
-<h2 id="orgc231160"><span class="section-number-2">6.</span> Determinacy</h2>
+<div id="outline-container-org7bd95e7" class="outline-2">
+<h2 id="org7bd95e7"><span class="section-number-2">6.</span> Determinacy</h2>
 <div class="outline-text-2" id="text-6">
 <ul class="org-ul">
 <li>Is \(f\) in the following a valid function?
@@ -324,9 +318,8 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orge5c02a6" class="outline-2">
-<h2 id="orge5c02a6"><span class="section-number-2">7.</span> Uniqueness</h2>
+<div id="outline-container-org537dabe" class="outline-2">
+<h2 id="org537dabe"><span class="section-number-2">7.</span> Uniqueness</h2>
 <div class="outline-text-2" id="text-7">
 <ul class="org-ul">
 <li>Is \(f\) in the following a valid function?
@@ -338,9 +331,8 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgd785ead" class="outline-2">
-<h2 id="orgd785ead"><span class="section-number-2">8.</span> Function terminology</h2>
+<div id="outline-container-orgaff68d9" class="outline-2">
+<h2 id="orgaff68d9"><span class="section-number-2">8.</span> Function terminology</h2>
 <div class="outline-text-2" id="text-8">
 <ul class="org-ul">
 <li>We call the set of values from which a function draws its inputs the <b>domain</b> of the function.</li>
@@ -349,9 +341,8 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org87dfc7c" class="outline-2">
-<h2 id="org87dfc7c"><span class="section-number-2">9.</span> Functions as relations</h2>
+<div id="outline-container-orgc66e5e2" class="outline-2">
+<h2 id="orgc66e5e2"><span class="section-number-2">9.</span> Functions as relations</h2>
 <div class="outline-text-2" id="text-9">
 <ul class="org-ul">
 <li>Functions can be represented as <i>relations</i>, i.e., sets of ordered pairs.</li>
@@ -359,7 +350,10 @@
 <ul class="org-ul">
 <li>\(\{(1,A),(2,B),(3,C)\}\)</li>
 </ul></li>
-<li>A relation \(R\) is <i>functional</i> iff \(\forall (x,y),(x',y'), x = x' \rightarrow y = y')\).</li>
+<li>A relation \(R\) is <i>functional</i> iff \(\forall (x,y),(x',y') \in R, x = x' \rightarrow y = y')\).
+<ul class="org-ul">
+<li>I.e., There can't be any pairs where the first elements match but the second elements don't.</li>
+</ul></li>
 <li>Which of the following relations are functional?
 <ul class="org-ul">
 <li>\(\{(\text{Chomsky},\text{SynStr}),(\text{Reinhart},\text{Int}),(\text{Chomsky},\text{Asp})\}\)</li>
@@ -368,9 +362,8 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org452eef7" class="outline-2">
-<h2 id="org452eef7"><span class="section-number-2">10.</span> Extension vs. intension</h2>
+<div id="outline-container-org1f6bdd8" class="outline-2">
+<h2 id="org1f6bdd8"><span class="section-number-2">10.</span> Extension vs. intension</h2>
 <div class="outline-text-2" id="text-10">
 <ul class="org-ul">
 <li>The intuition behind functions is that they define <b>determinate</b> <i>procedures</i> for getting from an input to a fixed output.</li>
@@ -387,9 +380,8 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org6731266" class="outline-2">
-<h2 id="org6731266"><span class="section-number-2">11.</span> Lambda expressions</h2>
+<div id="outline-container-orge4b2142" class="outline-2">
+<h2 id="orge4b2142"><span class="section-number-2">11.</span> Lambda expressions</h2>
 <div class="outline-text-2" id="text-11">
 <ul class="org-ul">
 <li>The lambda calculus is used as a logic used to reason about functions, how they compose, and computation more generally.</li>
@@ -397,27 +389,35 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org343f630" class="outline-2">
-<h2 id="org343f630"><span class="section-number-2">12.</span> Structure of an abstraction</h2>
+<div id="outline-container-org43472a3" class="outline-2">
+<h2 id="org43472a3"><span class="section-number-2">12.</span> Structure of an abstraction</h2>
 <div class="outline-text-2" id="text-12">
 <ul class="org-ul">
 <li><b>Abstractions</b> are made up of two parts: a <i>head</i> and a <i>body</i>.
 <ul class="org-ul">
-<li>\(\lambda x . x\)</li>
+<li>\(\overbrace{\lambda x}^{\text{head} } . \underbrace{\alpha}_{\text{body} } \)</li>
 </ul></li>
 <li>The head is the \(\lambda\) symbol followed by a variable name. Variables in the body matching the variable name are <i>bound</i>.</li>
 <li>The body is a valid expression of the lambda calculus which follows the dot.</li>
 <li>Abstractions in the lambda calculus are interpreted as functions; the head of the abstraction stands in for the input to the function, and the body of the abstraction tells us how we arrive at the output.</li>
 <li>Lambda abstractions allow us to describe what functions do without naming them; we'll sometimes call lambda abstractions <i>anonymous functions</i>.</li>
-<li><b>Question:</b> what kind of function is the abstraction above? What does it do?</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org70b6df2" class="outline-2">
-<h2 id="org70b6df2"><span class="section-number-2">13.</span> \(\alpha \)-conversion</h2>
+<div id="outline-container-orgcc90144" class="outline-2">
+<h2 id="orgcc90144"><span class="section-number-2">13.</span> Structure of an abstraction ii</h2>
 <div class="outline-text-2" id="text-13">
+<ul class="org-ul">
+<li><b>Question:</b> what kind of function is the following abstraction? What does it do?
+<ul class="org-ul">
+<li>\(\lambda x\,.\,x\)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org004d607" class="outline-2">
+<h2 id="org004d607"><span class="section-number-2">14.</span> \(\alpha \)-conversion</h2>
+<div class="outline-text-2" id="text-14">
 <ul class="org-ul">
 <li>So, abstractions are used to express functions. The choice of variable name used in the head is arbitrary - this gives rise to an intuitive notion of sameness: <b>alpha equivalence</b>.</li>
 <li>The following expressions are all <i>alpha equivalent</i> (that is, they all express the same function):
@@ -430,10 +430,9 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org8a0349b" class="outline-2">
-<h2 id="org8a0349b"><span class="section-number-2">14.</span> \(\beta \)-reduction</h2>
-<div class="outline-text-2" id="text-14">
+<div id="outline-container-orgaf87291" class="outline-2">
+<h2 id="orgaf87291"><span class="section-number-2">15.</span> \(\beta \)-reduction</h2>
+<div class="outline-text-2" id="text-15">
 <ul class="org-ul">
 <li>Beta reduction corresponds to applying a function to an argument, in the lambda calculus.</li>
 <li>A <i>functional application</i> is written as \(f(x)\) where \(f\) is the function, and \(x\) is the argument. In anticipation of haskell syntactic conventions, we'll often indicate function application with a space, i.e., \(f\,x\)</li>
@@ -445,10 +444,9 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgc5d8273" class="outline-2">
-<h2 id="orgc5d8273"><span class="section-number-2">15.</span> \(\eta\)-reduction</h2>
-<div class="outline-text-2" id="text-15">
+<div id="outline-container-orgc352907" class="outline-2">
+<h2 id="orgc352907"><span class="section-number-2">16.</span> \(\eta\)-reduction</h2>
+<div class="outline-text-2" id="text-16">
 <ul class="org-ul">
 <li>A named function can always be expressed as an anonymous function by applying it to a variable \(x\), and then <i>abstracting</i> over that variable with a \(\lambda x\).</li>
 <li>This gives rise to a notion of <i>eta equivalence</i>. The following functions are eta equivalent:
@@ -460,10 +458,9 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org1f865b9" class="outline-2">
-<h2 id="org1f865b9"><span class="section-number-2">16.</span> More reductions</h2>
-<div class="outline-text-2" id="text-16">
+<div id="outline-container-org356b8ed" class="outline-2">
+<h2 id="org356b8ed"><span class="section-number-2">17.</span> More reductions</h2>
+<div class="outline-text-2" id="text-17">
 <ul class="org-ul">
 <li>Nothing stops us from applying a <i>function</i> to another <i>function</i>:
 <ul class="org-ul">
@@ -475,10 +472,9 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orga244ae8" class="outline-2">
-<h2 id="orga244ae8"><span class="section-number-2">17.</span> Associativity</h2>
-<div class="outline-text-2" id="text-17">
+<div id="outline-container-orgc355d69" class="outline-2">
+<h2 id="orgc355d69"><span class="section-number-2">18.</span> Associativity</h2>
+<div class="outline-text-2" id="text-18">
 <ul class="org-ul">
 <li>Functional application is <i>left associative</i>:
 <ul class="org-ul">
@@ -487,10 +483,9 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org9a15fab" class="outline-2">
-<h2 id="org9a15fab"><span class="section-number-2">18.</span> Normal form</h2>
-<div class="outline-text-2" id="text-18">
+<div id="outline-container-org6d22013" class="outline-2">
+<h2 id="org6d22013"><span class="section-number-2">19.</span> Normal form</h2>
+<div class="outline-text-2" id="text-19">
 <ul class="org-ul">
 <li>The previous expression involved a functional application nested within a functional application:
 <ul class="org-ul">
@@ -503,14 +498,16 @@
 <li>\([y := z]\)</li>
 <li>\(z\)</li>
 </ul></li>
-<li>If no further reductions are possible, we say that the expression is in <b>normal form</b>.</li>
+<li>If no further reductions are possible, we say that the expression is in <b>normal form</b>.
+<ul class="org-ul">
+<li>Reduction is essentially how the lambda calculus models computation.</li>
+</ul></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org36c7fe2" class="outline-2">
-<h2 id="org36c7fe2"><span class="section-number-2">19.</span> Free variables</h2>
-<div class="outline-text-2" id="text-19">
+<div id="outline-container-org8cc836d" class="outline-2">
+<h2 id="org8cc836d"><span class="section-number-2">20.</span> Free variables</h2>
+<div class="outline-text-2" id="text-20">
 <ul class="org-ul">
 <li>Sometimes, the body of an abstraction contains variables which aren't bound by the head - these variables are <i>free</i> (within the abstraction):
 <ul class="org-ul">
@@ -526,10 +523,9 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org646e791" class="outline-2">
-<h2 id="org646e791"><span class="section-number-2">20.</span> Multiple arguments</h2>
-<div class="outline-text-2" id="text-20">
+<div id="outline-container-orga136eea" class="outline-2">
+<h2 id="orga136eea"><span class="section-number-2">21.</span> Multiple arguments</h2>
+<div class="outline-text-2" id="text-21">
 <ul class="org-ul">
 <li>Each \(\lambda \) can only bind one parameter and can only accept one argument.</li>
 <li>Multiple arguments are encoded by multiple \(\lambda \)s (this is called <i>currying</i>; semanticists call it <i>Schönfinkelization</i>).
@@ -540,10 +536,9 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgc069f3d" class="outline-2">
-<h2 id="orgc069f3d"><span class="section-number-2">21.</span> Reduction with multiple arguments 1</h2>
-<div class="outline-text-2" id="text-21">
+<div id="outline-container-org1f9edfc" class="outline-2">
+<h2 id="org1f9edfc"><span class="section-number-2">22.</span> Reduction with multiple arguments 1</h2>
+<div class="outline-text-2" id="text-22">
 <ol class="org-ol">
 <li>\(\lambda xy . xy\)</li>
 <li>\((\lambda xy . xy)\,1\,2\)</li>
@@ -559,10 +554,9 @@ We've reached normal form, since we can't apply \(1\) to \(2\).
 </p>
 </div>
 </div>
-
-<div id="outline-container-org43c0dc6" class="outline-2">
-<h2 id="org43c0dc6"><span class="section-number-2">22.</span> Reduction with multiple arguments 2</h2>
-<div class="outline-text-2" id="text-22">
+<div id="outline-container-orgf663698" class="outline-2">
+<h2 id="orgf663698"><span class="section-number-2">23.</span> Reduction with multiple arguments 2</h2>
+<div class="outline-text-2" id="text-23">
 <ol class="org-ol">
 <li>\((\lambda xy . xy)\,(\lambda z. a)\,1\)</li>
 <li>\((\lambda x . (\lambda y. xy))\,(\lambda z . a)\,1\)</li>
@@ -575,10 +569,9 @@ We've reached normal form, since we can't apply \(1\) to \(2\).
 </ol>
 </div>
 </div>
-
-<div id="outline-container-org938c533" class="outline-2">
-<h2 id="org938c533"><span class="section-number-2">23.</span> Proof-theory</h2>
-<div class="outline-text-2" id="text-23">
+<div id="outline-container-org36d6c6f" class="outline-2">
+<h2 id="org36d6c6f"><span class="section-number-2">24.</span> Proof-theory</h2>
+<div class="outline-text-2" id="text-24">
 <ul class="org-ul">
 <li>Simplification rules for the lambda calculus:
 <ul class="org-ul">
@@ -593,10 +586,9 @@ We've reached normal form, since we can't apply \(1\) to \(2\).
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgd3a12f8" class="outline-2">
-<h2 id="orgd3a12f8"><span class="section-number-2">24.</span> More alpha conversions</h2>
-<div class="outline-text-2" id="text-24">
+<div id="outline-container-org4b97f3d" class="outline-2">
+<h2 id="org4b97f3d"><span class="section-number-2">25.</span> More alpha conversions</h2>
+<div class="outline-text-2" id="text-25">
 <ul class="org-ul">
 <li>How do we go about reducing this expression?
 <ul class="org-ul">
@@ -605,10 +597,9 @@ We've reached normal form, since we can't apply \(1\) to \(2\).
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orge582a0a" class="outline-2">
-<h2 id="orge582a0a"><span class="section-number-2">25.</span> Evaluation and simplification</h2>
-<div class="outline-text-2" id="text-25">
+<div id="outline-container-orgf7024f0" class="outline-2">
+<h2 id="orgf7024f0"><span class="section-number-2">26.</span> Evaluation and simplification</h2>
+<div class="outline-text-2" id="text-26">
 <ul class="org-ul">
 <li>Remember, when we can no longer simplify an expression, the result is said to be in <b>normal form</b> (N.b., there are different kinds of normal forms, but the differences aren't relevant to us).</li>
 <li>In programming terms, this corresponds to a <b>fully executed program</b>.</li>
@@ -621,10 +612,9 @@ We've reached normal form, since we can't apply \(1\) to \(2\).
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org96e2361" class="outline-2">
-<h2 id="org96e2361"><span class="section-number-2">26.</span> Combinators</h2>
-<div class="outline-text-2" id="text-26">
+<div id="outline-container-org952f90d" class="outline-2">
+<h2 id="org952f90d"><span class="section-number-2">27.</span> Combinators</h2>
+<div class="outline-text-2" id="text-27">
 <ul class="org-ul">
 <li>Combinators are special kinds of lambda expressions with no free variables.</li>
 <li>Which of the following are (not) combinators?
@@ -639,10 +629,9 @@ We've reached normal form, since we can't apply \(1\) to \(2\).
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgfcefe12" class="outline-2">
-<h2 id="orgfcefe12"><span class="section-number-2">27.</span> Function composition</h2>
-<div class="outline-text-2" id="text-27">
+<div id="outline-container-org4e28fc8" class="outline-2">
+<h2 id="org4e28fc8"><span class="section-number-2">28.</span> Function composition</h2>
+<div class="outline-text-2" id="text-28">
 <ul class="org-ul">
 <li>A combinator which we'll encounter quite a lot is <i>function composition</i>:
 <ul class="org-ul">
@@ -663,10 +652,9 @@ We've reached normal form, since we can't apply \(1\) to \(2\).
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org7c3caf1" class="outline-2">
-<h2 id="org7c3caf1"><span class="section-number-2">28.</span> Divergence</h2>
-<div class="outline-text-2" id="text-28">
+<div id="outline-container-org3a7308c" class="outline-2">
+<h2 id="org3a7308c"><span class="section-number-2">29.</span> Divergence</h2>
+<div class="outline-text-2" id="text-29">
 <ul class="org-ul">
 <li>Ordinarily, reducing a lambda expression <i>converges</i> to normal form.</li>
 <li>Not every <i>reducible</i> lambda expression reduces to normal form; some lambda expressions <i>diverge</i>.</li>
@@ -679,10 +667,9 @@ We've reached normal form, since we can't apply \(1\) to \(2\).
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org4de6ce1" class="outline-2">
-<h2 id="org4de6ce1"><span class="section-number-2">29.</span> Homework</h2>
-<div class="outline-text-2" id="text-29">
+<div id="outline-container-org6b75b7b" class="outline-2">
+<h2 id="org6b75b7b"><span class="section-number-2">30.</span> Homework</h2>
+<div class="outline-text-2" id="text-30">
 <ul class="org-ul">
 <li><b>Obligatory:</b> Do the <i>chapter exercises</i> from chapter 1 of <b>Haskell programming from first principles</b> (p17-18). If you get stuck somewhere, send me a note before next week's class.</li>
 <li>Optionally, do either of the following:
@@ -694,39 +681,33 @@ We've reached normal form, since we can't apply \(1\) to \(2\).
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org38c157a" class="outline-2">
-<h2 id="org38c157a"><span class="section-number-2">30.</span> Further reading</h2>
-<div class="outline-text-2" id="text-30">
+<div id="outline-container-orgf642d60" class="outline-2">
+<h2 id="orgf642d60"><span class="section-number-2">31.</span> Further reading</h2>
+<div class="outline-text-2" id="text-31">
 <ul class="org-ul">
 <li>For an in-depth introduction to the <i>simply-typed</i> lambda calculus, from a logical perspective, read (Carpenter, Bob, 1998)</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgfdde185" class="outline-2">
-<h2 id="orgfdde185"><span class="section-number-2">31.</span> </h2>
-<div class="outline-text-2" id="text-31">
+<div id="outline-container-org8ac446c" class="outline-2">
+<h2 id="org8ac446c"><span class="section-number-2">32.</span> </h2>
+<div class="outline-text-2" id="text-32">
 <p>
 \(\mathscr{Fin}\)
 </p>
 </div>
 </div>
-
-<div id="outline-container-org0f8710c" class="outline-2">
-<h2 id="org0f8710c"><span class="section-number-2">32.</span> References</h2>
-<div class="outline-text-2" id="text-32">
+<div id="outline-container-org719c373" class="outline-2">
+<h2 id="org719c373"><span class="section-number-2">33.</span> References</h2>
+<div class="outline-text-2" id="text-33">
 <p>
 Carpenter, Bob (1998). <i>Type-Logical Semantics</i>, {MIT Press}.</p>
-
-<p>
-van Eijck, Jan and Unger, Christina (2010). <i>Computational {{Semantics}} with {{Functional Programming}}</i>, {Cambridge University Press}.</p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2023-04-13 Thu 11:50</p>
+<p class="date">Created: 2024-04-09 Tue 12:25</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

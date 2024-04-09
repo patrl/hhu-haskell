@@ -19,7 +19,7 @@
   * Getting started with haskell - basic concepts and syntax.
 - *Week 3:* strings and lists.
 - *Week 4:* datatypes, typeclasses, etc.
-- In subsequent weeks, once we have a grasp of functional programming basics, we'll start to tackle linguistics-specific topics, using [cite:@vanEijckUnger2010].
+- In subsequent weeks, once we have a grasp of functional programming basics, we'll start to tackle linguistics-specific topics, using /Computation semantics with functional programming/ by van Eijck and Unger (2010).
  
 * Why study the lambda calculus
 
@@ -100,7 +100,8 @@
 - Functions can be represented as /relations/, i.e., sets of ordered pairs.
 - For example, the following is a valid function:
   * \(\{(1,A),(2,B),(3,C)\}\)
-- A relation \(R\) is /functional/ iff \(\forall (x,y),(x',y'), x = x' \rightarrow y = y')\).
+- A relation \(R\) is /functional/ iff \(\forall (x,y),(x',y') \in R, x = x' \rightarrow y = y')\).
+  * I.e., There can't be any pairs where the first elements match but the second elements don't.
 - Which of the following relations are functional?
   - \(\{(\text{Chomsky},\text{SynStr}),(\text{Reinhart},\text{Int}),(\text{Chomsky},\text{Asp})\}\)
   - \(\{(\text{Ross} ,\text{Chomsky}),(\text{Pesetsky} ,\text{Chomsky} ),(\text{Nevins} ,\text{Halle} )\}\)
@@ -123,12 +124,16 @@
 * Structure of an abstraction
 
 - *Abstractions* are made up of two parts: a /head/ and a /body/.
-  * \(\lambda x . x\)
+  * \(\overbrace{\lambda x}^{\text{head} } . \underbrace{\alpha}_{\text{body} } \)
 - The head is the \(\lambda\) symbol followed by a variable name. Variables in the body matching the variable name are /bound/.
 - The body is a valid expression of the lambda calculus which follows the dot. 
 - Abstractions in the lambda calculus are interpreted as functions; the head of the abstraction stands in for the input to the function, and the body of the abstraction tells us how we arrive at the output.
 - Lambda abstractions allow us to describe what functions do without naming them; we'll sometimes call lambda abstractions /anonymous functions/.
-- *Question:* what kind of function is the abstraction above? What does it do?
+  
+* Structure of an abstraction ii
+
+- *Question:* what kind of function is the following abstraction? What does it do?
+  * \(\lambda x\,.\,x\)
 
 * \(\alpha \)-conversion 
 
@@ -178,6 +183,7 @@
   * \([y := z]\)
   * \(z\)
 - If no further reductions are possible, we say that the expression is in *normal form*.
+  * Reduction is essentially how the lambda calculus models computation.
 
 * Free variables
 
