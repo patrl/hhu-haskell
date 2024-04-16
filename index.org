@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2024-04-09 12:35]" 
+Last updated: "[2024-04-16 13:31]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -37,20 +37,20 @@ Class takes place *Tuesday 16:30-18:00* in *2321.U1.72 (Z 34)*.
 
 | date              | class                   |
 |-------------------+-------------------------|
-| April 9           | [[Lambda calculus][Lambda calculus]]     |
-| April 16          | Intro to Haskell        |
-| April 23          | Strings                 |
-| April 25          | Basic datatypes         |
-| April 30 (remote) | Types and typeclasses   |
-| May 7             | Fragments i: syntax     |
-| May 14            | Fragments ii: semantics |
-| May 21            | Model checking          |
-| May 28            | Meaning composition     |
-| June 4            | Functors                |
-| June 11           | Applicatives            |
+| April 9           | NO CLASS |
+| April 16          |  [[Lambda calculus]]       |
+| April 23          | Intro to Haskell                 |
+| April 25          | Strings         |
+| April 30 (remote) | Basic datatypes   |
+| May 7             | Types and typeclasses     |
+| May 14            | Fragments i: syntax |
+| May 21            |Fragments ii: semantics          |
+| May 28            | Model checking     |
+| June 4            | Meaning composition                |
+| June 11           | Functors            |
 | June 18           | NO CLASS                |
-| June 25           | Monads                  |
-| July 2            | Monads cont.            |
+| June 25           | Applicatives                  |
+| July 2            | Monads            |
 | July 9            | Student presentations   |
 | July 16           | Student presentations   |
 
