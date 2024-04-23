@@ -17,13 +17,7 @@
 - Read chapter 2 of /Haskell programming from first principles/, covering basic Haskell syntax.
 - To the end-of-chapter exercises.
 
-** Organizational    
-
-- Class on May 9th will take place remotely (I'll distribute a webex link via rocketchat closer to the time).
-- Class on May 16th will be cancelled - I'm in America for a conference.
-
 ** Lambda calculus summary
-
 
 - The lambda calculus is a /formal system/ (i.e., a logic) for reasoning about /functions/.
 - In the lambda calculus, computation is modelled as a form of simplification, using the following rules:

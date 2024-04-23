@@ -14,7 +14,7 @@
 * The plan
 
 - *Today:* theoretical preliminaries to programming in haskell - functions and the (simple, untyped) lambda calculus.
-- *Week 2:*
+- *Next week:*
   * Setting up a haskell dev environment.
   * Getting started with haskell - basic concepts and syntax.
 - *Week 3:* strings and lists.
