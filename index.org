@@ -11,7 +11,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2024-04-23 16:08]" 
+Last updated: "[2024-04-30 16:05]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -38,10 +38,9 @@ Class takes place *Tuesday 16:30-18:00* in *2321.U1.72 (Z 34)*.
 | date              | class                   |
 |-------------------+-------------------------|
 | April 9           | NO CLASS |
-| April 16          |  [[Lambda calculus]]       |
+| April 16          |  [[Lambda calculus][Lambda calculus]]       |
 | April 23          | [[Intro to Haskell][Intro to Haskell]]                 |
-| April 25          | Strings         |
-| April 30 (remote) | Basic datatypes   |
+| April 30 (remote) | [[Types and strings][Types and strings]] |
 | May 7             | Types and typeclasses     |
 | May 14            | Fragments i: syntax |
 | May 21            |Fragments ii: semantics          |
@@ -63,6 +62,12 @@ Class takes place *Tuesday 16:30-18:00* in *2321.U1.72 (Z 34)*.
 
 - [[./hello-haskell.pdf][Slides]].
   * [[./hello-haskell.html][Html version]].
+    
+* Types and strings
+
+- [[./types-and-strings.pdf][Slides]].
+  * [[./types-and-strings.html][Html version]].
+
 
 * References
   
