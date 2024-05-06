@@ -13,7 +13,7 @@
 ** Gameplan
 
 - Next week we'll finish our initial survey of the very basics of Haskell, by talking more about types and typeclasses.
-- In the following couple of weeks (May 2; May 9) we'll start implementing some basic natural language fragments in haskell, following the textbook /Computational Semantics with Functional Programming/ [cite:@vanEijckUnger2010].
+- In the following  weeks we'll start implementing some basic natural language fragments in haskell, following the textbook /Computational Semantics with Functional Programming/.
   * Note: you should be able to access this textbook electronically via the HHU library.
 
 ** Homework
