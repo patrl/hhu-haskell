@@ -34,7 +34,7 @@ In a sense, we're modelling a small fragment of English proper names "John", "Ma
 [[./img/montague.jpg]]
 
 #+begin_quote
-"There is in my opinion no important theoretical difference between natural languages and the artificial languages of logicians; indeed I consider it possible to comprehend the syntax and semantics of both kinds of languages with a single natural and mathematically precise theory." [cite:@Montague1970a]
+"There is in my opinion no important theoretical difference between natural languages and the artificial languages of logicians; indeed I consider it possible to comprehend the syntax and semantics of both kinds of languages with a single natural and mathematically precise theory." (Montague, 1970)
 #+end_quote
 
 ** Compositional semantics: the indirect approach 
@@ -46,7 +46,7 @@ In a sense, we're modelling a small fragment of English proper names "John", "Ma
     
 ** The indirect approach cont.
 
-Montague used /Intensional Logic/ as the logical language, but more contemporary work in semantics typically uses the /Simply-Typed Lambda Calculus/, either implicitly or explicitly [cite:@Carpenter1998].
+Montague used /Intensional Logic/ as the logical language, but more contemporary work in semantics typically uses the /Simply-Typed Lambda Calculus/, either implicitly or explicitly (Carpenter, 1998).
 
 - every \(\rightsquigarrow \lambda R . \lambda P . \mathbf{every}(R)(P) : (E \to T) \to T\)
 - and \(\rightsquigarrow \lambda t . \lambda u . \mathbf{and}(t)(u) : T \to T \to T\)
@@ -263,7 +263,7 @@ As an exercise, implement conditional statements as a standard function:
 
 Test your answer by rewriting ~toyFunc~ using ~cond~.
 
-** Conditionals and syntactic sugar: solution
+** Conditionals and syntactic sugar: solution :noexport:
 
 #+begin_src haskell
   cond :: Bool -> a -> a -> a
@@ -361,7 +361,7 @@ This explains why ~fst~ and ~snd~ don't work!
 - write a function ~condTup~ that takes a bool ~t~, two tuples, ~(a,b)~, ~(c,d)~, and gives back a tuple of tuples ~(a,c)~ if ~t~ is true, and ~(b,d)~ otherwise (tip: think carefully about the type signature!).
 - Write functions ~fst5~ and ~snd5~ that apply to 5-tuples. Is it possible to write an /unsafe/ index function for tuples?
 
-** Solution
+** Solution :noexport:
 
 #+begin_src haskell
   swap :: (a,b) -> (b,a)
@@ -399,7 +399,7 @@ Currying means that we can pass around the result of /partially applying/ a func
 
 *Exercise:* write a function ~myAddition~ that takes a /tuple/ as its sole argument.
 
-** Uncurrying: solution
+** Uncurrying: solution :noexport:
 
 #+begin_src haskell
   myAddition :: (Num a) => (a,a) -> a
@@ -415,7 +415,7 @@ This exercise is a bit harder:
 - *Part 3:* now do the same thing, but for functions which take 3 arguments.
   * Is it possible to write a generalized function ~myCurryN~ that curries a function that takes ~n~ arguments?
   
-** Solution: generalized (un)currying
+** Solution: generalized (un)currying :noexport:
 
 #+begin_src haskell
   myUncurry f (a,b) = f a b
@@ -465,7 +465,7 @@ This will be useful in the following exercises.
   h = ???
 #+end_src
 
-** Solution
+** Solution :noexport:
 
 #+begin_src haskell
   h = g . f
@@ -488,7 +488,7 @@ This will be useful in the following exercises.
   e = ???
 #+end_src
 
-** Solution
+** Solution :noexport:
 
 #+begin_src haskell
   e = w . q
@@ -511,7 +511,7 @@ This will be useful in the following exercises.
   xform = ???
 #+end_src
 
-** Solution
+** Solution :noexport:
 
 #+begin_src haskell
 xform (x,y) = (xz x, yz y)
@@ -527,7 +527,7 @@ xform (x,y) = (xz x, yz y)
   munge = ???
 #+end_src
 
-** Solution
+** Solution :noexport:
 
 #+begin_src haskell
   munge f g = fst . g . f
@@ -541,8 +541,6 @@ xform (x,y) = (xz x, yz y)
    \(\mathscr{Fin}\)
    
 ** References
-
-#+print_bibliography:
 
 # Local Variables:
 # org-latex-src-block-backend: engraved

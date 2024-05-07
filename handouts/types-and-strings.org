@@ -144,9 +144,9 @@ There are two functions for concatenating strings in the haskell prelude:
   
 ** Types primer i 
 
-In formal semantics, functional types are often written using angled-brackets (e.g., \(\langle e,t \rangle\)), following the convention used by [cite:@HeimKratzer1998].
+In formal semantics, functional types are often written using angled-brackets (e.g., \(\langle e,t \rangle\)), following the convention used by Heim & Kratzer 1998.
 
-Haskell uses arrow notation, which is more commonly found in the computer science/programming language literature, although some semantics texts use arrow notation [cite:@Carpenter1998].
+Haskell uses arrow notation, which is more commonly found in the computer science/programming language literature, although some semantics texts use arrow notation (Carpenter 1998).
 
 Arrow notation in Haskell is /right associative/:
 
@@ -496,10 +496,6 @@ We'll see more of this technique in the coming weeks.
  
    \(\mathscr{Fin}\)
    
-** References
-
-#+print_bibliography:
-
 # Local Variables:
 # org-latex-src-block-backend: engraved
 # End:

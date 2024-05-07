@@ -1,6 +1,5 @@
 #+title: Semantics and Functional Programming
 #+subtitle: HHU spring/summer semester 2024 edition
-#+bibliography: ../bibliography/master.bib
 #+cite_export: csl
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
 #+OPTIONS: toc:nil
@@ -11,7 +10,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2024-04-30 16:05]" 
+Last updated: "[2024-05-07 16:15]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -41,7 +40,7 @@ Class takes place *Tuesday 16:30-18:00* in *2321.U1.72 (Z 34)*.
 | April 16          |  [[Lambda calculus][Lambda calculus]]       |
 | April 23          | [[Intro to Haskell][Intro to Haskell]]                 |
 | April 30 (remote) | [[Types and strings][Types and strings]] |
-| May 7             | Types and typeclasses     |
+| May 7             | [[Types and typeclasses][Types and typeclasses]]     |
 | May 14            | Fragments i: syntax |
 | May 21            |Fragments ii: semantics          |
 | May 28            | Model checking     |
@@ -67,6 +66,11 @@ Class takes place *Tuesday 16:30-18:00* in *2321.U1.72 (Z 34)*.
 
 - [[./types-and-strings.pdf][Slides]].
   * [[./types-and-strings.html][Html version]].
+    
+* Types and typeclasses 
+
+- [[./typeclasses.pdf][Slides]].
+  * [[./typesclasses.html][Html version]].
 
 
 * References
