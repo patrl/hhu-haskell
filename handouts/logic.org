@@ -34,7 +34,7 @@
 ** Homework
 
 - Next week we'll talk about semantics, again using propositional logic as an example.
-- For homework, read chapter 5 of [cite:@vanEijckUnger2010] "Formal semantics for fragments".
+- For homework, read chapter 5 of  /Computational semantics with functional programming/ "Formal semantics for fragments".
 
 * Propositional logic
 

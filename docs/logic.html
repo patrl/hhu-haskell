@@ -3,13 +3,13 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-05-09 Tue 13:56 -->
+<!-- 2024-05-21 Tue 16:11 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Propositional logic and recursive datatypes</title>
 <meta name="author" content="Patrick D. Elliott" />
 <meta name="generator" content="Org Mode" />
-<style>
+<style type="text/css">
   #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
@@ -230,9 +230,8 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">Propositional logic and recursive datatypes</h1>
-
-<div id="outline-container-org74d1110" class="outline-3">
-<h3 id="org74d1110"><span class="section-number-3">0.1.</span> Formal grammars in Haskell</h3>
+<div id="outline-container-orge0dba96" class="outline-3">
+<h3 id="orge0dba96"><span class="section-number-3">0.1.</span> Formal grammars in Haskell</h3>
 <div class="outline-text-3" id="text-0-1">
 <ul class="org-ul">
 <li>Haskell's type system can be used to represent grammars as datatypes.</li>
@@ -253,9 +252,8 @@ VP -&gt; V S
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org0cfffdd" class="outline-3">
-<h3 id="org0cfffdd"><span class="section-number-3">0.2.</span> Formal grammars in Haskell cont.</h3>
+<div id="outline-container-org0e088c4" class="outline-3">
+<h3 id="org0e088c4"><span class="section-number-3">0.2.</span> Formal grammars in Haskell cont.</h3>
 <div class="outline-text-3" id="text-0-2">
 <ul class="org-ul">
 <li>In order to implement recursive grammars in Haskell, we use <i>recursive datatypes</i>.
@@ -266,23 +264,21 @@ VP -&gt; V S
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org3abccdd" class="outline-3">
-<h3 id="org3abccdd"><span class="section-number-3">0.3.</span> Homework</h3>
+<div id="outline-container-orgf144b7a" class="outline-3">
+<h3 id="orgf144b7a"><span class="section-number-3">0.3.</span> Homework</h3>
 <div class="outline-text-3" id="text-0-3">
 <ul class="org-ul">
 <li>Next week we'll talk about semantics, again using propositional logic as an example.</li>
-<li>For homework, read chapter 5 of (van Eijck, Jan and Unger, Christina, 2010) "Formal semantics for fragments".</li>
+<li>For homework, read chapter 5 of  <i>Computational semantics with functional programming</i> "Formal semantics for fragments".</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org5853a2f" class="outline-2">
-<h2 id="org5853a2f"><span class="section-number-2">1.</span> Propositional logic</h2>
+<div id="outline-container-org432e78d" class="outline-2">
+<h2 id="org432e78d"><span class="section-number-2">1.</span> Propositional logic</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org622f6d6" class="outline-3">
-<h3 id="org622f6d6"><span class="section-number-3">1.1.</span> Sentences of propositional logic</h3>
+<div id="outline-container-org1a5951d" class="outline-3">
+<h3 id="org1a5951d"><span class="section-number-3">1.1.</span> Sentences of propositional logic</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Sentences of propositional logic:
@@ -296,9 +292,8 @@ Sentences of propositional logic:
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org2950fa5" class="outline-3">
-<h3 id="org2950fa5"><span class="section-number-3">1.2.</span> Grammar of propositional logic</h3>
+<div id="outline-container-org69e0106" class="outline-3">
+<h3 id="org69e0106"><span class="section-number-3">1.2.</span> Grammar of propositional logic</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 To state a grammar for propositional logic, we first need a set of variables \(\mathbf{Var} := \set{p, q, r, \ldots}\), and a set of constants \(\set{\top,\bot}\).
@@ -313,16 +308,15 @@ To state a grammar for propositional logic, we first need a set of variables \(\
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org6e498a6" class="outline-3">
-<h3 id="org6e498a6"><span class="section-number-3">1.3.</span> The grammar as a datatype</h3>
+<div id="outline-container-orgb22f661" class="outline-3">
+<h3 id="orgb22f661"><span class="section-number-3">1.3.</span> The grammar as a datatype</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 We'll use a <i>sum type</i> to implement the grammar of propositional logic. We can start with just the following:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
 </pre>
 </div>
 
@@ -335,12 +329,11 @@ ghci<span style="color: #89b4fa;">&gt;</span> <span style="color: #cba6f7;">:</s
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgb814a73" class="outline-3">
-<h3 id="orgb814a73"><span class="section-number-3">1.4.</span> Adding negation: recursive datatypes!</h3>
+<div id="outline-container-orgee0759a" class="outline-3">
+<h3 id="orgee0759a"><span class="section-number-3">1.4.</span> Adding negation: recursive datatypes!</h3>
 <div class="outline-text-3" id="text-1-4">
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
 </pre>
 </div>
 
@@ -361,12 +354,11 @@ Note that this already gives us infinite inhabitants of type <code>PropL</code>.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org5d56020" class="outline-3">
-<h3 id="org5d56020"><span class="section-number-3">1.5.</span> Adding connectives</h3>
+<div id="outline-container-org788555e" class="outline-3">
+<h3 id="org788555e"><span class="section-number-3">1.5.</span> Adding connectives</h3>
 <div class="outline-text-3" id="text-1-5">
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PAnd</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">POr</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PAnd</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">POr</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
 </pre>
 </div>
 
@@ -379,9 +371,8 @@ error
 </div>
 </div>
 </div>
-
-<div id="outline-container-orge9264f9" class="outline-3">
-<h3 id="orge9264f9"><span class="section-number-3">1.6.</span> Bonus: infix constructors!</h3>
+<div id="outline-container-orgad36393" class="outline-3">
+<h3 id="orgad36393"><span class="section-number-3">1.6.</span> Bonus: infix constructors!</h3>
 <div class="outline-text-3" id="text-1-6">
 <p>
 Functions that take two arguments can be used as <i>infix operators</i> by enclosing them in backticks. This also goes for constructors:
@@ -400,23 +391,22 @@ You can even use infix constructors in the data declaration:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">`PAnd`</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">`POr`</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">`PAnd`</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">`POr`</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> (<span style="color: #cba6f7;">Eq</span>,<span style="color: #cba6f7;">Show</span>)
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org640612d" class="outline-3">
-<h3 id="org640612d"><span class="section-number-3">1.7.</span> Implementing a custom <code>Show</code> instance</h3>
+<div id="outline-container-org90aba16" class="outline-3">
+<h3 id="org90aba16"><span class="section-number-3">1.7.</span> Implementing a custom <code>Show</code> instance</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 Implementing a custom <code>Show</code> instance for <code>PropL</code> simply amounts to defining a function <code>show</code> of type <code>PropL -&gt; String</code>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">`PAnd`</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">`POr`</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> <span style="color: #cba6f7;">Eq</span>
+<pre class="src src-haskell"><span style="color: #cba6f7;">data</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">String</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PNot</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">`PAnd`</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">|</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #89dceb;">`POr`</span> <span style="color: #cba6f7;">PropL</span> <span style="color: #cba6f7;">deriving</span> <span style="color: #cba6f7;">Eq</span>
 
-<span style="color: #cba6f7;">instance</span> <span style="color: #b4befe;">Show</span> <span style="color: #b4befe;">PropL</span> <span style="color: #cba6f7;">where</span>
+<span style="color: #cba6f7;">instance</span> <span style="color: #f9e2af;">Show</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #cba6f7;">where</span>
   show (<span style="color: #cba6f7;">PVar</span> s) <span style="color: #89dceb;">=</span> s
   show (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">=</span> <span style="color: #a6e3a1;">"~"</span> <span style="color: #89dceb;">++</span> show p
   show (p <span style="color: #89dceb;">`PAnd`</span> q) <span style="color: #89dceb;">=</span> <span style="color: #a6e3a1;">"("</span> <span style="color: #89dceb;">++</span> show p <span style="color: #89dceb;">++</span> <span style="color: #a6e3a1;">" &amp; "</span> <span style="color: #89dceb;">++</span> show q <span style="color: #89dceb;">++</span> <span style="color: #a6e3a1;">")"</span>
@@ -425,9 +415,8 @@ Implementing a custom <code>Show</code> instance for <code>PropL</code> simply a
 </div>
 </div>
 </div>
-
-<div id="outline-container-org3eb642c" class="outline-3">
-<h3 id="org3eb642c"><span class="section-number-3">1.8.</span> Custom <code>Show</code> cont.</h3>
+<div id="outline-container-orgb65f6f8" class="outline-3">
+<h3 id="orgb65f6f8"><span class="section-number-3">1.8.</span> Custom <code>Show</code> cont.</h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
 The <code>Show</code> instance we just declared will automatically be used by ghci. 
@@ -444,18 +433,16 @@ We can also use it explicitly by calling <code>show</code> on something of type 
 </p>
 </div>
 </div>
-
-<div id="outline-container-org58b3b82" class="outline-3">
-<h3 id="org58b3b82"><span class="section-number-3">1.9.</span> ASTs</h3>
+<div id="outline-container-org79dc2e3" class="outline-3">
+<h3 id="org79dc2e3"><span class="section-number-3">1.9.</span> ASTs</h3>
 <div class="outline-text-3" id="text-1-9">
 <p>
 Recursive datatypes are used to create an Abstract Syntax Tree (AST) for sentences of propositional logic.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org647f560" class="outline-3">
-<h3 id="org647f560"><span class="section-number-3">1.10.</span> Recursive functions</h3>
+<div id="outline-container-orgd3762db" class="outline-3">
+<h3 id="orgd3762db"><span class="section-number-3">1.10.</span> Recursive functions</h3>
 <div class="outline-text-3" id="text-1-10">
 <p>
 Let's say that we want to compute the number of operators in a formula. In order to do so we'll need a recursive function <code>opsNr</code>.
@@ -467,22 +454,21 @@ First, we define the base of the recursion (where the recursion halts):
 
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">opsNr</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Int</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">opsNr</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">Int</span>
 <span style="color: #89b4fa;">opsNr</span> (<span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">_</span>) <span style="color: #89dceb;">=</span> 0
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgfbcc2f6" class="outline-3">
-<h3 id="orgfbcc2f6"><span class="section-number-3">1.11.</span> Recursive functions cont.</h3>
+<div id="outline-container-org8fee79f" class="outline-3">
+<h3 id="org8fee79f"><span class="section-number-3">1.11.</span> Recursive functions cont.</h3>
 <div class="outline-text-3" id="text-1-11">
 <p>
 For all other cases we need recursion:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">opsNr</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Int</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">opsNr</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">Int</span>
 <span style="color: #89b4fa;">opsNr</span> (<span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">_</span>) <span style="color: #89dceb;">=</span> 0
 <span style="color: #89b4fa;">opsNr</span> (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">=</span> 1 <span style="color: #89dceb;">+</span> opsNr p
 <span style="color: #89b4fa;">opsNr</span> (<span style="color: #cba6f7;">PAnd</span> p q) <span style="color: #89dceb;">=</span> 1 <span style="color: #89dceb;">+</span> opsNr p <span style="color: #89dceb;">+</span> opsNr q
@@ -491,12 +477,11 @@ For all other cases we need recursion:
 </div>
 </div>
 </div>
-
-<div id="outline-container-org0ba0a99" class="outline-3">
-<h3 id="org0ba0a99"><span class="section-number-3">1.12.</span> Another recursive function: depth</h3>
+<div id="outline-container-orgcdc5dfd" class="outline-3">
+<h3 id="orgcdc5dfd"><span class="section-number-3">1.12.</span> Another recursive function: depth</h3>
 <div class="outline-text-3" id="text-1-12">
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">depth</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Int</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">depth</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">Int</span>
 <span style="color: #89b4fa;">depth</span> (<span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">_</span>) <span style="color: #89dceb;">=</span> 0
 <span style="color: #89b4fa;">depth</span> (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">=</span> 1 <span style="color: #89dceb;">+</span> depth p
 <span style="color: #89b4fa;">opsNr</span> (<span style="color: #cba6f7;">PAnd</span> p q) <span style="color: #89dceb;">=</span> undefined
@@ -505,12 +490,11 @@ For all other cases we need recursion:
 </div>
 </div>
 </div>
-
-<div id="outline-container-org3282618" class="outline-3">
-<h3 id="org3282618"><span class="section-number-3">1.13.</span> Depth cont.</h3>
+<div id="outline-container-org6dda7b5" class="outline-3">
+<h3 id="org6dda7b5"><span class="section-number-3">1.13.</span> Depth cont.</h3>
 <div class="outline-text-3" id="text-1-13">
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">depth</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">Int</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">depth</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">Int</span>
 <span style="color: #89b4fa;">depth</span> (<span style="color: #cba6f7;">PVar</span> <span style="color: #cba6f7;">_</span>) <span style="color: #89dceb;">=</span> 0
 <span style="color: #89b4fa;">depth</span> (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">=</span> 1 <span style="color: #89dceb;">+</span> depth p
 <span style="color: #89b4fa;">depth</span> (<span style="color: #cba6f7;">PAnd</span> p q) <span style="color: #89dceb;">=</span> 1 <span style="color: #89dceb;">+</span> max (depth p) (depth q)
@@ -519,9 +503,8 @@ For all other cases we need recursion:
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgb9faf19" class="outline-3">
-<h3 id="orgb9faf19"><span class="section-number-3">1.14.</span> Exercise: gather names</h3>
+<div id="outline-container-org60ecae7" class="outline-3">
+<h3 id="org60ecae7"><span class="section-number-3">1.14.</span> Exercise: gather names</h3>
 <div class="outline-text-3" id="text-1-14">
 <ul class="org-ul">
 <li><b>Exercise:</b>  write a recursive function that returns a list of all of the variables that occur in a formula.</li>
@@ -529,9 +512,8 @@ For all other cases we need recursion:
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orga5c96cf" class="outline-3">
-<h3 id="orga5c96cf"><span class="section-number-3">1.15.</span> Normalization</h3>
+<div id="outline-container-orgc274ebb" class="outline-3">
+<h3 id="orgc274ebb"><span class="section-number-3">1.15.</span> Normalization</h3>
 <div class="outline-text-3" id="text-1-15">
 <ul class="org-ul">
 <li>A formula of propositional logic is in <i>conjunctive normal form</i> (CNF) iff it is a conjunction of one of more <b>clauses</b>.
@@ -546,9 +528,8 @@ For all other cases we need recursion:
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgbd6470c" class="outline-3">
-<h3 id="orgbd6470c"><span class="section-number-3">1.16.</span> Conversion to CNF and rules of inference</h3>
+<div id="outline-container-org776ed5a" class="outline-3">
+<h3 id="org776ed5a"><span class="section-number-3">1.16.</span> Conversion to CNF and rules of inference</h3>
 <div class="outline-text-3" id="text-1-16">
 <ul class="org-ul">
 <li>Any formula can be converted into CNF by successively applying the following rules of inference:
@@ -567,9 +548,8 @@ For all other cases we need recursion:
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org2da9765" class="outline-3">
-<h3 id="org2da9765"><span class="section-number-3">1.17.</span> An example</h3>
+<div id="outline-container-orgca614a8" class="outline-3">
+<h3 id="orgca614a8"><span class="section-number-3">1.17.</span> An example</h3>
 <div class="outline-text-3" id="text-1-17">
 <p>
 \[\neg (\neg (p \vee q) \wedge r) \wedge \neg (p \wedge r)\]
@@ -584,9 +564,8 @@ For all other cases we need recursion:
 </p>
 </div>
 </div>
-
-<div id="outline-container-org6c08af1" class="outline-3">
-<h3 id="org6c08af1"><span class="section-number-3">1.18.</span> Implementation in Haskell</h3>
+<div id="outline-container-org631e581" class="outline-3">
+<h3 id="org631e581"><span class="section-number-3">1.18.</span> Implementation in Haskell</h3>
 <div class="outline-text-3" id="text-1-18">
 <ul class="org-ul">
 <li>Let's try to write a function to implement this procedure in Haskell.</li>
@@ -594,15 +573,14 @@ For all other cases we need recursion:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">toCNF</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">toCNF</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
 <span style="color: #89b4fa;">toCNF</span> <span style="color: #89dceb;">=</span> undefined
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgcbd3e31" class="outline-3">
-<h3 id="orgcbd3e31"><span class="section-number-3">1.19.</span> Pushing negation in</h3>
+<div id="outline-container-org6939150" class="outline-3">
+<h3 id="org6939150"><span class="section-number-3">1.19.</span> Pushing negation in</h3>
 <div class="outline-text-3" id="text-1-19">
 <p>
 We'll break this function down into three steps.
@@ -615,31 +593,30 @@ We'll break this function down into three steps.
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">toCNF</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">toCNF</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
 <span style="color: #89b4fa;">toCNF</span> <span style="color: #89dceb;">=</span> distributeConj <span style="color: #89dceb;">.</span> elimDN <span style="color: #89dceb;">.</span> pushNegsIn
 
-<span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
-<span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>   
+<span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
+<span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>   
 
-<span style="color: #89b4fa;">dne</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
+<span style="color: #89b4fa;">dne</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
 <span style="color: #89b4fa;">dne</span> <span style="color: #89dceb;">=</span> undefined
 
-<span style="color: #89b4fa;">distLaw</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
+<span style="color: #89b4fa;">distLaw</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
 <span style="color: #89b4fa;">distLaw</span> <span style="color: #89dceb;">=</span> undefined
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org391bf6a" class="outline-3">
-<h3 id="org391bf6a"><span class="section-number-3">1.20.</span> First step: de Morgan's</h3>
+<div id="outline-container-org60b1057" class="outline-3">
+<h3 id="org60b1057"><span class="section-number-3">1.20.</span> First step: de Morgan's</h3>
 <div class="outline-text-3" id="text-1-20">
 <p>
 We can apply de Morgan's via heavy use of <i>pattern matching</i>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
 <span style="color: #89b4fa;">dM</span> (<span style="color: #cba6f7;">PNot</span> (p <span style="color: #89dceb;">`POr`</span> q)) <span style="color: #89dceb;">=</span> (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">`PAnd`</span> (<span style="color: #cba6f7;">PNot</span> q)
 <span style="color: #89b4fa;">dM</span> p <span style="color: #89dceb;">=</span> p
 </pre>
@@ -650,12 +627,11 @@ Pattern matching applies wherever possible, making the second line an elsewhere 
 </p>
 </div>
 </div>
-
-<div id="outline-container-org2b746d3" class="outline-3">
-<h3 id="org2b746d3"><span class="section-number-3">1.21.</span> de Morgan's continued</h3>
+<div id="outline-container-orgbe07f23" class="outline-3">
+<h3 id="orgbe07f23"><span class="section-number-3">1.21.</span> de Morgan's continued</h3>
 <div class="outline-text-3" id="text-1-21">
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
 <span style="color: #89b4fa;">dM</span> (<span style="color: #cba6f7;">PNot</span> (p <span style="color: #89dceb;">`PAnd`</span> q)) <span style="color: #89dceb;">=</span> (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">`POr`</span> (<span style="color: #cba6f7;">PNot</span> q)
 <span style="color: #89b4fa;">dM</span> (<span style="color: #cba6f7;">PNot</span> (p <span style="color: #89dceb;">`POr`</span> q)) <span style="color: #89dceb;">=</span> (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">`PAnd`</span> (<span style="color: #cba6f7;">PNot</span> q)
 <span style="color: #89b4fa;">dM</span> p <span style="color: #89dceb;">=</span> p
@@ -663,9 +639,8 @@ Pattern matching applies wherever possible, making the second line an elsewhere 
 </div>
 </div>
 </div>
-
-<div id="outline-container-org34ff2d0" class="outline-3">
-<h3 id="org34ff2d0"><span class="section-number-3">1.22.</span> Non-recursive</h3>
+<div id="outline-container-org4069548" class="outline-3">
+<h3 id="org4069548"><span class="section-number-3">1.22.</span> Non-recursive</h3>
 <div class="outline-text-3" id="text-1-22">
 <ul class="org-ul">
 <li>Note that the function we just defined is <i>not recursive</i>.
@@ -686,12 +661,11 @@ Pattern matching applies wherever possible, making the second line an elsewhere 
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgfd81ece" class="outline-3">
-<h3 id="orgfd81ece"><span class="section-number-3">1.23.</span> Recursive application of de Morgan's</h3>
+<div id="outline-container-org00f0621" class="outline-3">
+<h3 id="org00f0621"><span class="section-number-3">1.23.</span> Recursive application of de Morgan's</h3>
 <div class="outline-text-3" id="text-1-23">
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">dM</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
 <span style="color: #89b4fa;">dM</span> (<span style="color: #cba6f7;">PNot</span> (p <span style="color: #89dceb;">`PAnd`</span> q)) <span style="color: #89dceb;">=</span> (<span style="color: #cba6f7;">PNot</span> (dM p)) <span style="color: #89dceb;">`POr`</span> (<span style="color: #cba6f7;">PNot</span> (dM q))
 <span style="color: #89b4fa;">dM</span> (<span style="color: #cba6f7;">PNot</span> (p <span style="color: #89dceb;">`POr`</span> q)) <span style="color: #89dceb;">=</span> (<span style="color: #cba6f7;">PNot</span> (dM p)) <span style="color: #89dceb;">`PAnd`</span> (<span style="color: #cba6f7;">PNot</span> (dM q))
 <span style="color: #89b4fa;">dM</span> (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PNot</span> (dM p)
@@ -702,9 +676,8 @@ Pattern matching applies wherever possible, making the second line an elsewhere 
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgd768317" class="outline-3">
-<h3 id="orgd768317"><span class="section-number-3">1.24.</span> Double Negation Elimination</h3>
+<div id="outline-container-org29523c6" class="outline-3">
+<h3 id="org29523c6"><span class="section-number-3">1.24.</span> Double Negation Elimination</h3>
 <div class="outline-text-3" id="text-1-24">
 <ul class="org-ul">
 <li>Double negation elimination is a bit simpler.</li>
@@ -712,7 +685,7 @@ Pattern matching applies wherever possible, making the second line an elsewhere 
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">dne</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">dne</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
 <span style="color: #89b4fa;">dne</span> (<span style="color: #cba6f7;">PNot</span> (<span style="color: #cba6f7;">PNot</span> p)) <span style="color: #89dceb;">=</span> p
 <span style="color: #89b4fa;">dne</span> p <span style="color: #89dceb;">=</span> p
 </pre>
@@ -723,12 +696,11 @@ Pattern matching applies wherever possible, making the second line an elsewhere 
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org62eca28" class="outline-3">
-<h3 id="org62eca28"><span class="section-number-3">1.25.</span> Recursive DNE</h3>
+<div id="outline-container-orge6f9e28" class="outline-3">
+<h3 id="orge6f9e28"><span class="section-number-3">1.25.</span> Recursive DNE</h3>
 <div class="outline-text-3" id="text-1-25">
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">dne</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">dne</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span>
 <span style="color: #89b4fa;">dne</span> (<span style="color: #cba6f7;">PNot</span> (<span style="color: #cba6f7;">PNot</span> p)) <span style="color: #89dceb;">=</span> dne p
 <span style="color: #89b4fa;">dne</span> (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PNot</span> (dne p)
 <span style="color: #89b4fa;">dne</span> (p <span style="color: #89dceb;">`PAnd`</span> q) <span style="color: #89dceb;">=</span> dne p <span style="color: #89dceb;">`PAnd`</span> dne q 
@@ -738,9 +710,8 @@ Pattern matching applies wherever possible, making the second line an elsewhere 
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgd733711" class="outline-3">
-<h3 id="orgd733711"><span class="section-number-3">1.26.</span> Distributive Law</h3>
+<div id="outline-container-org3b0bb80" class="outline-3">
+<h3 id="org3b0bb80"><span class="section-number-3">1.26.</span> Distributive Law</h3>
 <div class="outline-text-3" id="text-1-26">
 <p>
 First, the non-recursive variant (we're really stretching the limits of pattern matching):
@@ -751,10 +722,10 @@ Our statement of the distributive law actually subsumes three different cases:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">distLaw</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span> 
-<span style="color: #89b4fa;">distLaw</span> ((p <span style="color: #89dceb;">`PAnd`</span> q) <span style="color: #89dceb;">`POr`</span> (r <span style="color: #89dceb;">`PAnd`</span> s)) <span style="color: #89dceb;">=</span> (p <span style="color: #89dceb;">`POr`</span> r) <span style="color: #89dceb;">`PAnd`</span> (p <span style="color: #89dceb;">`POr`</span> s) <span style="color: #89dceb;">`PAnd`</span> (q <span style="color: #89dceb;">`POr`</span> r) <span style="color: #89dceb;">`PAnd`</span> (q <span style="color: #89dceb;">`POr`</span> s) <span style="color: #585b70;">-- </span><span style="color: #585b70;">double distributivity</span>
-<span style="color: #89b4fa;">distLaw</span> (p <span style="color: #89dceb;">`POr`</span> (q <span style="color: #89dceb;">`PAnd`</span> r)) <span style="color: #89dceb;">=</span> (p <span style="color: #89dceb;">`POr`</span> q) <span style="color: #89dceb;">`PAnd`</span> (p <span style="color: #89dceb;">`POr`</span> r) <span style="color: #585b70;">--</span><span style="color: #585b70;">left dist</span>
-<span style="color: #89b4fa;">distLaw</span> ((q <span style="color: #89dceb;">`PAnd`</span> r) <span style="color: #89dceb;">`POr`</span> p) <span style="color: #89dceb;">=</span> (q <span style="color: #89dceb;">`POr`</span> p) <span style="color: #89dceb;">`PAnd`</span> (r <span style="color: #89dceb;">`POr`</span> p) <span style="color: #585b70;">--</span><span style="color: #585b70;">right dist</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">distLaw</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span> 
+<span style="color: #89b4fa;">distLaw</span> ((p <span style="color: #89dceb;">`PAnd`</span> q) <span style="color: #89dceb;">`POr`</span> (r <span style="color: #89dceb;">`PAnd`</span> s)) <span style="color: #89dceb;">=</span> (p <span style="color: #89dceb;">`POr`</span> r) <span style="color: #89dceb;">`PAnd`</span> (p <span style="color: #89dceb;">`POr`</span> s) <span style="color: #89dceb;">`PAnd`</span> (q <span style="color: #89dceb;">`POr`</span> r) <span style="color: #89dceb;">`PAnd`</span> (q <span style="color: #89dceb;">`POr`</span> s) <span style="color: #6c7086;">-- </span><span style="color: #6c7086;">double distributivity</span>
+<span style="color: #89b4fa;">distLaw</span> (p <span style="color: #89dceb;">`POr`</span> (q <span style="color: #89dceb;">`PAnd`</span> r)) <span style="color: #89dceb;">=</span> (p <span style="color: #89dceb;">`POr`</span> q) <span style="color: #89dceb;">`PAnd`</span> (p <span style="color: #89dceb;">`POr`</span> r) <span style="color: #6c7086;">--</span><span style="color: #6c7086;">left dist</span>
+<span style="color: #89b4fa;">distLaw</span> ((q <span style="color: #89dceb;">`PAnd`</span> r) <span style="color: #89dceb;">`POr`</span> p) <span style="color: #89dceb;">=</span> (q <span style="color: #89dceb;">`POr`</span> p) <span style="color: #89dceb;">`PAnd`</span> (r <span style="color: #89dceb;">`POr`</span> p) <span style="color: #6c7086;">--</span><span style="color: #6c7086;">right dist</span>
 <span style="color: #89b4fa;">distLaw</span> p <span style="color: #89dceb;">=</span> p
 </pre>
 </div>
@@ -764,15 +735,14 @@ Our statement of the distributive law actually subsumes three different cases:
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgcf2fa0b" class="outline-3">
-<h3 id="orgcf2fa0b"><span class="section-number-3">1.27.</span> Recursive distributive law</h3>
+<div id="outline-container-org7ab8ac4" class="outline-3">
+<h3 id="org7ab8ac4"><span class="section-number-3">1.27.</span> Recursive distributive law</h3>
 <div class="outline-text-3" id="text-1-27">
 <div class="org-src-container">
-<pre class="src src-haskell"><span style="color: #89b4fa;">distLaw</span> <span style="color: #89dceb;">::</span> <span style="color: #b4befe;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #b4befe;">PropL</span> 
-<span style="color: #89b4fa;">distLaw</span> ((p <span style="color: #89dceb;">`PAnd`</span> q) <span style="color: #89dceb;">`POr`</span> (r <span style="color: #89dceb;">`PAnd`</span> s)) <span style="color: #89dceb;">=</span> (distLaw p <span style="color: #89dceb;">`POr`</span> distLaw r) <span style="color: #89dceb;">`PAnd`</span> (distLaw p <span style="color: #89dceb;">`POr`</span> distLaw s) <span style="color: #89dceb;">`PAnd`</span> (distLaw q <span style="color: #89dceb;">`POr`</span> distLaw r) <span style="color: #89dceb;">`PAnd`</span> (distLaw q <span style="color: #89dceb;">`POr`</span> distLaw s) <span style="color: #585b70;">-- </span><span style="color: #585b70;">double distributivity</span>
-<span style="color: #89b4fa;">distLaw</span> (p <span style="color: #89dceb;">`POr`</span> (q <span style="color: #89dceb;">`PAnd`</span> r)) <span style="color: #89dceb;">=</span> (distLaw p <span style="color: #89dceb;">`POr`</span> distLaw q) <span style="color: #89dceb;">`PAnd`</span> (distLaw p <span style="color: #89dceb;">`POr`</span> r) <span style="color: #585b70;">--</span><span style="color: #585b70;">left dist</span>
-<span style="color: #89b4fa;">distLaw</span> ((q <span style="color: #89dceb;">`PAnd`</span> r) <span style="color: #89dceb;">`POr`</span> p) <span style="color: #89dceb;">=</span> (distLaw q <span style="color: #89dceb;">`POr`</span> distLaw p) <span style="color: #89dceb;">`PAnd`</span> (distLaw r <span style="color: #89dceb;">`POr`</span> distLaw p) <span style="color: #585b70;">--</span><span style="color: #585b70;">right dist</span>
+<pre class="src src-haskell"><span style="color: #89b4fa;">distLaw</span> <span style="color: #89dceb;">::</span> <span style="color: #f9e2af;">PropL</span> <span style="color: #89dceb;">-&gt;</span> <span style="color: #f9e2af;">PropL</span> 
+<span style="color: #89b4fa;">distLaw</span> ((p <span style="color: #89dceb;">`PAnd`</span> q) <span style="color: #89dceb;">`POr`</span> (r <span style="color: #89dceb;">`PAnd`</span> s)) <span style="color: #89dceb;">=</span> (distLaw p <span style="color: #89dceb;">`POr`</span> distLaw r) <span style="color: #89dceb;">`PAnd`</span> (distLaw p <span style="color: #89dceb;">`POr`</span> distLaw s) <span style="color: #89dceb;">`PAnd`</span> (distLaw q <span style="color: #89dceb;">`POr`</span> distLaw r) <span style="color: #89dceb;">`PAnd`</span> (distLaw q <span style="color: #89dceb;">`POr`</span> distLaw s) <span style="color: #6c7086;">-- </span><span style="color: #6c7086;">double distributivity</span>
+<span style="color: #89b4fa;">distLaw</span> (p <span style="color: #89dceb;">`POr`</span> (q <span style="color: #89dceb;">`PAnd`</span> r)) <span style="color: #89dceb;">=</span> (distLaw p <span style="color: #89dceb;">`POr`</span> distLaw q) <span style="color: #89dceb;">`PAnd`</span> (distLaw p <span style="color: #89dceb;">`POr`</span> r) <span style="color: #6c7086;">--</span><span style="color: #6c7086;">left dist</span>
+<span style="color: #89b4fa;">distLaw</span> ((q <span style="color: #89dceb;">`PAnd`</span> r) <span style="color: #89dceb;">`POr`</span> p) <span style="color: #89dceb;">=</span> (distLaw q <span style="color: #89dceb;">`POr`</span> distLaw p) <span style="color: #89dceb;">`PAnd`</span> (distLaw r <span style="color: #89dceb;">`POr`</span> distLaw p) <span style="color: #6c7086;">--</span><span style="color: #6c7086;">right dist</span>
 <span style="color: #89b4fa;">distLaw</span> (<span style="color: #cba6f7;">PNot</span> p) <span style="color: #89dceb;">=</span> <span style="color: #cba6f7;">PNot</span> (distLaw p)
 <span style="color: #89b4fa;">distLaw</span> (p <span style="color: #89dceb;">`PAnd`</span> q) <span style="color: #89dceb;">=</span> distLaw p <span style="color: #89dceb;">`PAnd`</span> distLaw q
 <span style="color: #89b4fa;">distLaw</span> (p <span style="color: #89dceb;">`POr`</span> q) <span style="color: #89dceb;">=</span> distLaw p <span style="color: #89dceb;">`POr`</span> distLaw q
@@ -781,9 +751,8 @@ Our statement of the distributive law actually subsumes three different cases:
 </div>
 </div>
 </div>
-
-<div id="outline-container-org8674013" class="outline-3">
-<h3 id="org8674013"><span class="section-number-3">1.28.</span> Mini assignment</h3>
+<div id="outline-container-orgba3994d" class="outline-3">
+<h3 id="orgba3994d"><span class="section-number-3">1.28.</span> Mini assignment</h3>
 <div class="outline-text-3" id="text-1-28">
 <ul class="org-ul">
 <li>A function that maps formulas of propositional logic to a truth table.</li>
@@ -792,31 +761,25 @@ Our statement of the distributive law actually subsumes three different cases:
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgb6eab7c" class="outline-3">
-<h3 id="orgb6eab7c"><span class="section-number-3">1.29.</span> </h3>
+<div id="outline-container-org036e469" class="outline-3">
+<h3 id="org036e469"><span class="section-number-3">1.29.</span> </h3>
 <div class="outline-text-3" id="text-1-29">
 <p>
 \(\mathscr{Fin}\)
 </p>
 </div>
 </div>
-
-
-
-
-<div id="outline-container-org415bbbf" class="outline-3">
-<h3 id="org415bbbf"><span class="section-number-3">1.30.</span> References</h3>
+<div id="outline-container-orge945bb5" class="outline-3">
+<h3 id="orge945bb5"><span class="section-number-3">1.30.</span> References</h3>
 <div class="outline-text-3" id="text-1-30">
-<p>
-van Eijck, Jan and Unger, Christina (2010). <i>Computational {{Semantics}} with {{Functional Programming}}</i>, {Cambridge University Press}.</p>
+
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2023-05-09 Tue 13:56</p>
+<p class="date">Created: 2024-05-21 Tue 16:11</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
