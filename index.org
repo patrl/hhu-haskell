@@ -10,7 +10,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./fernsehturm.jpg]]
 
-Last updated: "[2024-05-21 16:11]" 
+Last updated: "[2024-05-21 16:24]" 
 
 [[./syllabus.pdf][Syllabus]]
 
@@ -28,7 +28,7 @@ This will be an extremely hands-on course, and students should ideally expect to
 
 - Run haskell programs in your browser using the [[https://play.haskell.org/][haskell playground]]. 
 - Setting up a haskell environment: [[https://www.haskell.org/get-started/][Get Started]] 
-- The [[https://haskellbook.com/][Haskell from first principles]] textbook [cite:@AllenMoronuki2016].
+- The [[https://haskellbook.com/][Haskell from first principles]] textbook.
 
 * Tentative Schedule
 
@@ -41,7 +41,7 @@ Class takes place *Tuesday 16:30-18:00* in *2321.U1.72 (Z 34)*.
 | April 23          | [[Intro to Haskell][Intro to Haskell]]                 |
 | April 30 (remote) | [[Types and strings][Types and strings]] |
 | May 7             | [[Types and typeclasses][Types and typeclasses]]     |
-| May 14            | [[Fragments i: syntax]] |
+| May 14            | [[Fragments i: syntax][Fragments i: syntax]] |
 | May 21            |Fragments ii: semantics          |
 | May 28            | Model checking     |
 | June 4            | Meaning composition                |
@@ -76,10 +76,6 @@ Class takes place *Tuesday 16:30-18:00* in *2321.U1.72 (Z 34)*.
 
 - [[./logic.pdf][Slides]].
   * [[./logic.html][Html version]].
-
-* References
-  
-#+print_bibliography:
 
 * File local variables                                             :noexport:
 
