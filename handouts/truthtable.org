@@ -1,7 +1,7 @@
 #+title: Interpreting logical expressions
 #+author: Patrick D. Elliott
 #+LATEX_HEADER_EXTRA: \input{slides-boilerplate}
-#+EXPORT_FILE_NAME: ../docs/semantics
+#+EXPORT_FILE_NAME: ../docs/truthtable
 #+BEAMER_THEME: metropolis
 #+BEAMER_COLOR_THEME: owl [snowy]
 #+BEAMER_HEADER: \input{beamerplate.tex}
@@ -63,7 +63,6 @@ r \to \mathbf{False}\\
 
 ** The task
 
-- As an informal assignment, I asked you to try to implement a program that maps expressions of ~PropL~ (our recursive datatype for expressions of propositional logic) to a /truth-table/.
 - In order to implement truth-tables in Haskell, we first need to decide on a couple of datatypes:
   * The type for a /variable assignment/.
   * The type for a /truth-table/.

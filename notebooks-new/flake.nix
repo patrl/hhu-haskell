@@ -30,13 +30,8 @@
       system: let
         inherit (jupyenv.lib.${system}) mkJupyterlabNew;
         jupyterlab = mkJupyterlabNew ({...}: {
-          nixpkgs = nixpkgs;
-          imports = [
-            ({pkgs, ...}: {
-              kernel.haskell.minimal = {
-                nixpkgs = nixpkgs;
-                enable = true;
-              };})];
+          nixpkgs = inputs.nixpkgs;
+          imports = [(import ./kernels.nix)];
         });
       in rec {
         packages = {inherit jupyterlab;};
